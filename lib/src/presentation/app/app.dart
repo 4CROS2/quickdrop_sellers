@@ -16,9 +16,9 @@ class _AppState extends State<App> {
     super.initState();
     _appRouter = AppRouter();
   }
+
   @override
   Widget build(BuildContext context) {
-
     /* return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -33,9 +33,7 @@ class _AppState extends State<App> {
       ),
       child: MaterialApp.router(
         title: 'Quickdrop Sellers',
-        locale: Locale(
-          View.of(context).platformDispatcher.locale.languageCode
-        ),
+        locale: Locale(View.of(context).platformDispatcher.locale.languageCode),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         routerConfig: _appRouter.router,
