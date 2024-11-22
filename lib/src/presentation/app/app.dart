@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/routes/routes.dart';
 
 class App extends StatefulWidget {
@@ -19,26 +22,21 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    /* return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Home(),
-    ); */
     return MediaQuery(
       data: MediaQueryData.fromView(View.of(context)).copyWith(
         textScaler: const TextScaler.linear(1.0),
       ),
-      child: MaterialApp.router(
-        title: 'Quickdrop Sellers',
-        locale: Locale(
-          View.of(context).platformDispatcher.locale.languageCode,
+      child: BlocProvider<AppCubit>(
+        create: (BuildContext context) => sl<AppCubit>(),
+        child: MaterialApp.router(
+          title: 'Quickdrop Sellers',
+          locale: Locale(
+            View.of(context).platformDispatcher.locale.languageCode,
+          ),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          routerConfig: _appRouter.router,
         ),
-        supportedLocales: AppLocalizations.supportedLocales,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        routerConfig: _appRouter.router,
       ),
     );
   }
