@@ -5,7 +5,7 @@ import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/home.dart';
 import 'package:quickdrop_sellers/src/presentation/loading/loading.dart';
-import 'package:quickdrop_sellers/src/presentation/login/login.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
 import 'package:quickdrop_sellers/src/routes/listener.dart';
 
 class AppRouter {

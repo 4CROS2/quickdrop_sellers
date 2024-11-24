@@ -34,3 +34,14 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+  fonts:
+    - family: Questrial
+      fonts:
+        - asset: assets/fonts/questrial.ttf
+    - family: Redhat
+      fonts:
+        - asset: assets/fonts/redhat_bold.ttf
+          weight: 700
+        - asset: assets/fonts/redhat_semi.ttf
+          weight: 500
+        - asset: assets/fonts/redhat_regular.ttf

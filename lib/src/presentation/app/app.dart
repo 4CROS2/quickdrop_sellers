@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:quickdrop_sellers/src/core/themes/theme.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/routes/routes.dart';
@@ -18,6 +19,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _appRouter = AppRouter();
+    AppTheme.initialize(context);
   }
 
   @override
@@ -33,6 +35,7 @@ class _AppState extends State<App> {
           locale: Locale(
             View.of(context).platformDispatcher.locale.languageCode,
           ),
+          theme: AppTheme.instance,
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           routerConfig: _appRouter.router,
