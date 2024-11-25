@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/auth_button.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/forgot_password.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_title.dart';
 
@@ -68,6 +70,15 @@ class _LoginState extends State<Login> {
                         isPassword: true,
                       ),
                     ),
+                    ForgotPassword(),
+                    AuthButton(
+                      onTap: () {
+                        context.read<LoginCubit>().login(
+                              email: _email.text,
+                              password: _password.text,
+                            );
+                      },
+                    )
                   ],
                 ),
               ),
