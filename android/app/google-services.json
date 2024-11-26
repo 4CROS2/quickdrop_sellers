@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "241432358313-jai1ftsfc3g4482nof5djt5l0e6tt5cp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.crossdev.quickdrop_sellers",
+            "certificate_hash": "8085482f7c1344014387d48a921808f4fb1d4254"
+          }
+        },
+        {
           "client_id": "241432358313-7tk9vb7pjto80r7isbd20rvbeb1n88b2.apps.googleusercontent.com",
           "client_type": 3
         }

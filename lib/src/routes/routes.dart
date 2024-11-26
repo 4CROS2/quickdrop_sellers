@@ -15,21 +15,24 @@ class AppRouter {
     debugLogDiagnostics: true,
     refreshListenable: GoListener(stream: _appCubit.stream),
     redirect: (BuildContext context, GoRouterState state) {
+      final AppState appState = _appCubit.state;
       if (_appCubit.state is UnAuthenticated && state.matchedLocation == '/') {
         return '/login';
       }
-      if (_appCubit.state is UnAuthenticated &&
-          state.matchedLocation != '/login') {
+      if (appState is UnAuthenticated && state.matchedLocation != '/login') {
         return '/login';
       }
-      if (_appCubit is Authenticated && state.matchedLocation == '/') {
+      if (appState is Authenticated && state.matchedLocation == '/') {
         return '/home';
       }
-      if (_appCubit is Authenticated && state.matchedLocation == '/login') {
+      if (appState is Authenticated && state.matchedLocation == '/login') {
         return '/home';
       }
-      if (_appCubit is Authenticated && state.matchedLocation == '/signUp') {
+      if (appState is Authenticated && state.matchedLocation == '/signUp') {
         return '/home';
+      }
+      if (appState is UnAuthenticated && state.matchedLocation == '/') {
+        return '/';
       }
 
       return null;
@@ -37,6 +40,7 @@ class AppRouter {
     routes: <RouteBase>[
       GoRoute(
         path: '/',
+        name: 'loading page',
         pageBuilder: (BuildContext context, GoRouterState state) {
           return const MaterialPage<Loading>(
             child: Loading(),
@@ -54,7 +58,7 @@ class AppRouter {
       GoRoute(
         path: '/home',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const CupertinoPage<Home>(
+          return const MaterialPage<Home>(
             child: Home(),
           );
         },

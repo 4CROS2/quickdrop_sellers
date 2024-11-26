@@ -7,17 +7,20 @@ class AuthInput extends StatefulWidget {
     bool isPassword = false,
     bool isEnabled = true,
     TextEditingController? controller,
+    String? Function(String?)? validator,
     String? hintText,
     super.key,
   })  : _isPassword = isPassword,
         _controller = controller,
         _isEnabled = isEnabled,
-        _hintText = hintText;
+        _hintText = hintText,
+        _validator = validator;
 
   final TextEditingController? _controller;
   final bool _isPassword;
   final bool _isEnabled;
   final String? _hintText;
+  final String? Function(String?)? _validator;
 
   @override
   State<AuthInput> createState() => _AuthInputState();
@@ -33,10 +36,11 @@ class _AuthInputState extends State<AuthInput> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget._controller,
       enabled: widget._isEnabled,
       obscureText: widget._isPassword && _showText,
+      validator: widget._validator,
       decoration: InputDecoration(
         enabled: widget._isEnabled,
         hintText: widget._hintText?.capitalize(),

@@ -7,6 +7,11 @@ class AppState extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-class Authenticated extends AppState {}
+class Authenticated extends AppState {
+  const Authenticated({
+    required this.user,
+  });
+  final User user;
+}
 
 class UnAuthenticated extends AppState {}
