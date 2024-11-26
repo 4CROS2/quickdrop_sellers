@@ -13,5 +13,3 @@ class Error extends LoginState {
   const Error({required this.message});
   final String message;
 }
-
-class Success extends LoginState {}
