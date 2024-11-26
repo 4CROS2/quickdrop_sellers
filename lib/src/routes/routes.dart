@@ -58,7 +58,7 @@ class AppRouter {
       GoRoute(
         path: '/home',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const CupertinoPage<Home>(
+          return const MaterialPage<Home>(
             child: Home(),
           );
         },
