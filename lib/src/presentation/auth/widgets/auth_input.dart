@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:quickdrop_sellers/src/core/extensions/string_extensions.dart';
+import 'package:extensions/extensions.dart';
 
 class AuthInput extends StatefulWidget {
   const AuthInput({

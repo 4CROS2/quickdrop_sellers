@@ -1,7 +1,7 @@
+import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:quickdrop_sellers/src/core/extensions/string_extensions.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
 
 class AuthButton extends StatefulWidget {
