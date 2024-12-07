@@ -11,7 +11,6 @@ class SignupCubit extends Cubit<SignupState> {
     required String email,
     required String password,
   }) {
-    print('se guarda');
     emit(
       state.copyWith(
         sellerAuth: SellerAuthEntity(
