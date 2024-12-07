@@ -41,6 +41,13 @@ String? comparePassword({
   return null;
 }
 
+String? emptyValidator(String? value) {
+  if (value!.isEmpty) {
+    return _campRequired();
+  }
+  return null;
+}
+
 String? _campRequired() {
   return 'campo requerido*'.capitalize();
 }

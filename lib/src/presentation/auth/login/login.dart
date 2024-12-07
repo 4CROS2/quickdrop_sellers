@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
     return BlocProvider<LoginCubit>(
       create: (BuildContext context) => sl<LoginCubit>(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: BlocConsumer<LoginCubit, LoginState>(
           listenWhen: (LoginState previous, LoginState current) {
             if (previous is Loading) {
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                         padding: Constants.authInputPadding,
                         child: AuthInput(
                           controller: _email,
-                          hintText: 'correo',
+                          labelText: 'correo',
                           validator: emailvalidator,
                         ),
                       ),
@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
                         padding: Constants.authInputPadding,
                         child: AuthInput(
                           controller: _password,
-                          hintText: 'contraseña',
+                          labelText: 'contraseña',
                           isPassword: true,
                           validator: passwordValidator,
                         ),

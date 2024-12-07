@@ -51,6 +51,7 @@ class _AuthButtonState extends State<AuthButton>
             child: Material(
               color: Colors.red,
               borderRadius: Constants.mainBorderRadius,
+              clipBehavior: Clip.hardEdge,
               child: IgnorePointer(
                 ignoring: state is Loading,
                 child: InkWell(

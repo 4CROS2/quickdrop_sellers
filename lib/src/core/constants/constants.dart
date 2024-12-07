@@ -24,4 +24,9 @@ class Constants {
   static EdgeInsets authInputPadding = EdgeInsets.symmetric(
     horizontal: paddingValue * 2,
   ).copyWith(top: paddingValue);
+
+  static EdgeInsets authInputContent = EdgeInsets.symmetric(
+    horizontal: 20,
+    vertical: 16,
+  );
 }

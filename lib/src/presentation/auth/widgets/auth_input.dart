@@ -6,19 +6,22 @@ class AuthInput extends StatefulWidget {
   const AuthInput({
     bool isPassword = false,
     bool isEnabled = true,
+    TextInputType? textInputType,
     TextEditingController? controller,
     String? Function(String?)? validator,
     Function(String)? onChanged,
-    String? hintText,
+    String? labelText,
     super.key,
   })  : _onChanged = onChanged,
         _isPassword = isPassword,
         _controller = controller,
         _isEnabled = isEnabled,
-        _hintText = hintText,
-        _validator = validator;
+        _hintText = labelText,
+        _validator = validator,
+        _textInputType = textInputType;
 
   final TextEditingController? _controller;
+  final TextInputType? _textInputType;
   final bool _isPassword;
   final bool _isEnabled;
   final String? _hintText;
@@ -45,9 +48,10 @@ class _AuthInputState extends State<AuthInput> {
       onChanged: widget._onChanged,
       obscureText: widget._isPassword && _showText,
       validator: widget._validator,
+      keyboardType: widget._textInputType,
       decoration: InputDecoration(
         enabled: widget._isEnabled,
-        hintText: widget._hintText?.capitalize(),
+        labelText: widget._hintText?.capitalize(),
         suffixIcon: widget._isPassword
             ? InkWell(
                 borderRadius: Constants.mainBorderRadius * 2,

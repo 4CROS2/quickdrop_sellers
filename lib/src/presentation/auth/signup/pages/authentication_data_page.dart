@@ -8,10 +8,15 @@ import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
 
 class AuthenticationDataPage extends StatefulWidget {
   const AuthenticationDataPage({
+    required int index,
     GlobalKey<FormState>? globalKey,
     super.key,
-  }) : _globalKey = globalKey;
+  })  : _globalKey = globalKey,
+        _index = index;
+
+  final int _index;
   final GlobalKey<FormState>? _globalKey;
+
   @override
   State<AuthenticationDataPage> createState() => _AuthenticationDataPageState();
 }
@@ -20,7 +25,6 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final TextEditingController _verifyPasswordController;
-  final int orderPage = 0;
   @override
   void initState() {
     super.initState();
@@ -40,7 +44,7 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (BuildContext context, SignupState state) {
-        if (state.currentPage > orderPage) {
+        if (state.currentPage > widget._index) {
           context.read<SignupCubit>().setAuthData(
                 email: _emailController.text,
                 password: _passwordController.text,
@@ -54,14 +58,14 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
           children: <Widget>[
             AuthInput(
               controller: _emailController,
-              hintText: 'correo',
+              labelText: 'correo',
               validator: emailvalidator,
             ),
             Padding(
               padding: Constants.paddingTop,
               child: AuthInput(
                 controller: _passwordController,
-                hintText: 'contraseña',
+                labelText: 'contraseña',
                 isPassword: true,
                 validator: passwordValidator,
               ),
@@ -70,7 +74,7 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
               padding: Constants.paddingTop,
               child: AuthInput(
                 controller: _verifyPasswordController,
-                hintText: 'repita la contraseña',
+                labelText: 'repita la contraseña',
                 isPassword: true,
                 validator: (String? _) => comparePassword(
                   firstPassword: _passwordController.text,

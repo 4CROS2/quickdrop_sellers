@@ -7,6 +7,14 @@ part 'signup_state.dart';
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit() : super(SignupState());
 
+  void setPage(int value) {
+    emit(
+      state.copyWith(
+        currentPage: value,
+      ),
+    );
+  }
+
   void setAuthData({
     required String email,
     required String password,
@@ -21,11 +29,5 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-  void setPage(int value) {
-    emit(
-      state.copyWith(
-        currentPage: value,
-      ),
-    );
-  }
+  void setSellerData() {}
 }

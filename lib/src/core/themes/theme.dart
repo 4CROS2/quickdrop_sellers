@@ -34,10 +34,7 @@ class AppTheme {
         hintStyle: TextStyle(
           color: Colors.black,
         ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
-        ),
+        contentPadding: Constants.authInputContent,
       ),
     );
   }
@@ -45,7 +42,7 @@ class AppTheme {
   static ThemeData _createDarkTheme(BuildContext context) {
     return ThemeData(
       brightness: Brightness.dark,
-      colorSchemeSeed: Constants.mainColor,
+      colorSchemeSeed: Constants.secondaryColor,
       scaffoldBackgroundColor: Colors.grey.shade900,
       fontFamily: 'RedHat',
       inputDecorationTheme: InputDecorationTheme(
@@ -57,14 +54,11 @@ class AppTheme {
           ),
         ),
         filled: true,
-        fillColor: Colors.grey.shade800,
+        fillColor: Constants.mainColor,
         hintStyle: const TextStyle(
-          color: Colors.white70,
+          color: Colors.white,
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
-        ),
+        contentPadding: Constants.authInputContent,
       ),
     );
   }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
-import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/authentication_data_page.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/seller_data_page.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_back_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_navigation_page_buttons.dart';
 
 class Signup extends StatefulWidget {
@@ -19,11 +18,13 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
   late final PageController _pageController;
 
   late final GlobalKey<FormState> _credentialForm;
+  late final GlobalKey<FormState> _sellerDataForm;
 
   @override
   void initState() {
     super.initState();
     _credentialForm = GlobalKey<FormState>();
+    _sellerDataForm = GlobalKey<FormState>();
     _pageController = PageController();
   }
 
@@ -35,60 +36,43 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> pages = <Widget>[
+      AuthenticationDataPage(
+        index: 0,
+        globalKey: _credentialForm,
+      ),
+      SellerDataPage(
+        index: 1,
+        globalKey: _sellerDataForm,
+      ),
+    ];
     return BlocProvider<SignupCubit>(
       create: (BuildContext context) => sl<SignupCubit>(),
       child: BlocBuilder<SignupCubit, SignupState>(
         builder: (BuildContext context, SignupState state) {
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             body: SafeArea(
               child: Column(
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: Constants.paddingValue,
-                      ).copyWith(
-                        left: Constants.borderValue,
-                      ),
-                      child: Material(
-                        color: Constants.mainColor,
-                        borderRadius: Constants.mainBorderRadius * 2,
-                        clipBehavior: Clip.hardEdge,
-                        child: InkWell(
-                          onTap: () => context.pop(),
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Icon(Icons.arrow_back_ios_rounded),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  AuthBackButton(),
                   Flexible(
                     child: PageView(
                       controller: _pageController,
                       onPageChanged: context.read<SignupCubit>().setPage,
                       physics: NeverScrollableScrollPhysics(),
                       children: <Widget>[
-                        AuthenticationDataPage(
-                          globalKey: _credentialForm,
+                        ...List<Widget>.generate(
+                          pages.length,
+                          (int index) => pages[index],
                         ),
-                        Center(
-                          child: LottieBuilder.asset(
-                            'assets/lotties/wellcome/delivery.json',
-                          ),
-                        ),
-                        Center(
-                          child: Text('two'),
-                        )
                       ],
                     ),
                   ),
                   AuthNavigationPageButtons(
                     formsGlobalskeys: <GlobalKey<FormState>>[
                       _credentialForm,
+                      _sellerDataForm,
                     ],
                     pageController: _pageController,
                   )
