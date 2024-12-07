@@ -2,7 +2,7 @@ import 'package:extensions/extensions.dart';
 
 String? emailvalidator(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Correo requerido*'.capitalize();
+    return _campRequired();
   }
 
   // Expresión regular para validar el correo electrónico
@@ -18,7 +18,29 @@ String? emailvalidator(String? value) {
 
 String? passwordValidator(String? value) {
   if (value!.isEmpty) {
-    return 'campo requerido*'.capitalize();
+    return _campRequired();
+  }
+
+  if (value.length < 8) {
+    return 'contraseña demasiado corta'.capitalize();
   }
   return null;
+}
+
+String? comparePassword({
+  required String? firstPassword,
+  required String? secondPassword,
+}) {
+  if (secondPassword!.isEmpty) {
+    return _campRequired();
+  }
+
+  if (firstPassword != secondPassword) {
+    return 'las contraseñas no coninciden';
+  }
+  return null;
+}
+
+String? _campRequired() {
+  return 'campo requerido*'.capitalize();
 }

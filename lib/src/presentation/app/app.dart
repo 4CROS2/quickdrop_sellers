@@ -13,13 +13,44 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   late final AppRouter _appRouter;
+  bool _isDark = false;
   @override
   void initState() {
     super.initState();
     _appRouter = AppRouter();
-    AppTheme.initialize(context);
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    _initializeTheme(
+      context,
+    );
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    _initializeTheme(context);
+    setState(() {});
+    super.didChangePlatformBrightness();
+  }
+
+  void _initializeTheme(BuildContext context) {
+    _isDark = View.of(context).platformDispatcher.platformBrightness ==
+        Brightness.dark;
+    AppTheme.initialize(
+      context,
+      isDarkMode: _isDark,
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

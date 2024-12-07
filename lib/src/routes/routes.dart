@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
@@ -17,26 +16,22 @@ class AppRouter {
     refreshListenable: GoListener(stream: _appCubit.stream),
     redirect: (BuildContext context, GoRouterState state) {
       final AppState appState = _appCubit.state;
-      if (_appCubit.state is UnAuthenticated && state.matchedLocation == '/') {
-        return '/login';
-      }
+      final bool isAuthenticated = appState is Authenticated;
+      final String currentLocation = state.matchedLocation;
+
       if (appState is UnAuthenticated &&
           state.matchedLocation != '/login' &&
           state.matchedLocation != '/signup') {
         return '/login';
       }
-      if (appState is Authenticated && state.matchedLocation == '/') {
-        return '/home';
-      }
-      if (appState is Authenticated &&
-          (state.matchedLocation == '/login' ||
-              state.matchedLocation == '/signup')) {
-        return '/home';
-      }
-      if (appState is UnAuthenticated && state.matchedLocation == '/') {
-        return '/';
-      }
 
+      if (isAuthenticated && currentLocation == '/') {
+        return '/home';
+      }
+      if (isAuthenticated &&
+          <String>['/login', '/signup'].contains(currentLocation)) {
+        return '/home';
+      }
       return null;
     },
     routes: <RouteBase>[
@@ -71,7 +66,7 @@ class AppRouter {
         path: '/signup',
         name: 'register page',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return CupertinoPage<Signup>(
+          return MaterialPage<Signup>(
             child: Signup(),
           );
         },

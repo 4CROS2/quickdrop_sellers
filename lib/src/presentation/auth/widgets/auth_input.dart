@@ -1,6 +1,6 @@
+import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:extensions/extensions.dart';
 
 class AuthInput extends StatefulWidget {
   const AuthInput({
@@ -8,9 +8,11 @@ class AuthInput extends StatefulWidget {
     bool isEnabled = true,
     TextEditingController? controller,
     String? Function(String?)? validator,
+    Function(String)? onChanged,
     String? hintText,
     super.key,
-  })  : _isPassword = isPassword,
+  })  : _onChanged = onChanged,
+        _isPassword = isPassword,
         _controller = controller,
         _isEnabled = isEnabled,
         _hintText = hintText,
@@ -21,6 +23,7 @@ class AuthInput extends StatefulWidget {
   final bool _isEnabled;
   final String? _hintText;
   final String? Function(String?)? _validator;
+  final Function(String)? _onChanged;
 
   @override
   State<AuthInput> createState() => _AuthInputState();
@@ -39,6 +42,7 @@ class _AuthInputState extends State<AuthInput> {
     return TextFormField(
       controller: widget._controller,
       enabled: widget._isEnabled,
+      onChanged: widget._onChanged,
       obscureText: widget._isPassword && _showText,
       validator: widget._validator,
       decoration: InputDecoration(
