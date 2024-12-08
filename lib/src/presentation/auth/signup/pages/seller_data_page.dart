@@ -23,9 +23,18 @@ class SellerDataPage extends StatefulWidget {
 }
 
 class _SellerDataPageState extends State<SellerDataPage> {
+  late final List<TextEditingController> _textEditingControllers;
+  String _documentType = '';
+  String _sellerDate = '';
   @override
   void initState() {
     super.initState();
+    _textEditingControllers = List<TextEditingController>.generate(
+      4,
+      (int index) {
+        return TextEditingController();
+      },
+    );
   }
 
   @override
@@ -33,7 +42,14 @@ class _SellerDataPageState extends State<SellerDataPage> {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (BuildContext context, SignupState state) {
         if (state.currentPage > widget._index) {
-          context.read<SignupCubit>().setSellerData();
+          context.read<SignupCubit>().setSellerData(
+                name: _textEditingControllers[0].text,
+                lastName: _textEditingControllers[1].text,
+                documentType: _documentType,
+                id: _textEditingControllers[2].text,
+                date: _sellerDate,
+                phone: _textEditingControllers[3].text,
+              );
         }
       },
       builder: (BuildContext context, SignupState state) {
@@ -42,30 +58,46 @@ class _SellerDataPageState extends State<SellerDataPage> {
           label: 'tus datos',
           children: <Widget>[
             AuthInput(
+              controller: _textEditingControllers[0],
               validator: emptyValidator,
               labelText: 'nombre',
             ),
             _separatedInput(
               widget: AuthInput(
+                controller: _textEditingControllers[1],
                 validator: emptyValidator,
                 labelText: 'apelidos',
               ),
             ),
             _separatedInput(
-              widget: DocumentType(),
+              widget: DocumentType(
+                onSelected: (String? value) {
+                  if (value == null) {
+                    return;
+                  }
+                  setState(() => _documentType = value);
+                },
+              ),
             ),
             _separatedInput(
               widget: AuthInput(
+                controller: _textEditingControllers[2],
                 validator: emptyValidator,
                 labelText: 'numero de documento',
                 textInputType: TextInputType.numberWithOptions(),
               ),
             ),
             _separatedInput(
-              widget: DateSellector(),
+              widget: DateSellector(onSelected: (String? value) {
+                if (value == null) {
+                  return;
+                }
+                setState(() => _sellerDate = value);
+              }),
             ),
             _separatedInput(
               widget: AuthInput(
+                controller: _textEditingControllers[3],
                 validator: emptyValidator,
                 labelText: 'numero de contacto',
                 textInputType: TextInputType.numberWithOptions(),

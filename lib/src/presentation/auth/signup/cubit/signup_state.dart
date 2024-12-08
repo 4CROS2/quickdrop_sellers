@@ -4,42 +4,33 @@ enum SigninState { loading, error, success, waiting }
 
 class SignupState extends Equatable {
   const SignupState({
-    this.currentPage = 0,
     this.signinState = SigninState.waiting,
-    this.companyName = '',
-    this.ownerName = '',
-    this.sellerAuth,
+    this.currentPage = 0,
+    this.sellerAuth = const SellerAuthEntity.empty(),
+    this.sellerInformation = const SellerInformationEntity.empty(),
   });
-  final int currentPage;
-  final SellerAuthEntity? sellerAuth;
-  final String ownerName;
-  final String companyName;
   final SigninState signinState;
+  final int currentPage;
+  final SellerAuthEntity sellerAuth;
+  final SellerInformationEntity sellerInformation;
 
   SignupState copyWith({
-    String? ownerName,
-    String? companyName,
     SigninState? signinState,
-    SellerAuthEntity? sellerAuth,
     int? currentPage,
+    SellerAuthEntity? sellerAuth,
+    SellerInformationEntity? sellerInformation,
   }) {
     return SignupState(
       currentPage: currentPage ?? this.currentPage,
-      companyName: ownerName ?? this.companyName,
-      ownerName: this.companyName,
       signinState: signinState ?? this.signinState,
       sellerAuth: sellerAuth ?? this.sellerAuth,
+      sellerInformation: sellerInformation ?? this.sellerInformation,
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[
-        currentPage,
-        sellerAuth,
-        ownerName,
-        companyName,
-        signinState,
-      ];
+  List<Object?> get props =>
+      <Object?>[currentPage, sellerAuth, signinState, sellerInformation];
   @override
   bool? get stringify => true;
 }

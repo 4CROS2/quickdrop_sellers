@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/authentication_data_page.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/establishment_information.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/seller_data_page.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_back_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_navigation_page_buttons.dart';
@@ -19,12 +20,14 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
 
   late final GlobalKey<FormState> _credentialForm;
   late final GlobalKey<FormState> _sellerDataForm;
+  late final GlobalKey<FormState> _estableshmentForm;
 
   @override
   void initState() {
     super.initState();
     _credentialForm = GlobalKey<FormState>();
     _sellerDataForm = GlobalKey<FormState>();
+    _estableshmentForm = GlobalKey<FormState>();
     _pageController = PageController();
   }
 
@@ -45,6 +48,10 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
         index: 1,
         globalKey: _sellerDataForm,
       ),
+      EstablishmentInformation(
+        index: 2,
+        globalkey: _estableshmentForm,
+      )
     ];
     return BlocProvider<SignupCubit>(
       create: (BuildContext context) => sl<SignupCubit>(),
@@ -73,6 +80,7 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                     formsGlobalskeys: <GlobalKey<FormState>>[
                       _credentialForm,
                       _sellerDataForm,
+                      _credentialForm
                     ],
                     pageController: _pageController,
                   )

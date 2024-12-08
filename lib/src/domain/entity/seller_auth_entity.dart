@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class SellerAuthEntity extends Equatable {
   const SellerAuthEntity({
-    this.email = '',
-    this.password = '',
+    required this.email,
+    required this.password,
   });
   final String email;
   final String password;
@@ -17,6 +17,10 @@ class SellerAuthEntity extends Equatable {
       password: password ?? this.password,
     );
   }
+
+  const SellerAuthEntity.empty()
+      : email = '',
+        password = '';
 
   @override
   bool? get stringify => true;

@@ -54,9 +54,11 @@ class _AuthPageState extends State<AuthPage>
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     widget._label.capitalize(),
+                    softWrap: true,
                     style: TextStyle(
+                      fontFamily: 'Questrial',
                       fontSize: 43,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w900,
                       height: .85,
                     ),
                   ),

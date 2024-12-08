@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 
 class DateSellector extends StatefulWidget {
-  const DateSellector({super.key});
+  const DateSellector({
+    required void Function(String? value) onSelected,
+    super.key,
+  }) : _onSelected = onSelected;
+  final void Function(String? value) _onSelected;
 
   @override
   State<DateSellector> createState() => _DateSellectorState();
@@ -10,7 +14,6 @@ class DateSellector extends StatefulWidget {
 
 class _DateSellectorState extends State<DateSellector> {
   String date = 'Fecha de nacimiento';
-
   void _setDate(BuildContext context) async {
     final DateTime? selectedDate = await showDatePicker(
       context: context,
@@ -18,11 +21,13 @@ class _DateSellectorState extends State<DateSellector> {
       lastDate: DateTime.now(),
       initialDate: DateTime.now(),
     );
-    if (selectedDate != null) {
-      setState(() {
-        date = '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
-      });
+    if (selectedDate == null) {
+      return;
     }
+    setState(() {
+      date = '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+    });
+    widget._onSelected(date);
   }
 
   @override
