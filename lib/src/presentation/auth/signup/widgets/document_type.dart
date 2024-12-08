@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:quickdrop_sellers/src/core/functions/custom_dropdown_menu.dart';
+import 'package:custom_dropdown_menu/custom_dropdown_menu.dart';
 
 class DocumentType extends StatefulWidget {
   const DocumentType({super.key});
@@ -28,10 +28,10 @@ class _DocumentTypeState extends State<DocumentType> {
       color: Constants.mainColor,
       child: InkWell(
         onTap: () {
-          CustomDropdownMenu.showCustomMenu(
+         CustomDropdownMenu.showCustomMenu(
             context,
             widgetKey: _locationKey,
-            options: <String>['cc: cedula', 'ti: tarjeta de identidad'],
+            options: <String>['cedula', 'tarjeta de identidad'],
             onSelected: _setDocumentType,
           );
         },

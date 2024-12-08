@@ -6,7 +6,7 @@ class Constants {
   static Color mainColor = Colors.black12;
   static Color secondaryColor = Colors.red;
 
-  static Duration mainDuration = Duration(
+  static Duration mainDuration = const Duration(
     milliseconds: 200,
   );
 
