@@ -1,14 +1,24 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit",
-        "source.organizeImports": "explicit"
-    },
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "vscord.enabled": true,
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.search.scope": "all",
-    "[dart]": {
-        "editor.defaultFormatter": "Dart-Code.dart-code",
-        "editor.formatOnSave": true
-    }
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".*\\.dart$",
+        "cmd": "dart format --set-exit-if-changed ."
+      }
+    ]
+  },
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true
+  },
+  "task.runOnSave": {
+    "commands": [
+      "Dart Format On Save"
+    ]
+  }
 }
