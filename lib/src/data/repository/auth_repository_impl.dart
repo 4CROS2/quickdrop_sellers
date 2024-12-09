@@ -23,7 +23,7 @@ class IAuthRepository implements AuthRepository {
       password: password,
     );
   }
-
+  
   @override
   Future<void> destroySession() async {
     await _datasource.destroySession();
