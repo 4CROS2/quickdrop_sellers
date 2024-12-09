@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_input.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
 
 class AuthenticationDataPage extends StatefulWidget {
@@ -56,14 +56,14 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
           label: 'datos de autenticacion',
           formKey: widget._globalKey,
           children: <Widget>[
-            AuthInput(
+            TextInput(
               controller: _emailController,
               labelText: 'correo',
               validator: emailvalidator,
             ),
             Padding(
               padding: Constants.paddingTop,
-              child: AuthInput(
+              child: TextInput(
                 controller: _passwordController,
                 labelText: 'contraseña',
                 isPassword: true,
@@ -72,7 +72,7 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
             ),
             Padding(
               padding: Constants.paddingTop,
-              child: AuthInput(
+              child: TextInput(
                 controller: _verifyPasswordController,
                 labelText: 'repita la contraseña',
                 isPassword: true,

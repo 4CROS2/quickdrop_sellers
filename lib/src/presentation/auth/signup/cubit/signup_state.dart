@@ -8,17 +8,19 @@ class SignupState extends Equatable {
     this.currentPage = 0,
     this.sellerAuth = const SellerAuthEntity.empty(),
     this.sellerInformation = const SellerInformationEntity.empty(),
+    this.estableshmentInformation = const EstableshmentInformationEntity.empty(),
   });
   final SigninState signinState;
   final int currentPage;
   final SellerAuthEntity sellerAuth;
   final SellerInformationEntity sellerInformation;
-
+  final EstableshmentInformationEntity estableshmentInformation;
   SignupState copyWith({
     SigninState? signinState,
     int? currentPage,
     SellerAuthEntity? sellerAuth,
     SellerInformationEntity? sellerInformation,
+    EstableshmentInformationEntity? estableshmentInformation,
   }) {
     return SignupState(
       currentPage: currentPage ?? this.currentPage,

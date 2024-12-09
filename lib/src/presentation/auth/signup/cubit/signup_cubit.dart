@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quickdrop_sellers/src/domain/entity/estableshment_information_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_auth_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_information_entity.dart';
 
@@ -7,6 +8,7 @@ part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit() : super(SignupState());
+  
 
   void setPage(int value) {
     emit(
@@ -52,5 +54,23 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-  void setEstableshmentData() {}
+  void setEstableshmentData({
+    required String companyName,
+    required String rut,
+    required String description,
+    required String contact,
+    required String direction,
+  }) {
+    emit(
+      state.copyWith(
+        estableshmentInformation: EstableshmentInformationEntity(
+          companyName: companyName,
+          rut: rut,
+          description: description,
+          direction: direction,
+          contact: contact,
+        ),
+      ),
+    );
+  }
 }

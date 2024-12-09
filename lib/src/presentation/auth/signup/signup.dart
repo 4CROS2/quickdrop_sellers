@@ -40,6 +40,10 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = <Widget>[
+      EstablishmentInformation(
+        index: 2,
+        globalkey: _estableshmentForm,
+      ),
       AuthenticationDataPage(
         index: 0,
         globalKey: _credentialForm,
@@ -48,10 +52,6 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
         index: 1,
         globalKey: _sellerDataForm,
       ),
-      EstablishmentInformation(
-        index: 2,
-        globalkey: _estableshmentForm,
-      )
     ];
     return BlocProvider<SignupCubit>(
       create: (BuildContext context) => sl<SignupCubit>(),
@@ -78,9 +78,9 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                   ),
                   AuthNavigationPageButtons(
                     formsGlobalskeys: <GlobalKey<FormState>>[
+                      _estableshmentForm,
                       _credentialForm,
                       _sellerDataForm,
-                      _credentialForm
                     ],
                     pageController: _pageController,
                   )

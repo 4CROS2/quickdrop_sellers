@@ -8,5 +8,6 @@ abstract class AuthRepository {
     required String password,
   });
 
+
   Future<void> destroySession();
 }

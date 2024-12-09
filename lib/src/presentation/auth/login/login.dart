@@ -9,7 +9,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/auth_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/forgot_password.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/no_account_button.dart';
-import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_input.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_title.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
 import 'package:toastification/toastification.dart';
@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
                       ),
                       Padding(
                         padding: Constants.authInputPadding,
-                        child: AuthInput(
+                        child: TextInput(
                           controller: _email,
                           labelText: 'correo',
                           validator: emailvalidator,
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
                       ),
                       Padding(
                         padding: Constants.authInputPadding,
-                        child: AuthInput(
+                        child: TextInput(
                           controller: _password,
                           labelText: 'contraseña',
                           isPassword: true,

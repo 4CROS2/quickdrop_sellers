@@ -1,24 +1,22 @@
 {
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 1000,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-  "emeraldwalk.runonsave": {
-    "commands": [
-      {
-        "match": ".*\\.dart$",
-        "cmd": "dart format --set-exit-if-changed ."
-      }
-    ]
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   },
   "[dart]": {
     "editor.defaultFormatter": "Dart-Code.dart-code",
     "editor.formatOnSave": true
   },
-  "task.runOnSave": {
-    "commands": [
-      "Dart Format On Save"
-    ]
-  }
+  "runOnSave.commands": [
+    {
+      "command": "flutter pub get", // ejemplo si se necesita alguna tarea extra
+      "match": ".*\\.dart$",
+      "isAsync": true
+    },
+    {
+      "command": "dart format --set-exit-if-changed .",
+      "match": ".*\\.dart$",
+      "isAsync": true
+    }
+  ]
 }

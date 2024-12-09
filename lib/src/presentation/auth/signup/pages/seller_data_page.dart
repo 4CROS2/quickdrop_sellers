@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/widgets/date_sellector.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/widgets/document_type.dart';
-import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_input.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/widgets/separated_input.dart';
 
 class SellerDataPage extends StatefulWidget {
   const SellerDataPage({
@@ -38,6 +38,14 @@ class _SellerDataPageState extends State<SellerDataPage> {
   }
 
   @override
+  void dispose() {
+    for (TextEditingController controller in _textEditingControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (BuildContext context, SignupState state) {
@@ -57,20 +65,20 @@ class _SellerDataPageState extends State<SellerDataPage> {
           formKey: widget._globalKey,
           label: 'tus datos',
           children: <Widget>[
-            AuthInput(
+            TextInput(
               controller: _textEditingControllers[0],
               validator: emptyValidator,
               labelText: 'nombre',
             ),
-            _separatedInput(
-              widget: AuthInput(
+            SeparatedInput(
+              child: TextInput(
                 controller: _textEditingControllers[1],
                 validator: emptyValidator,
                 labelText: 'apelidos',
               ),
             ),
-            _separatedInput(
-              widget: DocumentType(
+            SeparatedInput(
+              child: DocumentType(
                 onSelected: (String? value) {
                   if (value == null) {
                     return;
@@ -79,24 +87,24 @@ class _SellerDataPageState extends State<SellerDataPage> {
                 },
               ),
             ),
-            _separatedInput(
-              widget: AuthInput(
+            SeparatedInput(
+              child: TextInput(
                 controller: _textEditingControllers[2],
                 validator: emptyValidator,
                 labelText: 'numero de documento',
                 textInputType: TextInputType.numberWithOptions(),
               ),
             ),
-            _separatedInput(
-              widget: DateSellector(onSelected: (String? value) {
+            SeparatedInput(
+              child: DateSellector(onSelected: (String? value) {
                 if (value == null) {
                   return;
                 }
                 setState(() => _sellerDate = value);
               }),
             ),
-            _separatedInput(
-              widget: AuthInput(
+            SeparatedInput(
+              child: TextInput(
                 controller: _textEditingControllers[3],
                 validator: emptyValidator,
                 labelText: 'numero de contacto',
@@ -106,13 +114,6 @@ class _SellerDataPageState extends State<SellerDataPage> {
           ],
         );
       },
-    );
-  }
-
-  Widget _separatedInput({required Widget widget}) {
-    return Padding(
-      padding: Constants.paddingTop,
-      child: widget,
     );
   }
 }
