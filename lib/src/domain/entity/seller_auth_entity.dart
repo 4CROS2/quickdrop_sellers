@@ -8,16 +8,6 @@ class SellerAuthEntity extends Equatable {
   final String email;
   final String password;
 
-  SellerAuthEntity copyWith({
-    String? email,
-    String? password,
-  }) {
-    return SellerAuthEntity(
-      email: email ?? this.email,
-      password: password ?? this.password,
-    );
-  }
-
   const SellerAuthEntity.empty()
       : email = '',
         password = '';
@@ -26,5 +16,5 @@ class SellerAuthEntity extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => <Object?>[email, password];
+  List<Object> get props => <Object>[email, password];
 }

@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/authentication_data_page.dart';
@@ -7,6 +10,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/establishme
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/seller_data_page.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_back_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_navigation_page_buttons.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -15,7 +19,7 @@ class Signup extends StatefulWidget {
   State<Signup> createState() => _SignupState();
 }
 
-class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
+class _SignupState extends State<Signup> {
   late final PageController _pageController;
 
   late final GlobalKey<FormState> _credentialForm;
@@ -41,24 +45,42 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     List<Widget> pages = <Widget>[
       EstablishmentInformation(
-        index: 2,
-        globalkey: _estableshmentForm,
-      ),
-      AuthenticationDataPage(
         index: 0,
-        globalKey: _credentialForm,
+        globalkey: _estableshmentForm,
       ),
       SellerDataPage(
         index: 1,
         globalKey: _sellerDataForm,
       ),
+      AuthenticationDataPage(
+        index: 2,
+        globalKey: _credentialForm,
+      ),
     ];
     return BlocProvider<SignupCubit>(
       create: (BuildContext context) => sl<SignupCubit>(),
-      child: BlocBuilder<SignupCubit, SignupState>(
+      child: BlocConsumer<SignupCubit, SignupState>(
+        listener: (BuildContext context, SignupState state) {
+          if (state.signinState == SigninState.loading) {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (BuildContext context) {
+                return LoadingPopUp();
+              },
+            );
+          }
+          if (state.signinState == SigninState.error) {
+            if (Navigator.canPop(context)) {
+              context.pop();
+            }
+            AppToastification.showError(
+              context: context,
+              message: state.errorMessage,
+            );
+          }
+        },
         builder: (BuildContext context, SignupState state) {
           return Scaffold(
-            resizeToAvoidBottomInset: true,
             body: SafeArea(
               child: Column(
                 children: <Widget>[
@@ -79,16 +101,42 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                   AuthNavigationPageButtons(
                     formsGlobalskeys: <GlobalKey<FormState>>[
                       _estableshmentForm,
-                      _credentialForm,
                       _sellerDataForm,
+                      _credentialForm,
                     ],
                     pageController: _pageController,
-                  )
+                  ),
                 ],
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class LoadingPopUp extends StatelessWidget {
+  const LoadingPopUp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        borderRadius: Constants.mainBorderRadius,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 60,
+            maxHeight: 60,
+          ),
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Constants.secondaryColor,
+            ),
+          ),
+        ),
       ),
     );
   }

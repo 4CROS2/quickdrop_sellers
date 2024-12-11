@@ -1,14 +1,19 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/domain/entity/estableshment_information_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_auth_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_information_entity.dart';
+import 'package:quickdrop_sellers/src/domain/usecase/signup_usecase.dart';
 
 part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
-  SignupCubit() : super(SignupState());
-  
+  SignupCubit({required SignupUsecase usecase})
+      : _usecase = usecase,
+        super(SignupState());
+
+  final SignupUsecase _usecase;
 
   void setPage(int value) {
     emit(
@@ -30,6 +35,7 @@ class SignupCubit extends Cubit<SignupState> {
         ),
       ),
     );
+    _printState();
   }
 
   void setSellerData({
@@ -52,6 +58,7 @@ class SignupCubit extends Cubit<SignupState> {
         ),
       ),
     );
+    _printState();
   }
 
   void setEstableshmentData({
@@ -72,5 +79,45 @@ class SignupCubit extends Cubit<SignupState> {
         ),
       ),
     );
+    _printState();
+  }
+
+  void _getLastPageData() {
+    emit(
+      state.copyWith(
+        currentPage: state.currentPage + 1,
+        signinState: SigninState.loading,
+      ),
+    );
+    _printState();
+  }
+
+  Future<void> createNewAccount() async {
+    _getLastPageData();
+    try {
+      await _usecase.createNewAccount(
+        sellerAuth: state.sellerAuth,
+        sellerInformation: state.sellerInformation,
+        estableshmentInformation: state.estableshmentInformation,
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+            currentPage: state.currentPage - 1,
+            errorMessage: e.toString(),
+            signinState: SigninState.error),
+      );
+      emit(
+        state.copyWith(
+          signinState: SigninState.waiting,
+        ),
+      );
+    }
+  }
+
+  void _printState() {
+    if (kDebugMode) {
+      print(state);
+    }
   }
 }

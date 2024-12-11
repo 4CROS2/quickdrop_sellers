@@ -68,7 +68,7 @@ class _AuthPageState extends State<AuthPage>
                 SizedBox(
                   height: 30 + Constants.paddingValue,
                 ),
-                ...widget._children
+                ...widget._children,
               ],
             ),
           ),

@@ -16,7 +16,5 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(
-    const App(),
-  );
+  runApp(const App());
 }

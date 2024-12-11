@@ -39,12 +39,20 @@ class _AuthNavigationPageButtonsState extends State<AuthNavigationPageButtons>
   }
 
   void _nextPage({required int currentPage}) {
-    if (widget._formsGlobalsKeys[currentPage].currentState!.validate()) {
-      widget._pageController.nextPage(
-        duration: Constants.mainDuration,
-        curve: Curves.easeInOut,
-      );
+    if (widget._formsGlobalsKeys[currentPage].currentState!.validate() &&
+        currentPage < widget._formsGlobalsKeys.length - 1) {
+      _nextPageTrigger();
     }
+    if (currentPage == widget._formsGlobalsKeys.length - 1) {
+      context.read<SignupCubit>().createNewAccount();
+    }
+  }
+
+  void _nextPageTrigger() {
+    widget._pageController.nextPage(
+      duration: Constants.mainDuration,
+      curve: Curves.easeInOut,
+    );
   }
 
   void _previousPage() {
@@ -76,6 +84,7 @@ class _AuthNavigationPageButtonsState extends State<AuthNavigationPageButtons>
         return state.currentPage;
       },
       builder: (BuildContext context, int state) {
+        final bool isLastPage = state > widget._formsGlobalsKeys.length;
         return Padding(
           padding: EdgeInsets.all(Constants.paddingValue),
           child: Row(
@@ -98,10 +107,15 @@ class _AuthNavigationPageButtonsState extends State<AuthNavigationPageButtons>
                   prefixIcon: Icons.arrow_back_ios_rounded,
                 ),
               ),
-              SignupButton(
-                onTap: () => _nextPage(currentPage: state),
-                label: 'continuar',
-                suffixIcon: Icons.arrow_forward_ios_rounded,
+              IgnorePointer(
+                ignoring: isLastPage,
+                child: SignupButton(
+                  onTap: () => _nextPage(currentPage: state),
+                  label: state + 1 == widget._formsGlobalsKeys.length
+                      ? 'finalizar'
+                      : 'continuar',
+                  suffixIcon: Icons.arrow_forward_ios_rounded,
+                ),
               ),
             ],
           ),

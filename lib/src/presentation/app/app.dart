@@ -56,20 +56,24 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQueryData.fromView(View.of(context)).copyWith(
+      data: MediaQuery.of(context).copyWith(
         textScaler: const TextScaler.linear(1.0),
       ),
       child: BlocProvider<AppCubit>(
         create: (BuildContext context) => sl<AppCubit>(),
-        child: MaterialApp.router(
-          title: 'Quickdrop Sellers',
-          locale: Locale(
-            View.of(context).platformDispatcher.locale.languageCode,
-          ),
-          theme: AppTheme.instance,
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          routerConfig: _appRouter.router,
+        child: BlocBuilder<AppCubit, AppState>(
+          builder: (BuildContext context, AppState state) {
+            return MaterialApp.router(
+              title: 'Quickdrop Sellers',
+              locale: Locale(
+                View.of(context).platformDispatcher.locale.languageCode,
+              ),
+              theme: AppTheme.instance,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              routerConfig: _appRouter.router,
+            );
+          },
         ),
       ),
     );

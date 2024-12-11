@@ -1,7 +1,5 @@
-import 'package:equatable/equatable.dart';
-
 /// Represents the information of a seller.
-class SellerInformationEntity extends Equatable {
+class SellerInformationEntity {
   const SellerInformationEntity({
     required this.name,
     required this.lastName,
@@ -37,14 +35,4 @@ class SellerInformationEntity extends Equatable {
         documentType = '',
         date = '',
         phone = '';
-
-  @override
-  List<Object?> get props => <Object?>[
-        name,
-        lastName,
-        id,
-        documentType,
-        date,
-        phone,
-      ];
 }

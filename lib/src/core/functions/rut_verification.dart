@@ -1,6 +1,7 @@
 String? validateRUT(String? value) {
   if (value == null || value.isEmpty) {
-    return 'El RUT no puede estar vacío';
+    // Si el campo está vacío, no se valida porque no es obligatorio
+    return null;
   }
 
   // Divide el RUT en número base y dígito verificador (si está presente)
@@ -13,7 +14,7 @@ String? validateRUT(String? value) {
     return 'El número base del RUT debe ser un número válido';
   }
 
-  // Si no se proporciona el dígito verificador, es válido
+  // Si no se proporciona el dígito verificador, se considera válido
   if (verifier == null) {
     return null; // RUT válido sin verificador
   }

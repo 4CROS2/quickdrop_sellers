@@ -31,4 +31,15 @@ class SellerInformationModel extends SellerInformationEntity {
       'phone': phone,
     };
   }
+
+  factory SellerInformationModel.fromDomain(SellerInformationEntity entity) {
+    return SellerInformationModel(
+      name: entity.name,
+      lastName: entity.lastName,
+      id: entity.id,
+      documentType: entity.documentType,
+      date: entity.date,
+      phone: entity.phone,
+    );
+  }
 }
