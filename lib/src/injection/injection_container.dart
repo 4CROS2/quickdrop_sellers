@@ -8,6 +8,8 @@ import 'package:quickdrop_sellers/src/domain/usecase/signup_usecase.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/home/cubit/home_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page.dart/cubit/orders_page_cubit.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -51,5 +53,11 @@ Future<void> init() async {
   );
   sl.registerFactory<SignupCubit>(
     () => SignupCubit(usecase: sl<SignupUsecase>()),
+  );
+  sl.registerFactory<HomeCubit>(
+    () => HomeCubit(),
+  );
+  sl.registerFactory<OrdersCubit>(
+    () => OrdersCubit(),
   );
 }
