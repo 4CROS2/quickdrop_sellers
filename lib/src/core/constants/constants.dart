@@ -4,6 +4,12 @@ class Constants {
   static double borderValue = 14.0;
   static double paddingValue = 12;
   static Color mainColor = Colors.black12;
+  static Color secondaryColor = Colors.red;
+
+  static Duration mainDuration = const Duration(
+    milliseconds: 200,
+  );
+
   static BorderRadius mainBorderRadius = BorderRadius.circular(
     borderValue,
   );
@@ -18,4 +24,9 @@ class Constants {
   static EdgeInsets authInputPadding = EdgeInsets.symmetric(
     horizontal: paddingValue * 2,
   ).copyWith(top: paddingValue);
+
+  static EdgeInsets authInputContent = EdgeInsets.symmetric(
+    horizontal: 20,
+    vertical: 16,
+  );
 }

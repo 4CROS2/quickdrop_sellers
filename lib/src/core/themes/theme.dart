@@ -11,8 +11,9 @@ class AppTheme {
     return _instance!;
   }
 
-  static void initialize(BuildContext context) {
-    _instance = _createLightTheme(context);
+  static void initialize(BuildContext context, {bool isDarkMode = false}) {
+    _instance =
+        isDarkMode ? _createDarkTheme(context) : _createLightTheme(context);
   }
 
   static ThemeData _createLightTheme(BuildContext context) {
@@ -33,10 +34,31 @@ class AppTheme {
         hintStyle: TextStyle(
           color: Colors.black,
         ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
+        contentPadding: Constants.authInputContent,
+      ),
+    );
+  }
+
+  static ThemeData _createDarkTheme(BuildContext context) {
+    return ThemeData(
+      brightness: Brightness.dark,
+      colorSchemeSeed: Constants.secondaryColor,
+      scaffoldBackgroundColor: Colors.grey.shade900,
+      fontFamily: 'RedHat',
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: Constants.mainBorderRadius,
+          borderSide: const BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          ),
         ),
+        filled: true,
+        fillColor: Constants.mainColor,
+        hintStyle: const TextStyle(
+          color: Colors.white,
+        ),
+        contentPadding: Constants.authInputContent,
       ),
     );
   }

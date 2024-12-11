@@ -4,8 +4,10 @@ import 'package:quickdrop_sellers/src/data/repository/auth_repository_impl.dart'
 import 'package:quickdrop_sellers/src/domain/repository/auth_repository.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/app_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/login_usecase.dart';
+import 'package:quickdrop_sellers/src/domain/usecase/signup_usecase.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -33,6 +35,11 @@ Future<void> init() async {
       repository: sl<AuthRepository>(),
     ),
   );
+  sl.registerLazySingleton<SignupUsecase>(
+    () => SignupUsecase(
+      repository: sl<AuthRepository>(),
+    ),
+  );
   // cubit
   sl.registerLazySingleton<AppCubit>(
     () => AppCubit(usecase: sl<AppUsecase>()),
@@ -41,5 +48,8 @@ Future<void> init() async {
     () => LoginCubit(
       usecase: sl<LoginUsecase>(),
     ),
+  );
+  sl.registerFactory<SignupCubit>(
+    () => SignupCubit(usecase: sl<SignupUsecase>()),
   );
 }

@@ -1,14 +1,22 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit",
-        "source.organizeImports": "explicit"
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true
+  },
+  "runOnSave.commands": [
+    {
+      "command": "flutter pub get", // ejemplo si se necesita alguna tarea extra
+      "match": ".*\\.dart$",
+      "isAsync": true
     },
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "vscord.enabled": true,
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.search.scope": "all",
-    "[dart]": {
-        "editor.defaultFormatter": "Dart-Code.dart-code",
-        "editor.formatOnSave": true
+    {
+      "command": "dart format --set-exit-if-changed .",
+      "match": ".*\\.dart$",
+      "isAsync": true
     }
+  ]
 }

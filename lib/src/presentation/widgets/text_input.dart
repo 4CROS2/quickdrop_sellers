@@ -1,32 +1,40 @@
+import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:quickdrop_sellers/src/core/extensions/string_extensions.dart';
 
-class AuthInput extends StatefulWidget {
-  const AuthInput({
+class TextInput extends StatefulWidget {
+  const TextInput({
     bool isPassword = false,
     bool isEnabled = true,
+    TextInputType? textInputType,
     TextEditingController? controller,
     String? Function(String?)? validator,
-    String? hintText,
+    Function(String)? onChanged,
+    String? labelText,
     super.key,
-  })  : _isPassword = isPassword,
+  })  : _onChanged = onChanged,
+        _isPassword = isPassword,
         _controller = controller,
         _isEnabled = isEnabled,
-        _hintText = hintText,
-        _validator = validator;
+        _hintText = labelText,
+        _validator = validator,
+        _textInputType = textInputType;
 
   final TextEditingController? _controller;
+  final TextInputType? _textInputType;
   final bool _isPassword;
   final bool _isEnabled;
   final String? _hintText;
   final String? Function(String?)? _validator;
+  final Function(String)? _onChanged;
 
   @override
-  State<AuthInput> createState() => _AuthInputState();
+  State<TextInput> createState() => _TextInputState();
 }
 
-class _AuthInputState extends State<AuthInput> {
+class _TextInputState extends State<TextInput> {
+  late final FocusNode _focusNode;
+
   bool _showText = true;
   void toggleShowText() {
     setState(
@@ -35,15 +43,35 @@ class _AuthInputState extends State<AuthInput> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  void _unFocus(PointerDownEvent event) {
+    _focusNode.unfocus();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: _focusNode,
       controller: widget._controller,
       enabled: widget._isEnabled,
+      onChanged: widget._onChanged,
+      onTapOutside: _unFocus,
       obscureText: widget._isPassword && _showText,
       validator: widget._validator,
+      keyboardType: widget._textInputType,
       decoration: InputDecoration(
         enabled: widget._isEnabled,
-        hintText: widget._hintText?.capitalize(),
+        labelText: widget._hintText?.capitalize(),
         suffixIcon: widget._isPassword
             ? InkWell(
                 borderRadius: Constants.mainBorderRadius * 2,

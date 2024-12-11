@@ -9,7 +9,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/auth_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/forgot_password.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/no_account_button.dart';
-import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_input.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_title.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
 import 'package:toastification/toastification.dart';
@@ -38,6 +38,7 @@ class _LoginState extends State<Login> {
     return BlocProvider<LoginCubit>(
       create: (BuildContext context) => sl<LoginCubit>(),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: BlocConsumer<LoginCubit, LoginState>(
           listenWhen: (LoginState previous, LoginState current) {
             if (previous is Loading) {
@@ -71,45 +72,52 @@ class _LoginState extends State<Login> {
           },
           builder: (BuildContext context, LoginState state) {
             return SafeArea(
-              child: Form(
-                key: _formKey,
-                child: ListView(
-                  padding: Constants.mainPadding,
-                  children: <Widget>[
-                    AuthTitle(),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Padding(
-                      padding: Constants.authInputPadding,
-                      child: AuthInput(
-                        controller: _email,
-                        hintText: 'correo',
-                        validator: emailvalidator,
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      AuthTitle(),
+                      SizedBox(
+                        height: 50,
                       ),
-                    ),
-                    Padding(
-                      padding: Constants.authInputPadding,
-                      child: AuthInput(
-                        controller: _password,
-                        hintText: 'contraseña',
-                        isPassword: true,
-                        validator: passwordValidator,
+                      Padding(
+                        padding: Constants.authInputPadding,
+                        child: TextInput(
+                          controller: _email,
+                          labelText: 'correo',
+                          validator: emailvalidator,
+                        ),
                       ),
-                    ),
-                    ForgotPassword(),
-                    AuthButton(
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<LoginCubit>().login(
-                                email: _email.text,
-                                password: _password.text,
-                              );
-                        }
-                      },
-                    ),
-                    NoAccountButton(),
-                  ],
+                      Padding(
+                        padding: Constants.authInputPadding,
+                        child: TextInput(
+                          controller: _password,
+                          labelText: 'contraseña',
+                          isPassword: true,
+                          validator: passwordValidator,
+                        ),
+                      ),
+                      ForgotPassword(),
+                      AuthButton(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<LoginCubit>().login(
+                                  email: _email.text,
+                                  password: _password.text,
+                                );
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      NoAccountButton(),
+                      SizedBox(
+                        height: MediaQuery.viewInsetsOf(context).bottom,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

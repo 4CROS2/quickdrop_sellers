@@ -1,6 +1,7 @@
+import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:quickdrop_sellers/src/core/extensions/string_extensions.dart';
 
 class NoAccountButton extends StatelessWidget {
   const NoAccountButton({super.key});
@@ -12,7 +13,7 @@ class NoAccountButton extends StatelessWidget {
       child: Center(
         child: TextButton(
           onPressed: () {
-            
+            context.push('/signup');
           },
           child: Text(
             'no tienes cuenta?'.capitalize(),

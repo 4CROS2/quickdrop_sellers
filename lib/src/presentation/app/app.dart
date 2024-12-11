@@ -13,32 +13,67 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   late final AppRouter _appRouter;
+  bool _isDark = false;
   @override
   void initState() {
     super.initState();
     _appRouter = AppRouter();
-    AppTheme.initialize(context);
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    _initializeTheme(
+      context,
+    );
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    _initializeTheme(context);
+    setState(() {});
+    super.didChangePlatformBrightness();
+  }
+
+  void _initializeTheme(BuildContext context) {
+    _isDark = View.of(context).platformDispatcher.platformBrightness ==
+        Brightness.dark;
+    AppTheme.initialize(
+      context,
+      isDarkMode: _isDark,
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQueryData.fromView(View.of(context)).copyWith(
+      data: MediaQuery.of(context).copyWith(
         textScaler: const TextScaler.linear(1.0),
       ),
       child: BlocProvider<AppCubit>(
         create: (BuildContext context) => sl<AppCubit>(),
-        child: MaterialApp.router(
-          title: 'Quickdrop Sellers',
-          locale: Locale(
-            View.of(context).platformDispatcher.locale.languageCode,
-          ),
-          theme: AppTheme.instance,
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          routerConfig: _appRouter.router,
+        child: BlocBuilder<AppCubit, AppState>(
+          builder: (BuildContext context, AppState state) {
+            return MaterialApp.router(
+              title: 'Quickdrop Sellers',
+              locale: Locale(
+                View.of(context).platformDispatcher.locale.languageCode,
+              ),
+              theme: AppTheme.instance,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              routerConfig: _appRouter.router,
+            );
+          },
         ),
       ),
     );
