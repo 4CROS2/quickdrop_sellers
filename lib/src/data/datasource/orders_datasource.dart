@@ -11,6 +11,7 @@ class OrdersDatasource {
           .collection('orders')
           .orderBy(
             'order_time',
+            descending: false,
           )
           .snapshots()
           .toMapJsonListStream();

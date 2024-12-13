@@ -91,6 +91,7 @@ class _OrdersList extends StatelessWidget {
       return Padding(
         padding: Constants.mainPadding,
         child: CustomScrollView(
+          physics: Constants.mainPhysics,
           slivers: <Widget>[
             SliverPersistentHeader(
               delegate: OrdersHeader(

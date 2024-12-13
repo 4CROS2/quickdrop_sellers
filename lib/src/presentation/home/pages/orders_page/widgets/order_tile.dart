@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
@@ -104,8 +105,17 @@ class _OrderTileState extends State<OrderTile>
                         child: SizedBox(
                           width: 70,
                           height: 70,
-                          child: Image.network(
-                            widget._order.image,
+                          child: CachedNetworkImage(
+                            imageUrl: widget._order.image,
+                            progressIndicatorBuilder: (BuildContext context,
+                                String url, DownloadProgress progress) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Constants.secondaryColor,
+                                  value: progress.progress,
+                                ),
+                              );
+                            },
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -117,6 +127,7 @@ class _OrderTileState extends State<OrderTile>
                         child: Text(
                           widget._order.productName.capitalize(),
                           style: TextStyle(
+                            fontFamily: 'Questrial',
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
                           ),
