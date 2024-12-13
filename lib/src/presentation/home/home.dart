@@ -2,9 +2,10 @@ import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/domain/repository/auth_repository.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/home/cubit/home_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/orders_page.dart';
+import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/orders.dart';
 import 'package:quickdrop_sellers/src/presentation/home/widgets/homeDrawer/home_navigation_bar.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/animation_button.dart';
 
@@ -17,12 +18,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final PageController _controller;
-  //late final AuthRepository _authProvider;
+  late final AuthRepository _authProvider;
   @override
   void initState() {
     super.initState();
     _controller = PageController();
-    //_authProvider = sl<AuthRepository>();
+    _authProvider = sl<AuthRepository>();
   }
 
   @override
@@ -48,6 +49,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     'quickdrop'.capitalize(),
                     style: TextStyle(
+                      fontSize: 20,
                       fontFamily: 'Questrial',
                       fontWeight: FontWeight.w800,
                     ),
@@ -60,11 +62,14 @@ class _HomeState extends State<Home> {
                 child: Material(
               surfaceTintColor: Constants.secondaryColor,
               borderRadius: Constants.mainBorderRadius,
-              child: SizedBox(
-                width: 60,
-                height: 60,
-                child: Icon(
-                  Icons.add,
+              child: InkWell(
+                onDoubleTap: () => _authProvider.destroySession(),
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Icon(
+                    Icons.add,
+                  ),
                 ),
               ),
             )),

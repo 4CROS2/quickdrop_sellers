@@ -1,17 +1,17 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/domain/entity/order_entity.dart';
 
 class OrderTile extends StatefulWidget {
   const OrderTile({
-    required String label,
+    required OrderEntity order,
     VoidCallback? onTap,
     super.key,
-  })  : _label = label,
+  })  : _order = order,
         _onTap = onTap;
-  final String _label;
   final VoidCallback? _onTap;
-
+  final OrderEntity _order;
   @override
   State<OrderTile> createState() => _OrderTileState();
 }
@@ -105,7 +105,7 @@ class _OrderTileState extends State<OrderTile>
                           width: 70,
                           height: 70,
                           child: Image.network(
-                            'https://media.thisvid.com/contents/videos_screenshots/8237000/8237681/preview.jpg',
+                            widget._order.image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -115,7 +115,7 @@ class _OrderTileState extends State<OrderTile>
                           left: Constants.paddingValue,
                         ),
                         child: Text(
-                          widget._label.capitalize(),
+                          widget._order.productName.capitalize(),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
@@ -124,7 +124,7 @@ class _OrderTileState extends State<OrderTile>
                       ),
                     ],
                   ),
-                  Text('19:00')
+                  Text(widget._order.orderTime)
                 ],
               ),
             ),
