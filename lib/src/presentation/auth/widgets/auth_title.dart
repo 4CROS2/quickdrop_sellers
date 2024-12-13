@@ -8,17 +8,16 @@ class AuthTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40),
-      child: Material(
-        color: Colors.transparent,
-        child: Hero(
-          tag: 'title',
-          transitionOnUserGestures: true,
-          child: SizedBox(
-            height: 130,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
+      child: SizedBox(
+        height: 130,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Material(
+              color: Colors.transparent,
+              child: Hero(
+                tag: 'title',
+                child: Text(
                   'QuickDrop',
                   style: TextStyle(
                     fontSize: 50,
@@ -26,15 +25,15 @@ class AuthTitle extends StatelessWidget {
                     fontFamily: 'Questrial',
                   ),
                 ),
-                Text(
-                  'sellers'.capitalize(),
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            Text(
+              'sellers'.capitalize(),
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
       ),
     );
