@@ -9,7 +9,7 @@ import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/cubit/home_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page.dart/cubit/orders_page_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/cubit/orders_page_cubit.dart';
 
 final GetIt sl = GetIt.instance;
 

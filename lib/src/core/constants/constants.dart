@@ -29,4 +29,8 @@ class Constants {
     horizontal: 20,
     vertical: 16,
   );
+
+  static ScrollPhysics mainPhysics = AlwaysScrollableScrollPhysics(
+    parent: BouncingScrollPhysics(),
+  );
 }
