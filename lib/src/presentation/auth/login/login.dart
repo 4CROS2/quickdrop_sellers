@@ -9,6 +9,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/auth_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/forgot_password.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/no_account_button.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_title.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
@@ -122,27 +123,6 @@ class _LoginState extends State<Login> {
               ),
             );
           },
-        ),
-      ),
-    );
-  }
-}
-
-class LoadingPopUp extends StatelessWidget {
-  const LoadingPopUp({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        borderRadius: Constants.mainBorderRadius,
-        child: Padding(
-          padding: EdgeInsets.all(
-            Constants.paddingValue * 2,
-          ),
-          child: CircularProgressIndicator.adaptive(),
         ),
       ),
     );

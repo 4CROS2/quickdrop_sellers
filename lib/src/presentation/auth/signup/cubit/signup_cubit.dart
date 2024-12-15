@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/domain/entity/estableshment_information_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_auth_entity.dart';
@@ -15,14 +14,6 @@ class SignupCubit extends Cubit<SignupState> {
 
   final SignupUsecase _usecase;
 
-  void setPage(int value) {
-    emit(
-      state.copyWith(
-        currentPage: value,
-      ),
-    );
-  }
-
   void setAuthData({
     required String email,
     required String password,
@@ -35,7 +26,6 @@ class SignupCubit extends Cubit<SignupState> {
         ),
       ),
     );
-    _printState();
   }
 
   void setSellerData({
@@ -58,7 +48,6 @@ class SignupCubit extends Cubit<SignupState> {
         ),
       ),
     );
-    _printState();
   }
 
   void setEstableshmentData({
@@ -79,7 +68,6 @@ class SignupCubit extends Cubit<SignupState> {
         ),
       ),
     );
-    _printState();
   }
 
   void _getLastPageData() {
@@ -89,7 +77,6 @@ class SignupCubit extends Cubit<SignupState> {
         signinState: SigninState.loading,
       ),
     );
-    _printState();
   }
 
   Future<void> createNewAccount() async {
@@ -115,9 +102,11 @@ class SignupCubit extends Cubit<SignupState> {
     }
   }
 
-  void _printState() {
-    if (kDebugMode) {
-      print(state);
-    }
+  void setPage(int value) {
+    emit(
+      state.copyWith(
+        currentPage: value,
+      ),
+    );
   }
 }

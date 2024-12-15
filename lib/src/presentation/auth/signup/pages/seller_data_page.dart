@@ -4,9 +4,9 @@ import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/widgets/date_sellector.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/widgets/document_type.dart';
-import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/separated_input.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 
 class SellerDataPage extends StatefulWidget {
   const SellerDataPage({
@@ -24,8 +24,11 @@ class SellerDataPage extends StatefulWidget {
 
 class _SellerDataPageState extends State<SellerDataPage> {
   late final List<TextEditingController> _textEditingControllers;
+  late final SignupCubit _signupCubit;
   String _documentType = '';
   String _sellerDate = '';
+  bool _dataUpdated = false;
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +38,7 @@ class _SellerDataPageState extends State<SellerDataPage> {
         return TextEditingController();
       },
     );
+    _signupCubit = context.read<SignupCubit>();
   }
 
   @override
@@ -49,15 +53,21 @@ class _SellerDataPageState extends State<SellerDataPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (BuildContext context, SignupState state) {
-        if (state.currentPage > widget._index) {
-          context.read<SignupCubit>().setSellerData(
-                name: _textEditingControllers[0].text,
-                lastName: _textEditingControllers[1].text,
-                documentType: _documentType,
-                id: _textEditingControllers[2].text,
-                date: _sellerDate,
-                phone: _textEditingControllers[3].text,
-              );
+        if (state.currentPage > widget._index &&
+            state.currentPage <= widget._index + 1 &&
+            !_dataUpdated) {
+          _dataUpdated = true;
+          _signupCubit.setSellerData(
+            name: _textEditingControllers[0].text,
+            lastName: _textEditingControllers[1].text,
+            documentType: _documentType,
+            id: _textEditingControllers[2].text,
+            date: _sellerDate,
+            phone: _textEditingControllers[3].text,
+          );
+        }
+        if (_signupCubit.state.currentPage <= widget._index) {
+          _dataUpdated = false;
         }
       },
       builder: (BuildContext context, SignupState state) {

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 
 class AuthenticationDataPage extends StatefulWidget {
   const AuthenticationDataPage({
@@ -25,18 +25,23 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final TextEditingController _verifyPasswordController;
+  late final SignupCubit _signupCubit;
+  bool _dataUpdated = false;
+
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _verifyPasswordController = TextEditingController();
+    _signupCubit = context.read<SignupCubit>();
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _verifyPasswordController.dispose();
     super.dispose();
   }
 
@@ -44,11 +49,17 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (BuildContext context, SignupState state) {
-        if (state.currentPage > widget._index) {
-          context.read<SignupCubit>().setAuthData(
-                email: _emailController.text,
-                password: _passwordController.text,
-              );
+        if (state.currentPage > widget._index &&
+            state.currentPage <= widget._index + 1 &&
+            !_dataUpdated) {
+          _dataUpdated = true;
+          _signupCubit.setAuthData(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+        }
+        if (_signupCubit.state.currentPage <= widget._index) {
+          _dataUpdated = false;
         }
       },
       builder: (BuildContext context, SignupState state) {

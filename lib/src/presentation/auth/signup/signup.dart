@@ -43,20 +43,6 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = <Widget>[
-      EstablishmentInformation(
-        index: 0,
-        globalkey: _estableshmentForm,
-      ),
-      SellerDataPage(
-        index: 1,
-        globalKey: _sellerDataForm,
-      ),
-      AuthenticationDataPage(
-        index: 2,
-        globalKey: _credentialForm,
-      ),
-    ];
     return BlocProvider<SignupCubit>(
       create: (BuildContext context) => sl<SignupCubit>(),
       child: BlocConsumer<SignupCubit, SignupState>(
@@ -91,9 +77,17 @@ class _SignupState extends State<Signup> {
                       onPageChanged: context.read<SignupCubit>().setPage,
                       physics: NeverScrollableScrollPhysics(),
                       children: <Widget>[
-                        ...List<Widget>.generate(
-                          pages.length,
-                          (int index) => pages[index],
+                        EstablishmentInformation(
+                          index: 0,
+                          globalkey: _estableshmentForm,
+                        ),
+                        SellerDataPage(
+                          index: 1,
+                          globalKey: _sellerDataForm,
+                        ),
+                        AuthenticationDataPage(
+                          index: 2,
+                          globalKey: _credentialForm,
                         ),
                       ],
                     ),

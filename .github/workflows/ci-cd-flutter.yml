@@ -1,0 +1,18 @@
+name: CI/CD Flutter
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Build APK
+        run: flutter build apk

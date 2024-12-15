@@ -25,6 +25,8 @@ class EstablishmentInformation extends StatefulWidget {
 
 class _EstablishmentInformationState extends State<EstablishmentInformation> {
   late final List<TextEditingController> _textEditingControllers;
+  late final SignupCubit _signupCubit;
+  bool _dataUpdated = false;
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
         return TextEditingController();
       },
     );
+    _signupCubit = context.read<SignupCubit>();
   }
 
   @override
@@ -49,14 +52,19 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (BuildContext context, SignupState state) {
-        if (state.currentPage > widget._index) {
-          context.read<SignupCubit>().setEstableshmentData(
-                companyName: _textEditingControllers[0].text,
-                rut: _textEditingControllers[1].text,
-                description: _textEditingControllers[2].text,
-                direction: _textEditingControllers[3].text,
-                contact: _textEditingControllers[4].text,
-              );
+        if (state.currentPage > widget._index &&
+            state.currentPage <= widget._index + 1 &&
+            !_dataUpdated) {
+          _dataUpdated = true;
+          _signupCubit.setEstableshmentData(
+            companyName: _textEditingControllers[0].text,
+            rut: _textEditingControllers[1].text,
+            description: _textEditingControllers[2].text,
+            direction: _textEditingControllers[3].text,
+            contact: _textEditingControllers[4].text,
+          );
+        } else if (_signupCubit.state.currentPage <= widget._index) {
+          _dataUpdated = false;
         }
       },
       builder: (BuildContext context, SignupState state) {
@@ -113,7 +121,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         );
       },
