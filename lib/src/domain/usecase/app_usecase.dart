@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quickdrop_sellers/src/domain/entity/app_entity.dart';
 import 'package:quickdrop_sellers/src/domain/repository/auth_repository.dart';
 
 class AppUsecase {
@@ -7,5 +7,5 @@ class AppUsecase {
   }) : _repository = repository;
   final AuthRepository _repository;
 
-  Stream<User?> authStatus() => _repository.authStatus();
+  Stream<AppEntity?> authStatus() => _repository.authStatus();
 }

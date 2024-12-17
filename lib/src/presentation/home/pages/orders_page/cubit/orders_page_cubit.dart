@@ -15,9 +15,9 @@ class OrdersCubit extends Cubit<OrdersState> {
   final OrdersUsecase _usecase;
   StreamSubscription<List<OrderEntity>>? _streamSubscription;
 
-  void getOrders({required String sellerId}) {
+  void getOrders() {
     emit(Loading());
-    _streamSubscription = _usecase.getOrders(sellerId: sellerId).listen(
+    _streamSubscription = _usecase.getOrders().listen(
           (List<OrderEntity> orders) => _setOrders(orders: orders),
           onError: _setError,
         );

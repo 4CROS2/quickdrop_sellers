@@ -9,10 +9,8 @@ class IOrdersRepository extends OrdersRespository {
   final OrdersDatasource _datasource;
 
   @override
-  Stream<List<OrdersModel>> getOrders({required String sellerId}) {
-    final Stream<List<Map<String, dynamic>>> response = _datasource.getOrders(
-      sellerId: sellerId,
-    );
+  Stream<List<OrdersModel>> getOrders() {
+    final Stream<List<Map<String, dynamic>>> response = _datasource.getOrders();
     return response.map((List<Map<String, dynamic>> ordersList) {
       return ordersList.map((Map<String, dynamic> orderJson) {
         return OrdersModel.fromJson(json: orderJson);

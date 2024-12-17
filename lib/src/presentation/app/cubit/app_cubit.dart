@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quickdrop_sellers/src/domain/entity/app_entity.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/app_usecase.dart';
 
 part 'app_state.dart';
@@ -15,20 +15,20 @@ class AppCubit extends Cubit<AppState> {
     _authCheckStatus();
   }
   final AppUsecase _usecase;
-  StreamSubscription<User?>? _subscription;
+  StreamSubscription<AppEntity?>? _subscription;
 
   void _authCheckStatus() {
     _subscription = _usecase.authStatus().listen(
-          (User? user) => _setAuthenticated(user: user),
+          (AppEntity? app) => _setAuthenticated(app: app),
           onError: _onError,
         );
   }
 
-  void _setAuthenticated({required User? user}) {
-    if (user != null) {
+  void _setAuthenticated({required AppEntity? app}) {
+    if (app != null) {
       emit(
         Authenticated(
-          user: user,
+          app: app,
         ),
       );
     } else {

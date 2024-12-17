@@ -7,6 +7,7 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
     required super.description,
     required super.direction,
     required super.contact,
+    required super.brand,
   });
 
   factory EstableshmentInformationModel.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
       description: json['description'] ?? '',
       direction: json['direction'] ?? '',
       contact: json['contact'] ?? '',
+      brand: json['brand'] ?? '',
     );
   }
 
@@ -26,6 +28,7 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
       'description': description,
       'direction': direction,
       'contact': contact,
+      'brand': brand
     };
   }
 
@@ -37,6 +40,7 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
       description: entity.description,
       direction: entity.direction,
       rut: entity.rut,
+      brand: entity.brand,
     );
   }
 }
