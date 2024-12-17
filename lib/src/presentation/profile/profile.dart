@@ -9,7 +9,6 @@ import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/widgets/establishment__banner.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/widgets/information_tile.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/widgets/profile_header.dart';
-import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
