@@ -7,10 +7,5 @@ class OrdersUsecase {
   }) : _respository = repository;
   final OrdersRespository _respository;
 
-  Stream<List<OrderEntity>> getOrders({
-    required String sellerId,
-  }) =>
-      _respository.getOrders(
-        sellerId: sellerId,
-      );
+  Stream<List<OrderEntity>> getOrders() => _respository.getOrders();
 }

@@ -4,8 +4,10 @@ import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
+import 'package:quickdrop_sellers/src/presentation/error/error.dart';
 import 'package:quickdrop_sellers/src/presentation/home/home.dart';
 import 'package:quickdrop_sellers/src/presentation/loading/loading.dart';
+import 'package:quickdrop_sellers/src/presentation/profile/profile.dart';
 import 'package:quickdrop_sellers/src/routes/listener.dart';
 
 class AppRouter {
@@ -14,6 +16,13 @@ class AppRouter {
     initialLocation: '/',
     debugLogDiagnostics: true,
     refreshListenable: GoListener(stream: _appCubit.stream),
+    errorPageBuilder: (BuildContext context, GoRouterState state) {
+      return MaterialPage<ErrorPage>(
+        child: ErrorPage(
+          path: state.matchedLocation,
+        ),
+      );
+    },
     redirect: (BuildContext context, GoRouterState state) {
       final AppState appState = _appCubit.state;
       final bool isAuthenticated = appState is Authenticated;
@@ -68,6 +77,16 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage<Signup>(
             child: Signup(),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/establishment',
+        name: 'establishment',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage<Profile>(
+            name: state.name,
+            child: Profile(),
           );
         },
       )

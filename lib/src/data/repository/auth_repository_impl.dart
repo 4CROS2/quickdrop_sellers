@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickdrop_sellers/src/data/datasource/auth_datasource.dart';
+import 'package:quickdrop_sellers/src/data/model/app_model.dart';
 import 'package:quickdrop_sellers/src/data/model/estableshment_information_model.dart';
 import 'package:quickdrop_sellers/src/data/model/seller_auth_model.dart';
 import 'package:quickdrop_sellers/src/data/model/seller_information_model.dart';
@@ -15,8 +15,18 @@ class IAuthRepository implements AuthRepository {
   final AuthDatasource _datasource;
 
   @override
-  Stream<User?> authStatus() {
-    return _datasource.authStatus();
+  Stream<AppModel?> authStatus() {
+    final Stream<Map<String, dynamic>?> response = _datasource.authStatus();
+    return response.map((Map<String, dynamic>? json) {
+      if (json == null) {
+        return null;
+      }
+      try {
+        return AppModel.fromJson(json: json);
+      } catch (e) {
+        return null;
+      }
+    });
   }
 
   @override

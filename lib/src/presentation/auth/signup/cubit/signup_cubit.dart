@@ -65,6 +65,7 @@ class SignupCubit extends Cubit<SignupState> {
           description: description,
           direction: direction,
           contact: contact,
+          brand: '',
         ),
       ),
     );

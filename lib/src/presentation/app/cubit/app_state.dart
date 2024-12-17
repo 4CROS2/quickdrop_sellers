@@ -9,9 +9,9 @@ class AppState extends Equatable {
 
 class Authenticated extends AppState {
   const Authenticated({
-    required this.user,
+    required this.app,
   });
-  final User user;
+  final AppEntity app;
 }
 
 class UnAuthenticated extends AppState {}

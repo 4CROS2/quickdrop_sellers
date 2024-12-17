@@ -1,12 +1,10 @@
 import 'package:extensions/extensions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/domain/entity/order_entity.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
-import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/cubit/orders_page_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/widgets/order_header.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/widgets/order_tile.dart';
@@ -19,20 +17,13 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> with AutomaticKeepAliveClientMixin {
-  late final User _user;
-  @override
-  void initState() {
-    super.initState();
-    _user = (sl<AppCubit>().state as Authenticated).user;
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return BlocProvider<OrdersCubit>(
       create: (BuildContext context) => OrdersCubit(
         usecase: sl<OrdersUsecase>(),
-      )..getOrders(sellerId: _user.uid),
+      )..getOrders(),
       child: BlocBuilder<OrdersCubit, OrdersState>(
         builder: (BuildContext context, OrdersState state) {
           return AnimatedSwitcher(
