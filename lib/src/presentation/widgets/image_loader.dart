@@ -31,7 +31,9 @@ class _ImageLoaderState extends State<ImageLoader> {
           borderRadius: Constants.mainBorderRadius / 2,
           surfaceTintColor: Constants.secondaryColor,
           clipBehavior: Clip.hardEdge,
-          elevation: 1,
+          color: Constants.secondaryColor.withValues(
+            alpha: .2,
+          ),
           child: Padding(
             padding: EdgeInsets.all(
               Constants.paddingValue,

@@ -12,6 +12,8 @@ class Authenticated extends AppState {
     required this.app,
   });
   final AppEntity app;
+  @override
+  List<Object> get props => <Object>[app];
 }
 
 class UnAuthenticated extends AppState {}

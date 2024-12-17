@@ -24,59 +24,65 @@ class _EstablishmentBannerState extends State<EstablishmentBanner> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(
-        Constants.paddingValue * 2,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: Constants.mainBorderRadius,
+        color: Theme.of(context).canvasColor,
       ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: Constants.mainBorderRadius,
-          color: Theme.of(context).canvasColor,
-        ),
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.all(Constants.paddingValue / 2),
-            child: Row(
-              spacing: Constants.paddingValue,
-              children: <Widget>[
-                SizedBox(
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.all(
+            Constants.paddingValue / 2,
+          ),
+          child: Row(
+            spacing: Constants.paddingValue,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: Constants.mainBorderRadius / 2,
+                child: SizedBox(
                   width: 80,
                   height: double.infinity,
-                  child: ImageLoader(imageUrl: ''),
+                  child: ImageLoader(
+                    imageUrl: _app.establishment.brand,
+                  ),
                 ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: Constants.paddingValue / 2,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          _app.establishment.companyName.capitalize(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Questrial',
-                            fontWeight: FontWeight.w600,
-                          ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: Constants.paddingValue / 2,
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        _app.establishment.companyName.capitalize(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Questrial',
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
+                    ),
+                    Flexible(
+                      child: Text(
                         _app.accountInformation.email,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.grey,
                           fontSize: 16,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
