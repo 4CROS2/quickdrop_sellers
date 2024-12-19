@@ -18,5 +18,6 @@
       "match": ".*\\.dart$",
       "isAsync": true
     }
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic"
 }

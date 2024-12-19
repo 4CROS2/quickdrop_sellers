@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
@@ -12,6 +13,7 @@ import 'package:quickdrop_sellers/src/routes/listener.dart';
 
 class AppRouter {
   final AppCubit _appCubit = sl<AppCubit>();
+  final AnalyticsUsecase _analytics = sl<AnalyticsUsecase>();
   late final GoRouter router = GoRouter(
     initialLocation: '/',
     debugLogDiagnostics: true,
@@ -27,6 +29,8 @@ class AppRouter {
       final AppState appState = _appCubit.state;
       final bool isAuthenticated = appState is Authenticated;
       final String currentLocation = state.matchedLocation;
+
+      _analytics.logScreen(currentLocation);
 
       if (appState is UnAuthenticated &&
           state.matchedLocation != '/login' &&
