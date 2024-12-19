@@ -1,10 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:quickdrop_sellers/src/data/datasource/auth_datasource.dart';
+import 'package:quickdrop_sellers/src/data/datasource/firebase_analytics_datasource.dart';
 import 'package:quickdrop_sellers/src/data/datasource/orders_datasource.dart';
+import 'package:quickdrop_sellers/src/data/repository/analytics_repository_impl.dart';
 import 'package:quickdrop_sellers/src/data/repository/auth_repository_impl.dart';
 import 'package:quickdrop_sellers/src/data/repository/orders_repository_impl.dart';
+import 'package:quickdrop_sellers/src/domain/repository/analytics_repository.dart';
 import 'package:quickdrop_sellers/src/domain/repository/auth_repository.dart';
 import 'package:quickdrop_sellers/src/domain/repository/orders_respository.dart';
+import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/app_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/login_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
@@ -24,6 +28,9 @@ Future<void> init() async {
   sl.registerLazySingleton<OrdersDatasource>(
     () => OrdersDatasource(),
   );
+  sl.registerLazySingleton<AnalyticsDatasource>(
+    () => AnalyticsDatasource(),
+  );
 
   //repository
   sl.registerLazySingleton<AuthRepository>(
@@ -32,7 +39,14 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<OrdersRespository>(
-    () => IOrdersRepository(datasource: sl<OrdersDatasource>()),
+    () => IOrdersRepository(
+      datasource: sl<OrdersDatasource>(),
+    ),
+  );
+  sl.registerLazySingleton<AnalyticsRepository>(
+    () => IAnalyticsRepository(
+      datasource: sl<AnalyticsDatasource>(),
+    ),
   );
 
   //usecase
@@ -56,9 +70,16 @@ Future<void> init() async {
       repository: sl<OrdersRespository>(),
     ),
   );
+  sl.registerLazySingleton<AnalyticsUsecase>(
+    () => AnalyticsUsecase(
+      repository: sl<AnalyticsRepository>(),
+    ),
+  );
   // cubit
   sl.registerLazySingleton<AppCubit>(
-    () => AppCubit(usecase: sl<AppUsecase>()),
+    () => AppCubit(
+      usecase: sl<AppUsecase>(),
+    ),
   );
   sl.registerFactory<LoginCubit>(
     () => LoginCubit(
