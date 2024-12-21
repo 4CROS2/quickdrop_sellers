@@ -19,25 +19,17 @@ class TextArea extends StatefulWidget {
 
 class _TextAreaState extends State<TextArea> {
   late final ScrollController _scrollController;
-  late final FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _focusNode = FocusNode();
-  }
-
-  void _unFocus(PointerDownEvent event) {
-    if (mounted) {
-      _focusNode.unfocus();
-    }
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _focusNode.dispose();
+
     super.dispose();
   }
 
@@ -49,8 +41,6 @@ class _TextAreaState extends State<TextArea> {
       child: TextFormField(
         scrollController: _scrollController,
         controller: widget._controller,
-        onTapOutside: _unFocus,
-        focusNode: _focusNode,
         expands: true,
         maxLines: null,
         minLines: null,

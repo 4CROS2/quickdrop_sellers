@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
           return Scaffold(
             appBar: ProfileHeader(),
             body: Padding(
-              padding: Constants.mainPadding,
+              padding: Constants.mainPaddingWithOutBottom,
               child: Column(
                 spacing: Constants.paddingValue,
                 children: <Widget>[
@@ -81,7 +81,7 @@ class _ProfileState extends State<Profile> {
                             label: 'Datos de vendedor',
                           ),
                           InformationTile(
-                            onTap: () {},
+                            onTap: () => context.push('/schedule'),
                             icon: Icons.schedule_rounded,
                             label: 'Horario de operaciones',
                             description: 'establecer horario',

@@ -13,10 +13,11 @@ class Constants {
   static BorderRadius mainBorderRadius = BorderRadius.circular(
     borderValue,
   );
-  static EdgeInsets mainPadding = EdgeInsets.symmetric(
+  static EdgeInsets mainPaddingWithOutBottom = EdgeInsets.symmetric(
     horizontal: paddingValue,
     vertical: paddingValue,
   ).copyWith(bottom: 0);
+  static EdgeInsets mainPadding = EdgeInsets.all(paddingValue);
 
   static EdgeInsets paddingTop = EdgeInsets.only(
     top: Constants.paddingValue,

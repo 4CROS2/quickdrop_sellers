@@ -9,6 +9,7 @@ import 'package:quickdrop_sellers/src/presentation/error/error.dart';
 import 'package:quickdrop_sellers/src/presentation/home/home.dart';
 import 'package:quickdrop_sellers/src/presentation/loading/loading.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/profile.dart';
+import 'package:quickdrop_sellers/src/presentation/schedule/schedule.dart';
 import 'package:quickdrop_sellers/src/routes/listener.dart';
 
 class AppRouter {
@@ -70,7 +71,8 @@ class AppRouter {
         path: '/home',
         name: 'home page',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const MaterialPage<Home>(
+          return MaterialPage<Home>(
+            name: state.name,
             child: Home(),
           );
         },
@@ -80,6 +82,7 @@ class AppRouter {
         name: 'register page',
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage<Signup>(
+            name: state.name,
             child: Signup(),
           );
         },
@@ -93,7 +96,17 @@ class AppRouter {
             child: Profile(),
           );
         },
-      )
+      ),
+      GoRoute(
+        path: '/schedule',
+        name: 'schedule',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage<Schedule>(
+            name: state.name,
+            child: Schedule(),
+          );
+        },
+      ),
     ],
   );
 }
