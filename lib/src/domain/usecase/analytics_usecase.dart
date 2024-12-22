@@ -4,7 +4,7 @@ class AnalyticsUsecase {
   AnalyticsUsecase({
     required AnalyticsRepository repository,
   }) : _repository = repository;
-  
+
   final AnalyticsRepository _repository;
 
   void logScreen(String screenName) {

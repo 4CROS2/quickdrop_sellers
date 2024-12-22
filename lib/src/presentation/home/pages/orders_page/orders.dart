@@ -80,7 +80,7 @@ class _OrdersList extends StatelessWidget {
       );
     } else {
       return Padding(
-        padding: Constants.mainPadding,
+        padding: Constants.mainPaddingWithOutBottom,
         child: CustomScrollView(
           physics: Constants.mainPhysics,
           slivers: <Widget>[

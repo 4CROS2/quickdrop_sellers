@@ -47,7 +47,7 @@ class _AuthButtonState extends State<AuthButton>
             child: child,
           ),
           child: Padding(
-            padding: Constants.mainPadding.copyWith(top: 0) * 2,
+            padding: Constants.mainPaddingWithOutBottom.copyWith(top: 0) * 2,
             child: Material(
               color: Colors.red,
               borderRadius: Constants.mainBorderRadius,

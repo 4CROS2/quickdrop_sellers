@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/core/extensions/theme_extensions.dart';
 import 'package:toastification/toastification.dart';
 
 class AppToastification {
@@ -47,9 +48,13 @@ class AppToastification {
       description: Text(message),
       autoCloseDuration: const Duration(seconds: 5),
       showProgressBar: true,
+      progressBarTheme: ProgressIndicatorThemeData(
+        color: Constants.secondaryColor,
+      ),
       primaryColor: primaryColor,
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
+      backgroundColor: context.theme.cardColor,
+      foregroundColor: context.textTheme.bodyLarge!.color,
+      borderSide: BorderSide(color: context.theme.cardColor),
       borderRadius: Constants.mainBorderRadius,
       type: type,
       style: ToastificationStyle.flat,

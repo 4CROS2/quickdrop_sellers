@@ -33,8 +33,6 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
-  late final FocusNode _focusNode;
-
   bool _showText = true;
   void toggleShowText() {
     setState(
@@ -43,29 +41,11 @@ class _TextInputState extends State<TextInput> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-  }
-
-  void _unFocus(PointerDownEvent event) {
-    _focusNode.unfocus();
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      focusNode: _focusNode,
       controller: widget._controller,
       enabled: widget._isEnabled,
       onChanged: widget._onChanged,
-      onTapOutside: _unFocus,
       obscureText: widget._isPassword && _showText,
       validator: widget._validator,
       keyboardType: widget._textInputType,
