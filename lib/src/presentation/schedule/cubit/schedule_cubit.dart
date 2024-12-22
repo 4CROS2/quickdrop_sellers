@@ -32,6 +32,11 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   }
 
   Future<void> saveSchedules() async {
+    emit(
+      state.copyWith(
+        saveStatus: ScheduleStatus.initial,
+      ),
+    );
     if (!_hasChanges()) {
       emit(state.copyWith(
         saveStatus: ScheduleStatus.error,
@@ -58,21 +63,13 @@ class ScheduleCubit extends Cubit<ScheduleState> {
           message: response,
         ),
       );
-
+    } catch (e) {
       emit(
         state.copyWith(
-          saveStatus: ScheduleStatus.initial,
+          saveStatus: ScheduleStatus.error,
+          message: e.toString(),
         ),
       );
-    } catch (e) {
-      emit(state.copyWith(
-        saveStatus: ScheduleStatus.error,
-        message: e.toString(),
-      ));
-      emit(state.copyWith(
-        saveStatus: ScheduleStatus.initial,
-        message: '',
-      ));
     }
   }
 
@@ -104,27 +101,47 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   }
 
   void _emitNewSchedules({required List<ScheduleEntity> newSchedules}) {
-    emit(state.copyWith(newSchedules: newSchedules));
+    emit(
+      state.copyWith(
+        newSchedules: newSchedules,
+        saveStatus: ScheduleStatus.initial,
+      ),
+    );
   }
 
   bool _hasChanges() {
-    if (state.schedules.length != state.newSchedules.length) {
-      return true;
+    // Convertir ambas listas en mapas para facilitar la comparación
+    final Map<String, ScheduleEntity> currentSchedulesMap =
+        <String, ScheduleEntity>{
+      for (final ScheduleEntity schedule in state.schedules)
+        schedule.day: schedule
+    };
+    final Map<String, ScheduleEntity> newSchedulesMap =
+        <String, ScheduleEntity>{
+      for (final ScheduleEntity schedule in state.newSchedules)
+        schedule.day: schedule
+    };
+
+    // Compara ambos mapas, detectando eliminaciones, adiciones y modificaciones
+    if (currentSchedulesMap.keys.length != newSchedulesMap.keys.length) {
+      return true; // Hay un cambio en la cantidad de días
     }
 
-    for (final ScheduleEntity schedule in state.schedules) {
-      final ScheduleEntity newSchedule = state.newSchedules.firstWhere(
-        (ScheduleEntity element) => element.day == schedule.day,
-        orElse: () => const ScheduleEntity.empty(),
-      );
-
-      if (newSchedule.isEmpty ||
-          newSchedule.openHour != schedule.openHour ||
-          newSchedule.closeHour != schedule.closeHour) {
+    for (final String day in currentSchedulesMap.keys) {
+      final ScheduleEntity? newSchedule = newSchedulesMap[day];
+      if (newSchedule == null ||
+          newSchedule.openHour != currentSchedulesMap[day]?.openHour ||
+          newSchedule.closeHour != currentSchedulesMap[day]?.closeHour) {
         return true;
       }
     }
 
-    return false;
+    for (final String day in newSchedulesMap.keys) {
+      if (!currentSchedulesMap.containsKey(day)) {
+        return true; // Día añadido
+      }
+    }
+
+    return false; // No hay diferencias
   }
 }
