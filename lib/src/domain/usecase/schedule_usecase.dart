@@ -10,6 +10,6 @@ class ScheduleUsecase {
 
   Future<List<ScheduleEntity>> getSchedules() => _repository.getSchedules();
 
-  Future<void> saveSchedules({required List<ScheduleEntity> schedules}) =>
+  Future<String> saveSchedules({required List<ScheduleEntity> schedules}) =>
       _repository.saveSchedules(schedules: schedules);
 }

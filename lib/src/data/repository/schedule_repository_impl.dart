@@ -27,7 +27,18 @@ class IScheduleRepository implements ScheduleRepository {
   }
 
   @override
-  Future<void> saveSchedules({required List<ScheduleEntity> schedules}) {
-    throw UnimplementedError();
+  Future<String> saveSchedules({required List<ScheduleEntity> schedules}) async {
+    try {
+      // Convertir la lista de ScheduleEntity a ScheduleModel
+      final List<ScheduleModel> scheduleModels = schedules
+          .map((ScheduleEntity entity) =>
+              ScheduleModel.fromEntity(entity: entity))
+          .toList();
+
+      // Llamar al datasource para guardar los schedules
+      return await _datasource.updateSchedule(schedule: scheduleModels);
+    } catch (e) {
+      throw Exception('Error al guardar los horarios: $e');
+    }
   }
 }

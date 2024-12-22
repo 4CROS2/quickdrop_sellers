@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
@@ -41,8 +42,33 @@ class _ScheduleState extends State<Schedule> {
       create: (BuildContext context) => sl<ScheduleCubit>()..getSchedules(),
       child: Scaffold(
         appBar: ScheduleAppbar(),
-        body: BlocBuilder<ScheduleCubit, ScheduleState>(
-            builder: (BuildContext context, ScheduleState state) {
+        body: BlocConsumer<ScheduleCubit, ScheduleState>(
+            listener: (BuildContext context, ScheduleState state) {
+          if (state.saveStatus == ScheduleStatus.loading) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            );
+          }
+          if (state.saveStatus == ScheduleStatus.error ||
+              state.saveStatus == ScheduleStatus.success) {
+            showCupertinoModalPopup(
+              context: context,
+              useRootNavigator: true,
+              builder: (BuildContext context) {
+                return CupertinoAlertDialog(
+                  content: Text(state.message),
+                );
+              },
+            );
+          }
+        }, builder: (BuildContext context, ScheduleState state) {
           return AnimatedSwitcher(
             duration: Constants.mainDuration,
             child: switch (state.status) {

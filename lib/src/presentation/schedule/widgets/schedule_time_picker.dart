@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 
 class SelectableTime extends StatefulWidget {
@@ -87,6 +88,14 @@ class _SelectableTimeState extends State<SelectableTime>
       context: context,
       initialTime: parseTimeString(_selectedTime ?? widget._initialValue) ??
           TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            alwaysUse24HourFormat: true,
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (time != null) {
@@ -100,8 +109,12 @@ class _SelectableTimeState extends State<SelectableTime>
     }
   }
 
-  String _formatTime(TimeOfDay time) {
-    return time.format(context);
+  
+String _formatTime(TimeOfDay time) {
+    final DateTime now = DateTime.now();
+    final DateTime dateTime =
+        DateTime(now.year, now.month, now.day, time.hour, time.minute);
+    return DateFormat('HH:mm').format(dateTime);
   }
 
   @override

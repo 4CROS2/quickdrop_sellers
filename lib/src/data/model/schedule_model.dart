@@ -21,11 +21,12 @@ class ScheduleModel extends ScheduleEntity {
       closeHour: json['close_hour'],
     );
   }
-  Map<String, String> toJson() {
-    return <String, String>{
-      'day': day,
-      'openHour': openHour,
-      'closeHour': closeHour,
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      day: <String, String>{
+        'open_hour': openHour,
+        'close_hour': closeHour,
+      },
     };
   }
 }
