@@ -109,8 +109,7 @@ class _SelectableTimeState extends State<SelectableTime>
     }
   }
 
-  
-String _formatTime(TimeOfDay time) {
+  String _formatTime(TimeOfDay time) {
     final DateTime now = DateTime.now();
     final DateTime dateTime =
         DateTime(now.year, now.month, now.day, time.hour, time.minute);
@@ -137,6 +136,7 @@ String _formatTime(TimeOfDay time) {
         type: MaterialType.card,
         borderRadius: Constants.mainBorderRadius / 2,
         clipBehavior: Clip.hardEdge,
+        elevation: widget._enabled == false ? 0 : 5,
         child: IgnorePointer(
           ignoring: widget._enabled == false,
           child: InkWell(

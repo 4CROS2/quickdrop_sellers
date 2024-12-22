@@ -27,7 +27,8 @@ class IScheduleRepository implements ScheduleRepository {
   }
 
   @override
-  Future<String> saveSchedules({required List<ScheduleEntity> schedules}) async {
+  Future<String> saveSchedules(
+      {required List<ScheduleEntity> schedules}) async {
     try {
       // Convertir la lista de ScheduleEntity a ScheduleModel
       final List<ScheduleModel> scheduleModels = schedules

@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/domain/entity/schedule_entity.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/cubit/schedule_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/widgets/schedule_appbar.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/widgets/schedule_tile.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});
@@ -35,49 +36,91 @@ class _ScheduleState extends State<Schedule> {
     'sábado',
     'domingo'
   ];
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Evita que se cierre al tocar fuera
+      builder: (_) => Center(
+        child: SizedBox(
+          width: 300,
+          height: 150,
+          child: Material(
+            borderRadius: Constants.mainBorderRadius,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: Constants.paddingValue,
+                children: <Widget>[
+                  Center(
+                    child: const CircularProgressIndicator(),
+                  ),
+                  const Text('Guardando cambios...'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showResultDialog(
+      BuildContext context, String message, ScheduleStatus status) {
+    if (status == ScheduleStatus.success) {
+      AppToastification.showSuccess(
+        context: context,
+        message: message,
+      );
+    } else {
+      AppToastification.showError(
+        context: context,
+        message: message,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ScheduleCubit>(
       create: (BuildContext context) => sl<ScheduleCubit>()..getSchedules(),
       child: Scaffold(
+        drawerEnableOpenDragGesture: true,
         appBar: ScheduleAppbar(),
         body: BlocConsumer<ScheduleCubit, ScheduleState>(
-            listener: (BuildContext context, ScheduleState state) {
-          if (state.saveStatus == ScheduleStatus.loading) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  content: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+          buildWhen: (ScheduleState previous, ScheduleState current) {
+            if (previous.saveStatus == ScheduleStatus.loading &&
+                    current.saveStatus == ScheduleStatus.error ||
+                current.saveStatus == ScheduleStatus.success) {
+              context.pop();
+            }
+
+            return true;
+          },
+          listener: (BuildContext context, ScheduleState state) {
+            // Mostrar diálogo de carga
+
+            if (state.saveStatus == ScheduleStatus.loading) {
+              _showLoadingDialog(context);
+              return;
+            }
+
+            // Mostrar   notificación de éxito o error
+            if (state.saveStatus == ScheduleStatus.error ||
+                state.saveStatus == ScheduleStatus.success) {
+              _showResultDialog(context, state.message, state.saveStatus);
+            }
+          },
+          builder: (BuildContext context, ScheduleState state) {
+            return AnimatedSwitcher(
+              duration: Constants.mainDuration,
+              child: switch (state.status) {
+                ScheduleStatus.error => _buildError(state.message),
+                ScheduleStatus.success => _buildSuccess(context, state),
+                _ => _buildLoading(),
               },
             );
-          }
-          if (state.saveStatus == ScheduleStatus.error ||
-              state.saveStatus == ScheduleStatus.success) {
-            showCupertinoModalPopup(
-              context: context,
-              useRootNavigator: true,
-              builder: (BuildContext context) {
-                return CupertinoAlertDialog(
-                  content: Text(state.message),
-                );
-              },
-            );
-          }
-        }, builder: (BuildContext context, ScheduleState state) {
-          return AnimatedSwitcher(
-            duration: Constants.mainDuration,
-            child: switch (state.status) {
-              ScheduleStatus.error => _buildError(state.message),
-              ScheduleStatus.success => _buildSuccess(context, state),
-              _ => _buildLoading(),
-            },
-          );
-        }),
+          },
+        ),
       ),
     );
   }
@@ -120,7 +163,7 @@ class _ScheduleState extends State<Schedule> {
                     day: dayTranslations[schedule.day] ?? schedule.day,
                   );
 
-                  context.read<ScheduleCubit>().newSchedules(
+                  context.read<ScheduleCubit>().updateSchedule(
                         day: englishDay,
                         schedule: updatedSchedule,
                       );

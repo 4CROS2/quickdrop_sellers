@@ -6,9 +6,8 @@ import 'package:quickdrop_sellers/src/domain/usecase/schedule_usecase.dart';
 part 'schedule_state.dart';
 
 class ScheduleCubit extends Cubit<ScheduleState> {
-  ScheduleCubit({
-    required ScheduleUsecase usecase,
-  })  : _usecase = usecase,
+  ScheduleCubit({required ScheduleUsecase usecase})
+      : _usecase = usecase,
         super(const ScheduleState());
 
   final ScheduleUsecase _usecase;
@@ -24,10 +23,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
         newSchedules: schedules,
       ));
     } catch (e) {
-      emit(state.copyWith(
-        status: ScheduleStatus.error,
-        message: e.toString(),
-      ));
+      _emitError(message: e.toString());
     }
   }
 
@@ -37,11 +33,11 @@ class ScheduleCubit extends Cubit<ScheduleState> {
         saveStatus: ScheduleStatus.initial,
       ),
     );
-    if (!_hasChanges()) {
-      emit(state.copyWith(
-        saveStatus: ScheduleStatus.error,
+    if (!hasChanges()) {
+      _emitError(
         message: 'No hay cambios para guardar',
-      ));
+        saveStatus: true,
+      );
       return;
     }
 
@@ -52,96 +48,79 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     );
 
     try {
-      final String response = await _usecase.saveSchedules(
+      final String response =
+          await _usecase.saveSchedules(schedules: state.newSchedules);
+      emit(state.copyWith(
+        saveStatus: ScheduleStatus.success,
         schedules: state.newSchedules,
-      );
-
-      emit(
-        state.copyWith(
-          saveStatus: ScheduleStatus.success,
-          schedules: state.newSchedules,
-          message: response,
-        ),
-      );
+        message: response,
+      ));
     } catch (e) {
+      _emitError(
+        message: e.toString(),
+        saveStatus: true,
+      );
+    } finally {
       emit(
         state.copyWith(
-          saveStatus: ScheduleStatus.error,
-          message: e.toString(),
+          saveStatus: ScheduleStatus.initial,
         ),
       );
     }
   }
 
-  void newSchedules({
-    required String day,
-    ScheduleEntity? schedule,
-  }) {
-    final List<ScheduleEntity> newSchedules = List<ScheduleEntity>.from(
-      state.newSchedules,
-    );
+  void updateSchedule({required String day, ScheduleEntity? schedule}) {
+    final List<ScheduleEntity> newSchedules =
+        List<ScheduleEntity>.from(state.newSchedules);
 
     if (schedule == null) {
-      newSchedules.removeWhere(
-        (ScheduleEntity element) => element.day == day,
-      );
+      // Eliminar el horario del día
+      newSchedules.removeWhere((ScheduleEntity element) => element.day == day);
     } else if (!schedule.isEmpty) {
-      final int index = newSchedules.indexWhere(
-        (ScheduleEntity element) => element.day == day,
-      );
-
-      if (index != -1) {
-        newSchedules[index] = schedule;
-      } else {
-        newSchedules.add(schedule);
-      }
+      // Actualizar o añadir el horario
+      final int index = newSchedules
+          .indexWhere((ScheduleEntity element) => element.day == day);
+      index != -1 ? newSchedules[index] = schedule : newSchedules.add(schedule);
     }
 
-    _emitNewSchedules(newSchedules: newSchedules);
+    emit(state.copyWith(
+        newSchedules: newSchedules, saveStatus: ScheduleStatus.initial));
   }
 
-  void _emitNewSchedules({required List<ScheduleEntity> newSchedules}) {
-    emit(
-      state.copyWith(
-        newSchedules: newSchedules,
-        saveStatus: ScheduleStatus.initial,
-      ),
-    );
-  }
+  bool hasChanges() {
+    final Map<String, ScheduleEntity> currentMap =
+        _toScheduleMap(state.schedules);
+    final Map<String, ScheduleEntity> newMap =
+        _toScheduleMap(state.newSchedules);
 
-  bool _hasChanges() {
-    // Convertir ambas listas en mapas para facilitar la comparación
-    final Map<String, ScheduleEntity> currentSchedulesMap =
-        <String, ScheduleEntity>{
-      for (final ScheduleEntity schedule in state.schedules)
-        schedule.day: schedule
-    };
-    final Map<String, ScheduleEntity> newSchedulesMap =
-        <String, ScheduleEntity>{
-      for (final ScheduleEntity schedule in state.newSchedules)
-        schedule.day: schedule
-    };
-
-    // Compara ambos mapas, detectando eliminaciones, adiciones y modificaciones
-    if (currentSchedulesMap.keys.length != newSchedulesMap.keys.length) {
-      return true; // Hay un cambio en la cantidad de días
+    // Verificar diferencias en días o cambios en horarios
+    if (currentMap.keys.length != newMap.keys.length) {
+      return true;
     }
 
-    for (final String day in currentSchedulesMap.keys) {
-      final ScheduleEntity? newSchedule = newSchedulesMap[day];
-      if (newSchedule == null ||
-          newSchedule.openHour != currentSchedulesMap[day]?.openHour ||
-          newSchedule.closeHour != currentSchedulesMap[day]?.closeHour) {
+    for (final String day in currentMap.keys) {
+      final ScheduleEntity? current = currentMap[day];
+      final ScheduleEntity? updated = newMap[day];
+      if (updated == null ||
+          current!.openHour != updated.openHour ||
+          current.closeHour != updated.closeHour) {
         return true;
       }
     }
+    return false;
+  }
 
-    for (final String day in newSchedulesMap.keys) {
-      if (!currentSchedulesMap.containsKey(day)) {
-        return true; // Día añadido
-      }
-    }
+  Map<String, ScheduleEntity> _toScheduleMap(List<ScheduleEntity> schedules) {
+    return <String, ScheduleEntity>{
+      for (final ScheduleEntity schedule in schedules) schedule.day: schedule
+    };
+  }
 
-    return false; // No hay diferencias
+  void _emitError({required String message, bool saveStatus = false}) {
+    emit(state.copyWith(
+      message: message,
+      saveStatus: saveStatus ? ScheduleStatus.error : state.saveStatus,
+      status: saveStatus ? state.status : ScheduleStatus.error,
+    ));
   }
 }

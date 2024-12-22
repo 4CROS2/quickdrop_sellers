@@ -15,7 +15,7 @@ class ScheduleAppbar extends CustomAppBar {
           actions: <Widget>[
             IconButton(
               icon: Badge(
-                isLabelVisible: state.newSchedules.isNotEmpty,
+                isLabelVisible: context.read<ScheduleCubit>().hasChanges(),
                 child: const Icon(Icons.save),
               ),
               onPressed: () {
