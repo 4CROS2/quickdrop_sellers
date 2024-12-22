@@ -39,7 +39,7 @@ class _ScheduleState extends State<Schedule> {
   void _showLoadingDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: false, // Evita que se cierre al tocar fuera
+      barrierDismissible: false,
       builder: (_) => Center(
         child: SizedBox(
           width: 300,
@@ -97,14 +97,11 @@ class _ScheduleState extends State<Schedule> {
             return true;
           },
           listener: (BuildContext context, ScheduleState state) {
-            // Mostrar diálogo de carga
-
             if (state.saveStatus == ScheduleStatus.loading) {
               _showLoadingDialog(context);
               return;
             }
 
-            // Mostrar   notificación de éxito o error
             if (state.saveStatus == ScheduleStatus.error ||
                 state.saveStatus == ScheduleStatus.success) {
               _showResultDialog(context, state.message, state.saveStatus);
@@ -112,7 +109,13 @@ class _ScheduleState extends State<Schedule> {
           },
           builder: (BuildContext context, ScheduleState state) {
             return AnimatedSwitcher(
-              duration: Constants.mainDuration,
+              duration: Constants.mainDuration * 2,
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
               child: switch (state.status) {
                 ScheduleStatus.error => _buildError(state.message),
                 ScheduleStatus.success => _buildSuccess(context, state),
