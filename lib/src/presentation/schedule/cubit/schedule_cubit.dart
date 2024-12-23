@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/domain/entity/schedule_entity.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/schedule_usecase.dart';
 
@@ -13,15 +14,24 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   final ScheduleUsecase _usecase;
 
   Future<void> getSchedules() async {
-    emit(state.copyWith(status: ScheduleStatus.loading));
+    emit(
+      state.copyWith(
+        status: ScheduleStatus.loading,
+      ),
+    );
 
     try {
       final List<ScheduleEntity> schedules = await _usecase.getSchedules();
-      emit(state.copyWith(
-        status: ScheduleStatus.success,
-        schedules: schedules,
-        newSchedules: schedules,
-      ));
+      Future<void>.delayed(
+        Constants.mainDuration * 3,
+        () {
+          emit(state.copyWith(
+            status: ScheduleStatus.success,
+            schedules: schedules,
+            newSchedules: schedules,
+          ));
+        },
+      );
     } catch (e) {
       _emitError(message: e.toString());
     }
