@@ -96,14 +96,20 @@ class _ProfileState extends State<Profile> {
                       TextSpan(
                         text: 'puedes '.capitalize(),
                         style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Questrial'),
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Questrial',
+                        ),
                         children: <InlineSpan>[
                           TextSpan(
-                              text: 'cerrar tu cuenta ',
-                              style: TextStyle(color: Constants.secondaryColor),
-                              recognizer: _recognizer),
-                          TextSpan(text: 'cuando desees.')
+                            text: 'cerrar tu cuenta ',
+                            style: TextStyle(
+                              color: Constants.secondaryColor,
+                            ),
+                            recognizer: _recognizer,
+                          ),
+                          TextSpan(
+                            text: 'cuando desees.',
+                          )
                         ],
                       ),
                     ),

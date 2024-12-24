@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 
-class LoadingPopUp extends StatelessWidget {
-  const LoadingPopUp({
+class LoadingDataAnimation extends StatelessWidget {
+  const LoadingDataAnimation({
     super.key,
   });
 

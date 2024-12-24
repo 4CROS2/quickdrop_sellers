@@ -8,6 +8,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
 import 'package:quickdrop_sellers/src/presentation/error/error.dart';
 import 'package:quickdrop_sellers/src/presentation/home/home.dart';
 import 'package:quickdrop_sellers/src/presentation/loading/loading.dart';
+import 'package:quickdrop_sellers/src/presentation/productDetail/product_detail.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/profile.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/schedule.dart';
 import 'package:quickdrop_sellers/src/routes/listener.dart';
@@ -107,6 +108,19 @@ class AppRouter {
           );
         },
       ),
+      GoRoute(
+        path: '/productdetail/:productId',
+        name: 'product details',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final String? productId = state.pathParameters['productId'];
+          return MaterialPage<ProductDetail>(
+            name: state.name,
+            child: ProductDetail(
+              productId: productId!,
+            ),
+          );
+        },
+      )
     ],
   );
 }
