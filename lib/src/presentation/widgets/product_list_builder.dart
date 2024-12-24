@@ -9,23 +9,43 @@ class ProductListBuilder extends StatelessWidget {
     required String title,
     required String listEmptyMessage,
     required int itemCount,
-    required Widget Function(BuildContext context, int index) itemBuilder,
+    required Widget Function(
+      BuildContext context,
+      int index,
+    ) itemBuilder,
+    VoidCallback? refreshOnTap,
+    bool showRefreshButton = false,
     super.key,
   })  : _itemCount = itemCount,
         _itemBuilder = itemBuilder,
         _title = title,
-        _listEmptyMessage = listEmptyMessage;
+        _listEmptyMessage = listEmptyMessage,
+        _refreshOnTap = refreshOnTap,
+        _showRefreshButton = showRefreshButton;
 
   final int _itemCount;
   final String _listEmptyMessage;
   final String _title;
   final Widget? Function(BuildContext, int) _itemBuilder;
-
+  final VoidCallback? _refreshOnTap;
+  final bool _showRefreshButton;
   @override
   Widget build(BuildContext context) {
     if (_itemCount == 0) {
-      return EmptyResponse(
-        label: _listEmptyMessage.capitalize(),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          EmptyResponse(
+            label: _listEmptyMessage.capitalize(),
+          ),
+          if (_showRefreshButton)
+            ElevatedButton(
+              onPressed: _refreshOnTap,
+              child: Text(
+                'refescar'.capitalize(),
+              ),
+            )
+        ],
       );
     }
     return Padding(

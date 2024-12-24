@@ -21,7 +21,7 @@ class Error extends ProductsState {
 class Success extends ProductsState {
   const Success({required this.products});
 
-  final List<dynamic> products;
+  final List<ProductsEntity> products;
 
   @override
   List<Object> get props => <Object>[products];

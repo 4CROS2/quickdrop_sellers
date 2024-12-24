@@ -17,6 +17,10 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products>
     with AutomaticKeepAliveClientMixin {
+  Future<void> _refreshPage() async {
+    await context.read<ProductsCubit>().getProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -44,13 +48,20 @@ class _ProductsState extends State<Products>
                 Error _ => Center(
                     child: Text(state.message),
                   ),
-                Success _ => ProductListBuilder(
-                    title: 'tus productos',
-                    listEmptyMessage: 'no tiene productos registrados',
-                    itemCount: state.products.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ProductTile();
-                    },
+                Success _ => RefreshIndicator(
+                    onRefresh: () => _refreshPage(),
+                    child: ProductListBuilder(
+                      title: 'tus productos',
+                      listEmptyMessage: 'no tiene productos registrados',
+                      itemCount: state.products.length,
+                      showRefreshButton: true,
+                      refreshOnTap: () => _refreshPage(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ProductTile(
+                          product: state.products[index],
+                        );
+                      },
+                    ),
                   ),
                 _ => LoadingDataAnimation(),
               },

@@ -1,23 +1,32 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/domain/entity/products_entity.dart';
+import 'package:quickdrop_sellers/src/domain/usecase/products_usecase.dart';
 
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit() : super(Loading()) {
+  ProductsCubit({
+    required ProductsUsecase usecase,
+  })  : _usecase = usecase,
+        super(Loading()) {
     getProducts();
   }
+  final ProductsUsecase _usecase;
 
   Future<void> getProducts() async {
-    Future<void>.delayed(Constants.mainDuration * 10, () {
+    emit(Loading());
+    try {
+      final List<ProductsEntity> response = await _usecase.getProduts();
+      emit(Success(products: response));
+    } catch (e) {
       emit(
-        Success(
-          products: <dynamic>['a', 'a'],
+        Error(
+          message: e.toString(),
         ),
       );
-    });
+    }
   }
 
   void hapticClickVibration() {
