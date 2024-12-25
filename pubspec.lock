@@ -190,10 +190,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "296d31e256ec037f19d96c36d4f194bfe0e63d20"
+      resolved-ref: "8963a9378e4f3607180a7908585e7a9bd6059157"
       url: "https://github.com/4CROS2/custom-dropdown-menu.git"
     source: git
-    version: "0.0.3"
+    version: "0.0.6"
   dart_code_metrics:
     dependency: "direct dev"
     description:

@@ -17,7 +17,7 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products>
     with AutomaticKeepAliveClientMixin {
-  Future<void> _refreshPage() async {
+  Future<void> _refreshPage(BuildContext context) async {
     await context.read<ProductsCubit>().getProducts();
   }
 
@@ -49,13 +49,13 @@ class _ProductsState extends State<Products>
                     child: Text(state.message),
                   ),
                 Success _ => RefreshIndicator(
-                    onRefresh: () => _refreshPage(),
+                    onRefresh: () => _refreshPage(context),
                     child: ProductListBuilder(
                       title: 'tus productos',
                       listEmptyMessage: 'no tiene productos registrados',
                       itemCount: state.products.length,
                       showRefreshButton: true,
-                      refreshOnTap: () => _refreshPage(),
+                      refreshOnTap: () => _refreshPage(context),
                       itemBuilder: (BuildContext context, int index) {
                         return ProductTile(
                           product: state.products[index],

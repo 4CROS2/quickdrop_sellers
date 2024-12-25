@@ -45,12 +45,6 @@ class _ProductTileState extends State<ProductTile> {
         type: MaterialType.card,
         borderRadius: Constants.mainBorderRadius,
         child: InkWell(
-          onTapDown: (TapDownDetails details) {
-            _productsCubit.hapticClickVibration();
-          },
-          onTapUp: (TapUpDetails details) {
-            _productsCubit.hapticClickVibration();
-          },
           onTap: () => _showProduct(context, productId: 'ass'),
           child: SizedBox(
             width: double.infinity,
@@ -100,6 +94,7 @@ class _ProductTileState extends State<ProductTile> {
                   IconButton(
                     key: _optionsKey,
                     onPressed: () {
+                      _productsCubit.hapticClickVibration();
                       CustomDropdownMenu.showCustomMenu(
                         context,
                         widgetKey: _optionsKey,
