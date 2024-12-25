@@ -1,13 +1,11 @@
-import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
-import 'package:quickdrop_sellers/src/domain/entity/order_entity.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/cubit/orders_page_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/widgets/order_header.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/widgets/order_tile.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/product_list_builder.dart';
 
 class Orders extends StatefulWidget {
   const Orders({super.key});
@@ -35,16 +33,23 @@ class _OrdersState extends State<Orders> with AutomaticKeepAliveClientMixin {
               );
             },
             child: switch (state) {
-              Loading _ => Center(
-                  child: CircularProgressIndicator.adaptive(),
-                ),
               Error _ => Center(
                   child: Text(state.message),
                 ),
-              Success _ => _OrdersList(
-                  orders: state.orders,
+              Success _ => ProductListBuilder(
+                  title: 'tus ordenes',
+                  listEmptyMessage: 'no tienes ordenes pendientes',
+                  itemCount: state.orders.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return OrderTile(
+                      onTap: () {},
+                      order: state.orders[index],
+                    );
+                  },
                 ),
-              _ => SizedBox.shrink()
+              _ => Center(
+                  child: CircularProgressIndicator.adaptive(),
+                ),
             },
           );
         },
@@ -54,53 +59,4 @@ class _OrdersState extends State<Orders> with AutomaticKeepAliveClientMixin {
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class _OrdersList extends StatelessWidget {
-  const _OrdersList({required List<OrderEntity> orders}) : _orders = orders;
-  final List<OrderEntity> _orders;
-
-  @override
-  Widget build(BuildContext context) {
-    if (_orders.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: Constants.borderValue,
-          children: <Widget>[
-            Icon(
-              Icons.inbox_rounded,
-              size: 100,
-            ),
-            Text(
-              'no tienes ordenes pendientes'.capitalize(),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Padding(
-        padding: Constants.mainPaddingWithOutBottom,
-        child: CustomScrollView(
-          physics: Constants.mainPhysics,
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              delegate: OrdersHeader(
-                label: 'tus pedidos',
-              ),
-            ),
-            SliverList.builder(
-              itemCount: _orders.length,
-              itemBuilder: (BuildContext context, int index) {
-                return OrderTile(
-                  onTap: () {},
-                  order: _orders[index],
-                );
-              },
-            )
-          ],
-        ),
-      );
-    }
-  }
 }

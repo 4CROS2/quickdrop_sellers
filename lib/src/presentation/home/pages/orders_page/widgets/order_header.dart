@@ -1,8 +1,8 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 
-class OrdersHeader extends SliverPersistentHeaderDelegate {
-  OrdersHeader({
+class ProductListBuilderHeader extends SliverPersistentHeaderDelegate {
+  ProductListBuilderHeader({
     String label = '',
   }) : _label = label;
 
