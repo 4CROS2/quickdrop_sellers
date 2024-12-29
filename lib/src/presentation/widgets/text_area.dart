@@ -1,18 +1,25 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/core/extensions/theme_extensions.dart';
 
 class TextArea extends StatefulWidget {
   const TextArea({
     TextEditingController? controller,
+    String? Function(String? value)? validator,
+    Function(String value)? onChange,
     String? label,
     super.key,
   })  : _controller = controller,
-        _label = label;
+        _validatror = validator,
+        _label = label,
+        _onChange = onChange;
 
   final TextEditingController? _controller;
   final String? _label;
-
+  final String? Function(String? value)? _validatror;
+  final Function(String value)? _onChange;
   @override
   State<TextArea> createState() => _TextAreaState();
 }
@@ -44,15 +51,28 @@ class _TextAreaState extends State<TextArea> {
         expands: true,
         maxLines: null,
         minLines: null,
+        validator: widget._validatror,
+        onChanged: widget._onChange,
+        cursorOpacityAnimates: true,
+        cursorRadius: Radius.circular(Constants.borderValue),
         textAlignVertical: TextAlignVertical.top,
         textAlign: TextAlign.start,
         decoration: InputDecoration(
           labelText: widget._label?.capitalize(),
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Questrial',
+            color: context.textTheme.titleLarge!.color,
+          ),
           alignLabelWithHint: true,
         ),
         inputFormatters: <TextInputFormatter>[
           CapitalizeAfterDotFormatter(),
         ],
+        style: TextStyle(
+          fontFamily: 'Questrial',
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

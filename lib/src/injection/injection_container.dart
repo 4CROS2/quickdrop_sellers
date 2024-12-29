@@ -17,6 +17,7 @@ import 'package:quickdrop_sellers/src/domain/repository/schedule_repository.dart
 import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/app_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/login_usecase.dart';
+import 'package:quickdrop_sellers/src/domain/usecase/new_product_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/products_usecase.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/schedule_usecase.dart';
@@ -26,6 +27,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/cubit/home_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/products/cubit/products_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/newProduct/cubit/newproduct_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/cubit/schedule_cubit.dart';
 
 final GetIt sl = GetIt.instance;
@@ -69,7 +71,7 @@ Future<void> init() async {
       datasource: sl<ScheduleDatasource>(),
     ),
   );
-  sl.registerLazySingleton<ProductsRepository>(
+  sl.registerLazySingleton<ProductRepository>(
     () => IProductsRepository(
       datasource: sl<ProductsDatasource>(),
     ),
@@ -107,7 +109,12 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<ProductsUsecase>(
     () => ProductsUsecase(
-      reposity: sl<ProductsRepository>(),
+      reposity: sl<ProductRepository>(),
+    ),
+  );
+  sl.registerLazySingleton<NewProductUsecase>(
+    () => NewProductUsecase(
+      repository: sl<ProductRepository>(),
     ),
   );
   // cubit
@@ -122,7 +129,9 @@ Future<void> init() async {
     ),
   );
   sl.registerFactory<SignupCubit>(
-    () => SignupCubit(usecase: sl<SignupUsecase>()),
+    () => SignupCubit(
+      usecase: sl<SignupUsecase>(),
+    ),
   );
   sl.registerFactory<HomeCubit>(
     () => HomeCubit(),
@@ -135,6 +144,11 @@ Future<void> init() async {
   sl.registerFactory<ProductsCubit>(
     () => ProductsCubit(
       usecase: sl<ProductsUsecase>(),
+    ),
+  );
+  sl.registerFactory<NewProductCubit>(
+    () => NewProductCubit(
+      usecase: sl<NewProductUsecase>(),
     ),
   );
 }

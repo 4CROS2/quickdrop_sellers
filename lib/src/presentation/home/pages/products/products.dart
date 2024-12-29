@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/products/cubit/products_cubit.dart';
@@ -28,6 +29,7 @@ class _ProductsState extends State<Products>
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           HapticFeedback.selectionClick();
+          context.push('/addnewproduct');
         },
         elevation: 0,
         child: const Icon(Icons.add),
