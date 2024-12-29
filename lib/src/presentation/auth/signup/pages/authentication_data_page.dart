@@ -67,14 +67,14 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
           label: 'datos de autenticacion',
           formKey: widget._globalKey,
           children: <Widget>[
-            TextInput(
+            InputText(
               controller: _emailController,
               labelText: 'correo',
               validator: emailvalidator,
             ),
             Padding(
               padding: Constants.paddingTop,
-              child: TextInput(
+              child: InputText(
                 controller: _passwordController,
                 labelText: 'contraseña',
                 isPassword: true,
@@ -83,7 +83,7 @@ class _AuthenticationDataPageState extends State<AuthenticationDataPage> {
             ),
             Padding(
               padding: Constants.paddingTop,
-              child: TextInput(
+              child: InputText(
                 controller: _verifyPasswordController,
                 labelText: 'repita la contraseña',
                 isPassword: true,

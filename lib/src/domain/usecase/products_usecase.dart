@@ -3,9 +3,9 @@ import 'package:quickdrop_sellers/src/domain/repository/products_repository.dart
 
 class ProductsUsecase {
   ProductsUsecase({
-    required ProductsRepository reposity,
+    required ProductRepository reposity,
   }) : _repository = reposity;
-  final ProductsRepository _repository;
+  final ProductRepository _repository;
 
   Future<List<ProductsEntity>> getProduts() => _repository.getProduts();
 }

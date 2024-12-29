@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/presentation/newProduct/new_product.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
@@ -118,6 +119,15 @@ class AppRouter {
             child: ProductDetail(
               productId: productId!,
             ),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/addnewproduct',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage<AddNewProduct>(
+            child: AddNewProduct(),
+            name: state.name,
           );
         },
       )

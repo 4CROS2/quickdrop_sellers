@@ -1,7 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Permiso de conexión a Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
-
+    
+    <!-- Permiso para acceder al almacenamiento -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <!-- Permiso para usar la red de WiFi o datos móviles -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -20,7 +26,8 @@
         android:label="Quickdrop Sellers"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:enableOnBackInvokedCallback="true">
+        android:enableOnBackInvokedCallback="true"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

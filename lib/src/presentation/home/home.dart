@@ -4,9 +4,9 @@ import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/home/cubit/home_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/orders.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/products/products.dart';
-import 'package:quickdrop_sellers/src/presentation/home/widgets/appbar/home_app_bar.dart';
 import 'package:quickdrop_sellers/src/presentation/home/widgets/drawer/home_drawer.dart';
 import 'package:quickdrop_sellers/src/presentation/home/widgets/homeNavigation/home_navigation_bar.dart';
+import 'package:quickdrop_sellers/src/presentation/widgets/custom_app_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -38,7 +38,10 @@ class _HomeState extends State<Home> {
         builder: (BuildContext context, HomeState state) {
           final HomeCubit homeCubit = context.read<HomeCubit>();
           return Scaffold(
-            appBar: HomeAppBar(),
+            appBar: CustomAppBar(
+              title: 'Quickdrop',
+              centerTitle: true,
+            ),
             drawer: HomeDrawer(),
             body: PageView(
               controller: _controller,

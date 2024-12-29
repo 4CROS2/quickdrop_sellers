@@ -1,15 +1,16 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/core/extensions/theme_extensions.dart';
 
-class TextInput extends StatefulWidget {
-  const TextInput({
+class InputText extends StatefulWidget {
+  const InputText({
     bool isPassword = false,
     bool isEnabled = true,
     TextInputType? textInputType,
     TextEditingController? controller,
-    String? Function(String?)? validator,
-    Function(String)? onChanged,
+    String? Function(String? value)? validator,
+    Function(String value)? onChanged,
     String? labelText,
     super.key,
   })  : _onChanged = onChanged,
@@ -25,14 +26,14 @@ class TextInput extends StatefulWidget {
   final bool _isPassword;
   final bool _isEnabled;
   final String? _hintText;
-  final String? Function(String?)? _validator;
-  final Function(String)? _onChanged;
+  final String? Function(String? value)? _validator;
+  final Function(String value)? _onChanged;
 
   @override
-  State<TextInput> createState() => _TextInputState();
+  State<InputText> createState() => _InputTextState();
 }
 
-class _TextInputState extends State<TextInput> {
+class _InputTextState extends State<InputText> {
   bool _showText = true;
   void toggleShowText() {
     setState(
@@ -52,6 +53,11 @@ class _TextInputState extends State<TextInput> {
       decoration: InputDecoration(
         enabled: widget._isEnabled,
         labelText: widget._hintText?.capitalize(),
+        labelStyle: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Questrial',
+          color: context.textTheme.titleLarge!.color,
+        ),
         suffixIcon: widget._isPassword
             ? InkWell(
                 borderRadius: Constants.mainBorderRadius * 2,
@@ -71,6 +77,10 @@ class _TextInputState extends State<TextInput> {
                 ),
               )
             : null,
+      ),
+      style: TextStyle(
+        fontFamily: 'Questrial',
+        fontWeight: FontWeight.w700,
       ),
       cursorOpacityAnimates: true,
       cursorRadius: Constants.mainBorderRadius.topRight,

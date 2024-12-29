@@ -27,8 +27,8 @@ class Constants {
   ).copyWith(top: paddingValue);
 
   static EdgeInsets authInputContent = EdgeInsets.symmetric(
-    horizontal: 20,
-    vertical: 16,
+    horizontal: paddingValue,
+    vertical: paddingValue * 1.5,
   );
 
   static ScrollPhysics mainPhysics = AlwaysScrollableScrollPhysics(

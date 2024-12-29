@@ -72,13 +72,13 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
           formKey: widget._globalKey,
           label: 'información del establecimiento',
           children: <Widget>[
-            TextInput(
+            InputText(
               labelText: 'razón social',
               controller: _textEditingControllers[0],
               validator: emptyValidator,
             ),
             SeparatedInput(
-              child: TextInput(
+              child: InputText(
                 controller: _textEditingControllers[1],
                 labelText: 'RUT*',
                 textInputType: TextInputType.numberWithOptions(
@@ -94,7 +94,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
               ),
             ),
             SeparatedInput(
-              child: TextInput(
+              child: InputText(
                 controller: _textEditingControllers[3],
                 labelText: 'Direccion',
                 textInputType: TextInputType.numberWithOptions(
@@ -103,7 +103,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
               ),
             ),
             SeparatedInput(
-              child: TextInput(
+              child: InputText(
                 controller: _textEditingControllers[4],
                 labelText: 'numero de contacto',
                 textInputType: TextInputType.numberWithOptions(

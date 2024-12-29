@@ -39,7 +39,7 @@ class AppTheme {
           ),
         ),
         filled: true,
-        fillColor: Constants.mainColor,
+        fillColor: Colors.white,
         hintStyle: TextStyle(
           color: Colors.black,
         ),
@@ -73,8 +73,9 @@ class AppTheme {
         ),
         filled: true,
         fillColor: Colors.grey.shade800,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: Colors.white,
+          fontWeight: FontWeight.w800,
         ),
         contentPadding: Constants.authInputContent,
       ),
