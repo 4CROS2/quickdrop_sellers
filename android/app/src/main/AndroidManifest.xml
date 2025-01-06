@@ -19,6 +19,8 @@
 
     <!-- Permiso para mostrar notificaciones -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <!-- Permiso para usar la vibración -->
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -28,6 +30,7 @@
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true"
         android:requestLegacyExternalStorage="true">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
