@@ -34,11 +34,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   Future<void> deleteProduct({required String productId}) async {
-    try {
-      await _usecase.deleteProduct(productId: productId);
-      await getProducts();
-    } catch (e) {
-      print(e);
-    }
+    await _usecase.deleteProduct(productId: productId);
+    await getProducts();
   }
 }
