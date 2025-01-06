@@ -32,4 +32,9 @@ class ProductsCubit extends Cubit<ProductsState> {
   void hapticClickVibration() {
     HapticFeedback.selectionClick();
   }
+
+  Future<void> deleteProduct({required String productId}) async {
+    await _usecase.deleteProduct(productId: productId);
+    await getProducts();
+  }
 }

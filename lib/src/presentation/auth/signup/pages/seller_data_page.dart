@@ -75,13 +75,13 @@ class _SellerDataPageState extends State<SellerDataPage> {
           formKey: widget._globalKey,
           label: 'tus datos',
           children: <Widget>[
-            TextInput(
+            InputText(
               controller: _textEditingControllers[0],
               validator: emptyValidator,
               labelText: 'nombre',
             ),
             SeparatedInput(
-              child: TextInput(
+              child: InputText(
                 controller: _textEditingControllers[1],
                 validator: emptyValidator,
                 labelText: 'apelidos',
@@ -98,7 +98,7 @@ class _SellerDataPageState extends State<SellerDataPage> {
               ),
             ),
             SeparatedInput(
-              child: TextInput(
+              child: InputText(
                 controller: _textEditingControllers[2],
                 validator: emptyValidator,
                 labelText: 'numero de documento',
@@ -114,7 +114,7 @@ class _SellerDataPageState extends State<SellerDataPage> {
               }),
             ),
             SeparatedInput(
-              child: TextInput(
+              child: InputText(
                 controller: _textEditingControllers[3],
                 validator: emptyValidator,
                 labelText: 'numero de contacto',

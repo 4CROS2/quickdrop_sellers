@@ -2,7 +2,7 @@ name: quickdrop_sellers
 description: "A new Flutter project."
 
 publish_to: 'none'
-version: 1.0.5
+version: 1.0.9
 
 environment:
   sdk: ^3.5.4
@@ -37,6 +37,12 @@ dependencies:
     git:
       url: https://github.com/4CROS2/custom-dropdown-menu.git
       ref: main
+  permission_handler: ^11.3.1
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  image: ^4.3.0
+  webp: ^1.0.0+1
+  flutter_image_compress: ^2.3.0
  
 
 dev_dependencies:
@@ -44,7 +50,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   dart_code_metrics: null
-
 
 flutter:
   generate: true
@@ -62,3 +67,13 @@ flutter:
         - asset: assets/fonts/redhat_semi.ttf
           weight: 500
         - asset: assets/fonts/redhat_regular.ttf
+
+pests:
+  plugins:
+    permission_handler:
+      platforms:
+        android:
+          - CAMERA
+          - READ_MEDIA_IMAGES
+          - WRITE_EXTERNAL_STORAGE
+          - READ_EXTERNAL_STORAGE

@@ -1,8 +1,10 @@
 import 'package:quickdrop_sellers/src/data/datasource/products_datasource.dart';
+import 'package:quickdrop_sellers/src/data/model/new_product_model.dart';
 import 'package:quickdrop_sellers/src/data/model/products_model.dart';
+import 'package:quickdrop_sellers/src/domain/entity/new_product_entity.dart';
 import 'package:quickdrop_sellers/src/domain/repository/products_repository.dart';
 
-class IProductsRepository implements ProductsRepository {
+class IProductsRepository implements ProductRepository {
   IProductsRepository({required ProductsDatasource datasource})
       : _datasource = datasource;
   final ProductsDatasource _datasource;
@@ -19,4 +21,21 @@ class IProductsRepository implements ProductsRepository {
     ).toList();
     return response;
   }
+
+  @override
+  Stream<String> saveNewProduct({required NewProductEntity product}) {
+    final NewProductModel data = NewProductModel.fromEntity(
+      entity: product,
+    );
+    final Stream<String> response = _datasource.saveNewProduct(
+      product: data,
+    );
+    return response;
+  }
+
+  @override
+  Future<bool> deleteProduct({required String productId}) =>
+      _datasource.deleteProduct(
+        productId: productId,
+      );
 }
