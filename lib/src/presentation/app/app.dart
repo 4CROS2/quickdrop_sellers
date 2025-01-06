@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:quickdrop_sellers/src/core/themes/theme.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/notifications/cubit/notifications_cubit.dart';
 import 'package:quickdrop_sellers/src/routes/routes.dart';
 
 class App extends StatefulWidget {
@@ -59,8 +60,17 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       data: MediaQuery.of(context).copyWith(
         textScaler: const TextScaler.linear(1.0),
       ),
-      child: BlocProvider<AppCubit>(
-        create: (BuildContext context) => sl<AppCubit>(),
+      child: MultiBlocProvider(
+        providers: <BlocProvider<Object?>>[
+          BlocProvider<AppCubit>(
+            create: (BuildContext context) => sl<AppCubit>(),
+          ),
+          BlocProvider<NotificationsCubit>(
+            create: (BuildContext context) =>
+                sl<NotificationsCubit>()..initializeNotifications(),
+            lazy: false,
+          )
+        ],
         child: BlocBuilder<AppCubit, AppState>(
           builder: (BuildContext context, AppState state) {
             return MaterialApp.router(
