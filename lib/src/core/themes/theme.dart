@@ -20,14 +20,13 @@ class AppTheme {
     return ThemeData(
       colorSchemeSeed: Constants.mainColor,
       scaffoldBackgroundColor: Colors.red.shade50,
-      fontFamily: 'RedHat',
+      fontFamily: 'Questrial',
       cardColor: Colors.white,
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          fontFamily: 'Questrial',
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -53,14 +52,13 @@ class AppTheme {
       brightness: Brightness.dark,
       colorSchemeSeed: Constants.secondaryColor,
       scaffoldBackgroundColor: Colors.grey.shade900,
-      fontFamily: 'RedHat',
+      fontFamily: 'Questrial',
       cardColor: Colors.grey.shade800,
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          fontFamily: 'Questrial',
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

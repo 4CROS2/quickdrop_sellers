@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +15,7 @@ class NewProductCubit extends Cubit<NewProductState> {
         super(NewProductState());
   final NewProductUsecase _usecase;
   final ImagePicker _imagePicker = ImagePicker();
+  late final StreamSubscription<String> _saveProductStream;
 
   void setProductName(String value) {
     emit(
@@ -68,31 +71,47 @@ class NewProductCubit extends Cubit<NewProductState> {
     );
   }
 
-  Future<void> saveNewProduct() async {
+  void saveNewProduct() {
     emit(
       state.copyWith(
         status: NewProductStatus.loading,
-        message: '',
+        message: 'cargando',
       ),
     );
-    try {
-      final NewProductStatus response = await _usecase.saveNewProduct(
-        product: state.newProduct,
-      );
-      emit(
-        state.copyWith(
-          status: response,
-          message: 'producto registrado correctamente',
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: NewProductStatus.error,
-          message: e.toString(),
-        ),
-      );
-    }
+
+    _saveProductStream = _usecase
+        .saveNewProduct(
+      product: state.newProduct,
+    )
+        .listen(
+      (String message) {
+        // Emite el mensaje en cada etapa del proceso.
+        emit(
+          state.copyWith(
+            status: NewProductStatus.loading,
+            message: message,
+          ),
+        );
+      },
+      onDone: () {
+        // Cuando termine el proceso
+        emit(
+          state.copyWith(
+            status: NewProductStatus.success,
+            message: 'Producto registrado correctamente',
+          ),
+        );
+      },
+      onError: (Object? error) {
+        // Si ocurre un error
+        emit(
+          state.copyWith(
+            status: NewProductStatus.error,
+            message: error.toString(),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> selectImages() async {
@@ -148,5 +167,21 @@ class NewProductCubit extends Cubit<NewProductState> {
     return List<String>.from(
       state.newProduct.tags,
     );
+  }
+
+  String? validateNewProduct() {
+    if (state.newProduct.images.isEmpty) {
+      return 'Agrega 1 imagen como mínimo';
+    }
+    if (state.newProduct.tags.length < 3) {
+      return 'Agrega al menos 3 tags';
+    }
+    return null; // Sin errores
+  }
+
+  @override
+  Future<void> close() {
+    _saveProductStream.cancel();
+    return super.close();
   }
 }

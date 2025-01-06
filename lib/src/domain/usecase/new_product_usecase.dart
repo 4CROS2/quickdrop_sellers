@@ -7,7 +7,7 @@ class NewProductUsecase {
   }) : _repository = repository;
   final ProductRepository _repository;
 
-  Future<NewProductStatus> saveNewProduct({
+  Stream<String> saveNewProduct({
     required NewProductEntity product,
   }) =>
       _repository.saveNewProduct(

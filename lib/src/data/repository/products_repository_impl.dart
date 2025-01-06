@@ -23,15 +23,19 @@ class IProductsRepository implements ProductRepository {
   }
 
   @override
-  Future<NewProductStatus> saveNewProduct({
-    required NewProductEntity product,
-  }) async {
+  Stream<String> saveNewProduct({required NewProductEntity product}) {
     final NewProductModel data = NewProductModel.fromEntity(
       entity: product,
     );
-    final NewProductStatus response = await _datasource.saveNewProduct(
+    final Stream<String> response = _datasource.saveNewProduct(
       product: data,
     );
     return response;
   }
+
+  @override
+  Future<bool> deleteProduct({required String productId}) =>
+      _datasource.deleteProduct(
+        productId: productId,
+      );
 }

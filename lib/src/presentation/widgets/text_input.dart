@@ -1,5 +1,6 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/extensions/theme_extensions.dart';
 
@@ -12,6 +13,7 @@ class InputText extends StatefulWidget {
     String? Function(String? value)? validator,
     Function(String value)? onChanged,
     String? labelText,
+    List<TextInputFormatter>? formatters,
     super.key,
   })  : _onChanged = onChanged,
         _isPassword = isPassword,
@@ -19,6 +21,7 @@ class InputText extends StatefulWidget {
         _isEnabled = isEnabled,
         _hintText = labelText,
         _validator = validator,
+        _formatters = formatters,
         _textInputType = textInputType;
 
   final TextEditingController? _controller;
@@ -28,6 +31,7 @@ class InputText extends StatefulWidget {
   final String? _hintText;
   final String? Function(String? value)? _validator;
   final Function(String value)? _onChanged;
+  final List<TextInputFormatter>? _formatters;
 
   @override
   State<InputText> createState() => _InputTextState();
@@ -50,6 +54,7 @@ class _InputTextState extends State<InputText> {
       obscureText: widget._isPassword && _showText,
       validator: widget._validator,
       keyboardType: widget._textInputType,
+      inputFormatters: widget._formatters,
       decoration: InputDecoration(
         enabled: widget._isEnabled,
         labelText: widget._hintText?.capitalize(),

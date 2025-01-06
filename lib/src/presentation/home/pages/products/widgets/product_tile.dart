@@ -30,10 +30,20 @@ class _ProductTileState extends State<ProductTile> {
     _productsCubit = context.read<ProductsCubit>();
   }
 
-  void _showProduct(BuildContext context, {required String productId}) {
+  void _showProduct(
+    BuildContext context,
+  ) {
     context.push(
-      '/productdetail/$productId',
+      '/productdetail/${widget._product.id}',
     );
+  }
+
+  void _actionMenu(String? value) {
+    if (value == 'eliminar') {
+      _productsCubit.deleteProduct(
+        productId: widget._product.id,
+      );
+    }
   }
 
   @override
@@ -45,7 +55,9 @@ class _ProductTileState extends State<ProductTile> {
         type: MaterialType.card,
         borderRadius: Constants.mainBorderRadius,
         child: InkWell(
-          onTap: () => _showProduct(context, productId: 'ass'),
+          onTap: () => _showProduct(
+            context,
+          ),
           child: SizedBox(
             width: double.infinity,
             child: Padding(
@@ -99,7 +111,7 @@ class _ProductTileState extends State<ProductTile> {
                         context,
                         widgetKey: _optionsKey,
                         options: <String>['editar', 'eliminar'],
-                        onSelected: (String value) {},
+                        onSelected: _actionMenu,
                       );
                     },
                     icon: Icon(Icons.more_horiz_rounded),

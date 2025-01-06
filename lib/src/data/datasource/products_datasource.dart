@@ -7,7 +7,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quickdrop_sellers/src/core/functions/webp_image_converter.dart';
 import 'package:quickdrop_sellers/src/data/model/new_product_model.dart';
-import 'package:quickdrop_sellers/src/domain/entity/new_product_entity.dart';
 
 class ProductsDatasource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,9 +31,9 @@ class ProductsDatasource {
     }
   }
 
-  Future<NewProductStatus> saveNewProduct({
+  Stream<String> saveNewProduct({
     required NewProductModel product,
-  }) async {
+  }) async* {
     try {
       final Map<String, dynamic> data = product.toJson();
       data['seller_id'] = _uid;
@@ -45,14 +44,14 @@ class ProductsDatasource {
 
       // Procesar imágenes en isolate
       List<String> webpPaths = <String>[];
-
+      yield 'optimizando imagenes';
       for (final String path in imagePaths) {
         final File? webpFile = await compressAndConvertToWebP(imagePath: path);
         if (webpFile != null) {
           webpPaths.add(webpFile.path);
         }
       }
-
+      yield 'guardando imagenes';
       // Subir a Firebase Storage
       final List<String> uploadedUrls = <String>[];
       for (final String path in webpPaths) {
@@ -64,12 +63,38 @@ class ProductsDatasource {
         final String downloadUrl = await snapshot.ref.getDownloadURL();
         uploadedUrls.add(downloadUrl);
       }
-
+      yield 'registrando producto';
       data['base_images'] = uploadedUrls;
       await _firestore.collection('products').add(data);
-      return NewProductStatus.success;
+      yield 'registro completado';
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<bool> deleteProduct({
+    required String productId,
+  }) async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> productDoc =
+          await _firestore.collection('products').doc(productId).get();
+
+      if (!productDoc.exists) {
+        throw Exception('Producto no encontrado');
+      }
+      final List<String> imageUrls = List<String>.from(
+        productDoc['base_images'],
+      );
+
+      for (final String imageUrl in imageUrls) {
+        final Reference ref = _storage.refFromURL(imageUrl);
+        await ref.delete();
+      }
+      await _firestore.collection('products').doc(productId).delete();
+
+      return true;
+    } catch (e) {
+      throw Exception('error al borrar el documento');
     }
   }
 }

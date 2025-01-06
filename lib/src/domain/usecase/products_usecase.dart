@@ -8,4 +8,10 @@ class ProductsUsecase {
   final ProductRepository _repository;
 
   Future<List<ProductsEntity>> getProduts() => _repository.getProduts();
+  Future<bool> deleteProduct({
+    required String productId,
+  }) =>
+      _repository.deleteProduct(
+        productId: productId,
+      );
 }

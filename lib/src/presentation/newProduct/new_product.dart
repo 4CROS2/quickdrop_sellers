@@ -1,13 +1,18 @@
 import 'package:extensions/extensions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
+import 'package:quickdrop_sellers/src/core/extensions/positive_number_formatter.dart';
+import 'package:quickdrop_sellers/src/core/extensions/text_input_type_extension.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/domain/entity/new_product_entity.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/cubit/newproduct_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/widgets/images_picker.dart';
+import 'package:quickdrop_sellers/src/presentation/newProduct/widgets/pop_up_status.dart';
+import 'package:quickdrop_sellers/src/presentation/newProduct/widgets/submit_new_product_button.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/widgets/tags_inputs.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/custom_app_bar.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/text_area.dart';
@@ -51,9 +56,20 @@ class _AddNewProductState extends State<AddNewProduct> {
       body: BlocProvider<NewProductCubit>(
         create: (BuildContext context) => sl<NewProductCubit>(),
         child: BlocConsumer<NewProductCubit, NewProductState>(
+          buildWhen: (NewProductState previous, NewProductState current) =>
+              previous.status != current.status,
           listener: (BuildContext context, NewProductState state) {
             if (state.status == NewProductStatus.error) {
               AppToastification.showError(
+                context: context,
+                message: state.message,
+              );
+            }
+            if (state.status == NewProductStatus.loading) {
+              _showLoadingDialog(context);
+            }
+            if (state.status == NewProductStatus.success) {
+              AppToastification.showSuccess(
                 context: context,
                 message: state.message,
               );
@@ -83,7 +99,10 @@ class _AddNewProductState extends State<AddNewProduct> {
                             labelText: 'precio',
                             controller: _controllers[1],
                             validator: emptyValidator,
-                            textInputType: TextInputType.numberWithOptions(),
+                            formatters: <TextInputFormatter>[
+                              PositiveNumberFormatter()
+                            ],
+                            textInputType: TextInputTypeExtension.numbersOnly,
                             onChanged: (String value) => cubit.setPrice(
                               int.parse(value),
                             ),
@@ -103,40 +122,30 @@ class _AddNewProductState extends State<AddNewProduct> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Material(
-                      borderRadius: Constants.mainBorderRadius,
-                      clipBehavior: Clip.antiAlias,
-                      color: Constants.secondaryColor,
-                      child: InkWell(
-                        onTap: () {
-                          HapticFeedback.selectionClick();
-                          if (_formKey.currentState!.validate()) {
-                            cubit.saveNewProduct();
-                          }
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: Constants.borderValue * 2,
-                            vertical: Constants.paddingValue,
-                          ),
-                          child: Text(
-                            'registrar producto'.capitalize(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: SubmitNewProductButton(
+                    formKey: _formKey,
+                    cubit: cubit,
                   ),
                 )
               ],
             );
           },
         ),
+      ),
+    );
+  }
+
+  void _showLoadingDialog(BuildContext context) {
+    // Verificamos si ya existe un diálogo
+    if (ModalRoute.of(context)?.isCurrent != true) {
+      return;
+    }
+
+    showCupertinoModalPopup(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) => PopUpStatus(
+        context: context,
       ),
     );
   }
