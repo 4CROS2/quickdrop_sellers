@@ -19,7 +19,7 @@ class ProductsDatasource {
   Future<Map<String, dynamic>> getProducts() async {
     try {
       final QuerySnapshot<Map<String, dynamic>> response = await _firestore
-          .collection('products')
+               .collection('products')
           .where(
             'seller_id',
             isEqualTo: _uid,
@@ -31,46 +31,51 @@ class ProductsDatasource {
     }
   }
 
-  Stream<String> saveNewProduct({
+Stream<String> saveNewProduct({
     required NewProductModel product,
   }) async* {
     try {
       final Map<String, dynamic> data = product.toJson();
       data['seller_id'] = _uid;
-
       // Extraer las rutas de las imágenes
       final List<String> imagePaths =
           product.images.map((XFile e) => e.path).toList();
 
       // Procesar imágenes en isolate
       List<String> webpPaths = <String>[];
-      yield 'optimizando imagenes';
+      yield 'optimizando imágenes';
       for (final String path in imagePaths) {
         final File? webpFile = await compressAndConvertToWebP(imagePath: path);
         if (webpFile != null) {
           webpPaths.add(webpFile.path);
         }
       }
-      yield 'guardando imagenes';
+
+      yield 'subiendo imágenes';
       // Subir a Firebase Storage
       final List<String> uploadedUrls = <String>[];
       for (final String path in webpPaths) {
-        final String fileName = path.split('/').last;
-        final Reference ref = _storage.ref().child('products/$fileName');
+        final String originalFileName = path.split('/').last;
+        final String timestamp =
+            DateTime.now().toIso8601String().replaceAll(':', '-');
+        final String fileName = '${timestamp}_$originalFileName';
+        final Reference ref =
+            _storage.ref().child('products/$_uid/${product.name}/$fileName');
         final UploadTask uploadTask = ref.putFile(File(path));
-
         final TaskSnapshot snapshot = await uploadTask;
         final String downloadUrl = await snapshot.ref.getDownloadURL();
         uploadedUrls.add(downloadUrl);
       }
+
       yield 'registrando producto';
       data['base_images'] = uploadedUrls;
       await _firestore.collection('products').add(data);
-      yield 'registro completado';
+      yield '${product.name} registrado correctamente';
     } catch (e) {
       rethrow;
     }
   }
+
 
   Future<bool> deleteProduct({
     required String productId,
