@@ -11,6 +11,9 @@ class NotificationServiceDatasource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> initialize() async {
+     if (_auth.currentUser == null) {
+      return;
+    }
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 

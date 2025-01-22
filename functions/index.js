@@ -5,7 +5,6 @@ const admin = require("firebase-admin");
 
 admin.initializeApp();
 
-// Función para notificar al vendedor cuando se crea un nuevo pedido
 exports.notifyNewOrder = onDocumentCreated(
   "sellers/{sellerId}/orders/{orderId}",
   async (event) => {
@@ -29,8 +28,7 @@ exports.notifyNewOrder = onDocumentCreated(
 
       if (!sellerDoc.exists) {
         console.error(
-          // eslint-disable-next-line comma-dangle
-          `El documento del vendedor con ID ${sellerId} no existe.`
+          `El documento del vendedor con ID ${sellerId} no existe.`,
         );
         return;
       }
@@ -40,23 +38,28 @@ exports.notifyNewOrder = onDocumentCreated(
 
       if (!sellerToken) {
         console.error(
-          // eslint-disable-next-line comma-dangle
           `El vendedor con ID ${sellerId} no tiene un token de notificación.`,
         );
         return;
       }
 
-      // Crear el payload de la notificación
-      const payload = {
+      // Crear el mensaje usando la nueva API v1
+      const message = {
+        token: sellerToken,
         notification: {
           title: "Nuevo Pedido",
-          body: `Tienes un nuevo pedido: ${orderData.productName}`,
+          body: `Tienes un nuevo pedido: ${orderData.product_name}`,
+        },
+        // Opcional: Puedes agregar datos adicionales aquí
+        data: {
+          orderId: event.params.orderId,
+          clickAction: "FLUTTER_NOTIFICATION_CLICK",
         },
       };
 
-      // Enviar la notificación
+      // Enviar la notificación usando la nueva API
       const messaging = getMessaging();
-      await messaging.sendToDevice(sellerToken, payload);
+      await messaging.send(message);
     } catch (error) {
       console.error("Error al procesar la notificación:", error);
     }

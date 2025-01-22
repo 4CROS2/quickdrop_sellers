@@ -103,9 +103,13 @@ class _AddNewProductState extends State<AddNewProduct> {
                               PositiveNumberFormatter()
                             ],
                             textInputType: TextInputTypeExtension.numbersOnly,
-                            onChanged: (String value) => cubit.setPrice(
-                              int.parse(value),
-                            ),
+                            onChanged: (String value) {
+                              if (value.isNotEmpty) {
+                                cubit.setPrice(
+                                  int.parse(value),
+                                );
+                              }
+                            },
                           ),
                           TextArea(
                             label: 'descripcion',
