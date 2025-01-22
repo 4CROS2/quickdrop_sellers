@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
-import 'package:quickdrop_sellers/src/presentation/newProduct/new_product.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
 import 'package:quickdrop_sellers/src/presentation/error/error.dart';
 import 'package:quickdrop_sellers/src/presentation/home/home.dart';
 import 'package:quickdrop_sellers/src/presentation/loading/loading.dart';
+import 'package:quickdrop_sellers/src/presentation/newProduct/new_product.dart';
+import 'package:quickdrop_sellers/src/presentation/orderDetail/order_detail.dart';
 import 'package:quickdrop_sellers/src/presentation/productDetail/product_detail.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/profile.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/schedule.dart';
@@ -130,7 +132,17 @@ class AppRouter {
             name: state.name,
           );
         },
-      )
+      ),
+      GoRoute(
+          path: '/order/:orderId',
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final String orderId = (state.pathParameters['orderId'])!;
+            return MaterialPage<OrderDetail>(
+              child: OrderDetail(
+                orderId: orderId,
+              ),
+            );
+          })
     ],
   );
 }

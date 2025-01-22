@@ -10,6 +10,29 @@ class ScheduleAppbar extends CustomAppBar {
   Widget build(BuildContext context) {
     return BlocBuilder<ScheduleCubit, ScheduleState>(
       builder: (BuildContext context, ScheduleState state) {
+        return CustomAppBar(
+          title: 'Horario de operaciones' ,
+          actions: <Widget>[
+          IconButton(
+            icon: Badge(
+              isLabelVisible: context.read<ScheduleCubit>().hasChanges(),
+              child: const Icon(Icons.save),
+            ),
+            onPressed: () {
+              context.read<ScheduleCubit>().saveSchedules();
+            },
+          ),
+        ]
+        );
+      },
+    );
+  }
+  /*  const ScheduleAppbar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ScheduleCubit, ScheduleState>(
+      builder: (BuildContext context, ScheduleState state) {
         return AppBar(
           title: const Text('Horario de operaciones'),
           actions: <Widget>[
@@ -26,5 +49,5 @@ class ScheduleAppbar extends CustomAppBar {
         );
       },
     );
-  }
+  } */
 }

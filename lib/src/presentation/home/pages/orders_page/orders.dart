@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
@@ -42,7 +43,7 @@ class _OrdersState extends State<Orders> with AutomaticKeepAliveClientMixin {
                   itemCount: state.orders.length,
                   itemBuilder: (BuildContext context, int index) {
                     return OrderTile(
-                      onTap: () {},
+                      onTap: () => context.push('/order/${state.orders[index].orderId}'),
                       order: state.orders[index],
                     );
                   },
