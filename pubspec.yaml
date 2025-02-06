@@ -44,7 +44,7 @@ dependencies:
   webp: ^1.0.0+1
   flutter_image_compress: ^2.4.0
   flutter_local_notifications: ^18.0.1
-  firebase_messaging: ^15.1.6
+  firebase_messaging: ^15.2.2
  
 
 dev_dependencies:
