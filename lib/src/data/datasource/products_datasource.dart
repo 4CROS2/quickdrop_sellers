@@ -19,7 +19,7 @@ class ProductsDatasource {
   Future<Map<String, dynamic>> getProducts() async {
     try {
       final QuerySnapshot<Map<String, dynamic>> response = await _firestore
-               .collection('products')
+          .collection('products')
           .where(
             'seller_id',
             isEqualTo: _uid,
@@ -31,7 +31,7 @@ class ProductsDatasource {
     }
   }
 
-Stream<String> saveNewProduct({
+  Stream<String> saveNewProduct({
     required NewProductModel product,
   }) async* {
     try {
@@ -75,7 +75,6 @@ Stream<String> saveNewProduct({
       rethrow;
     }
   }
-
 
   Future<bool> deleteProduct({
     required String productId,

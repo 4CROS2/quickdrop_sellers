@@ -10,9 +10,7 @@ class ScheduleAppbar extends CustomAppBar {
   Widget build(BuildContext context) {
     return BlocBuilder<ScheduleCubit, ScheduleState>(
       builder: (BuildContext context, ScheduleState state) {
-        return CustomAppBar(
-          title: 'Horario de operaciones' ,
-          actions: <Widget>[
+        return CustomAppBar(title: 'Horario de operaciones', actions: <Widget>[
           IconButton(
             icon: Badge(
               isLabelVisible: context.read<ScheduleCubit>().hasChanges(),
@@ -22,8 +20,7 @@ class ScheduleAppbar extends CustomAppBar {
               context.read<ScheduleCubit>().saveSchedules();
             },
           ),
-        ]
-        );
+        ]);
       },
     );
   }
