@@ -2,7 +2,7 @@ name: Flutter CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on pull request events but only for the master branch
+  # Triggers the workflow on pull request events but only for the main branch
   pull_request:
     branches: [main]
 
@@ -28,7 +28,7 @@ jobs:
           channel: stable
 
       - name: Cache dependencies
-        uses: actions/cache@v3.0.8
+        uses: actions/cache@v3
         with:
           path: |
             $PUB_CACHE
@@ -52,4 +52,13 @@ jobs:
         uses: subosito/flutter-action@v2.6.2
 
       - name: Check Dart formatting
-        run: dart format --set-exit-if-changed .
+        id: format
+        run: |
+          dart format --set-exit-if-changed .
+          if [ $? -ne 0 ]; then
+            echo "Code needs formatting. Formatting and committing changes."
+            dart format .
+            git config --global user.name 'github-actions'
+            git config --global user.email 'github-actions@github.com'
+            git commit -am "Auto-formatted code"
+            git push
