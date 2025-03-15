@@ -16,12 +16,20 @@ class AppTheme {
         isDarkMode ? _createDarkTheme(context) : _createLightTheme(context);
   }
 
+  static PageTransitionsTheme get _pageTransition => PageTransitionsTheme(
+        builders: Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
+          TargetPlatform.values,
+          value: (_) => FadeForwardsPageTransitionsBuilder(),
+        ),
+      );
+
   static ThemeData _createLightTheme(BuildContext context) {
     return ThemeData(
       colorSchemeSeed: Constants.mainColor,
       scaffoldBackgroundColor: Colors.red.shade50,
       fontFamily: 'Questrial',
       cardColor: Colors.white,
+      pageTransitionsTheme: _pageTransition,
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
           color: Colors.black,
@@ -54,6 +62,7 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.grey.shade900,
       fontFamily: 'Questrial',
       cardColor: Colors.grey.shade800,
+      pageTransitionsTheme: _pageTransition,
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
           color: Colors.white,

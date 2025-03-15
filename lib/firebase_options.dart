@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCDFeISPW47NK0Mw1C-iFjiXQFOcfhEI98',
-    appId: '1:241432358313:android:256b715b2ac755e12328b8',
+    appId: '1:241432358313:android:7da524b43a4d35f52328b8',
     messagingSenderId: '241432358313',
     projectId: 'quickdrop-ebc08',
     storageBucket: 'quickdrop-ebc08.appspot.com',
@@ -59,14 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC04yLhw1VDp52ohlYGcOii5AZV9jMQZM0',
-    appId: '1:241432358313:ios:582be31430dcc6f02328b8',
+    appId: '1:241432358313:ios:f2fdf4036c13086f2328b8',
     messagingSenderId: '241432358313',
     projectId: 'quickdrop-ebc08',
     storageBucket: 'quickdrop-ebc08.appspot.com',
-    androidClientId:
-        '241432358313-1pjm5ldlgc2ohgmqsf0csi20v22g4vd4.apps.googleusercontent.com',
-    iosClientId:
-        '241432358313-8mfdakgoh6bc72ioln3hqmtd5v0dqqhv.apps.googleusercontent.com',
+    androidClientId: '241432358313-1pjm5ldlgc2ohgmqsf0csi20v22g4vd4.apps.googleusercontent.com',
+    iosClientId: '241432358313-8mfdakgoh6bc72ioln3hqmtd5v0dqqhv.apps.googleusercontent.com',
     iosBundleId: 'com.crossdev.quickdropSellers',
   );
 }
