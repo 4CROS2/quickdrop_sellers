@@ -54,10 +54,11 @@ jobs:
           flutter-version: "3.29.1" # Tu versión especificada
 
       - name: Check Dart formatting
-        id: format
         run: |
           dart format --set-exit-if-changed .
           if [ $? -ne 0 ]; then
-            echo "Code needs formatting. Please run 'dart format .' locally and commit the changes."
+            echo "Code needs formatting. Showing differences:"
+            dart format --output=diff .
+            echo "Please run 'dart format .' locally and commit the changes."
             exit 1
           fi
