@@ -1,9 +1,11 @@
 import 'package:quickdrop_sellers/src/data/datasource/auth_datasource.dart';
 import 'package:quickdrop_sellers/src/data/model/app_model.dart';
 import 'package:quickdrop_sellers/src/data/model/estableshment_information_model.dart';
+import 'package:quickdrop_sellers/src/data/model/establishment_location_model.dart';
 import 'package:quickdrop_sellers/src/data/model/seller_auth_model.dart';
 import 'package:quickdrop_sellers/src/data/model/seller_information_model.dart';
 import 'package:quickdrop_sellers/src/domain/entity/estableshment_information_entity.dart';
+import 'package:quickdrop_sellers/src/domain/entity/establishment_location_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_auth_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_information_entity.dart';
 import 'package:quickdrop_sellers/src/domain/repository/auth_repository.dart';
@@ -43,6 +45,7 @@ class IAuthRepository implements AuthRepository {
   @override
   Future<void> createNewAccount({
     required SellerAuthEntity sellerAuth,
+    required EstablishmentLocationEntity location,
     required SellerInformationEntity sellerInformation,
     required EstableshmentInformationEntity establishmentInformation,
   }) async {
@@ -51,6 +54,7 @@ class IAuthRepository implements AuthRepository {
         email: sellerAuth.email,
         password: sellerAuth.password,
       ),
+      location: EstablishmentLocationModel.fromDomain(entity: location),
       sellerInformation: SellerInformationModel.fromDomain(
         sellerInformation,
       ),

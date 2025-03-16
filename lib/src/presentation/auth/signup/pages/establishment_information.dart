@@ -4,7 +4,6 @@ import 'package:quickdrop_sellers/src/core/functions/rut_verification.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
-import 'package:quickdrop_sellers/src/presentation/auth/widgets/separated_input.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/text_area.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 
@@ -32,7 +31,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
   void initState() {
     super.initState();
     _textEditingControllers = List<TextEditingController>.generate(
-      5,
+      4,
       (int index) {
         return TextEditingController();
       },
@@ -60,8 +59,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
             companyName: _textEditingControllers[0].text,
             rut: _textEditingControllers[1].text,
             description: _textEditingControllers[2].text,
-            direction: _textEditingControllers[3].text,
-            contact: _textEditingControllers[4].text,
+            contact: _textEditingControllers[3].text,
           );
         } else if (_signupCubit.state.currentPage <= widget._index) {
           _dataUpdated = false;
@@ -77,48 +75,31 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
               controller: _textEditingControllers[0],
               validator: emptyValidator,
             ),
-            SeparatedInput(
-              child: InputText(
-                controller: _textEditingControllers[1],
-                labelText: 'RUT*',
-                textInputType: TextInputType.numberWithOptions(
-                  decimal: false,
-                ),
-                validator: validateRUT,
+            InputText(
+              controller: _textEditingControllers[1],
+              labelText: 'RUT*',
+              textInputType: TextInputType.numberWithOptions(
+                decimal: false,
               ),
+              validator: validateRUT,
             ),
-            SeparatedInput(
-              child: TextArea(
-                controller: _textEditingControllers[2],
-                label: 'descripcion del establecimiento',
-              ),
+            TextArea(
+              controller: _textEditingControllers[2],
+              label: 'descripcion del establecimiento',
             ),
-            SeparatedInput(
-              child: InputText(
-                controller: _textEditingControllers[3],
-                labelText: 'Direccion',
-                textInputType: TextInputType.numberWithOptions(
-                  decimal: false,
-                ),
-              ),
-            ),
-            SeparatedInput(
-              child: InputText(
-                controller: _textEditingControllers[4],
-                labelText: 'numero de contacto',
-                textInputType: TextInputType.numberWithOptions(
-                  decimal: false,
-                ),
+            InputText(
+              controller: _textEditingControllers[3],
+              labelText: 'numero de contacto',
+              textInputType: TextInputType.numberWithOptions(
+                decimal: false,
               ),
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: SeparatedInput(
-                child: Text(
-                  '*En caso de no tener rut dejar el campo vacío',
-                  style: TextStyle(
-                    color: Colors.grey.shade500,
-                  ),
+              child: Text(
+                '*En caso de no tener rut dejar el campo vacío',
+                style: TextStyle(
+                  color: Colors.grey.shade500,
                 ),
               ),
             ),

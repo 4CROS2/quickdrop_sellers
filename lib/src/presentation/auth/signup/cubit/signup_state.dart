@@ -7,6 +7,7 @@ class SignupState extends Equatable {
     this.signinState = SigninState.waiting,
     this.currentPage = 0,
     this.sellerAuth = const SellerAuthEntity.empty(),
+    this.location = EstablishmentLocationEntity.empty,
     this.sellerInformation = const SellerInformationEntity.empty(),
     this.estableshmentInformation =
         const EstableshmentInformationEntity.empty(),
@@ -15,6 +16,7 @@ class SignupState extends Equatable {
   final SigninState signinState;
   final int currentPage;
   final SellerAuthEntity sellerAuth;
+  final EstablishmentLocationEntity location;
   final SellerInformationEntity sellerInformation;
   final EstableshmentInformationEntity estableshmentInformation;
   final String errorMessage;
@@ -23,6 +25,7 @@ class SignupState extends Equatable {
     SigninState? signinState,
     int? currentPage,
     SellerAuthEntity? sellerAuth,
+    EstablishmentLocationEntity? location,
     SellerInformationEntity? sellerInformation,
     EstableshmentInformationEntity? estableshmentInformation,
     String? errorMessage,
@@ -31,6 +34,7 @@ class SignupState extends Equatable {
       currentPage: currentPage ?? this.currentPage,
       signinState: signinState ?? this.signinState,
       sellerAuth: sellerAuth ?? this.sellerAuth,
+      location: location ?? this.location,
       sellerInformation: sellerInformation ?? this.sellerInformation,
       errorMessage: errorMessage ?? this.errorMessage,
       estableshmentInformation:
@@ -44,6 +48,7 @@ class SignupState extends Equatable {
         errorMessage,
         signinState,
         sellerAuth,
+        location,
         sellerInformation,
         estableshmentInformation,
       ];

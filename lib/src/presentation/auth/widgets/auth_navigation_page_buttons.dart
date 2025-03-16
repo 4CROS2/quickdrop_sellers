@@ -48,14 +48,16 @@ class _AuthNavigationPageButtonsState extends State<AuthNavigationPageButtons>
     }
   }
 
-  void _nextPageTrigger() {
-    widget._pageController.nextPage(
+  void _nextPageTrigger() async {
+    FocusScope.of(context).unfocus();
+    await widget._pageController.nextPage(
       duration: Constants.mainDuration,
       curve: Curves.easeInOut,
     );
   }
 
   void _previousPage() {
+    FocusScope.of(context).unfocus();
     widget._pageController.previousPage(
       duration: Constants.mainDuration,
       curve: Curves.easeInOut,

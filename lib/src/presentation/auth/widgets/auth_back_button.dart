@@ -18,9 +18,9 @@ class AuthBackButton extends StatelessWidget {
           left: Constants.borderValue,
         ),
         child: Material(
-          color: Constants.mainColor,
+          type: MaterialType.card,
           borderRadius: Constants.mainBorderRadius * 2,
-          clipBehavior: Clip.hardEdge,
+          clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: () => context.pop(),
             child: SizedBox(

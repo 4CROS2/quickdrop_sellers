@@ -5,7 +5,6 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
     required super.companyName,
     required super.rut,
     required super.description,
-    required super.direction,
     required super.contact,
     required super.brand,
   });
@@ -15,7 +14,6 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
       companyName: json['company_name'] ?? '',
       rut: json['rut'] ?? '',
       description: json['description'] ?? '',
-      direction: json['direction'] ?? '',
       contact: json['contact'] ?? '',
       brand: json['brand'] ?? '',
     );
@@ -26,7 +24,6 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
       'company_name': companyName,
       'rut': rut,
       'description': description,
-      'direction': direction,
       'contact': contact,
       'brand': brand
     };
@@ -38,7 +35,6 @@ class EstableshmentInformationModel extends EstableshmentInformationEntity {
       companyName: entity.companyName,
       contact: entity.contact,
       description: entity.description,
-      direction: entity.direction,
       rut: entity.rut,
       brand: entity.brand,
     );

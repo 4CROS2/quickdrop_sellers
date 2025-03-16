@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:quickdrop_sellers/src/domain/entity/estableshment_information_entity.dart';
+import 'package:quickdrop_sellers/src/domain/entity/establishment_location_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_auth_entity.dart';
 import 'package:quickdrop_sellers/src/domain/entity/seller_information_entity.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/signup_usecase.dart';
@@ -23,6 +26,25 @@ class SignupCubit extends Cubit<SignupState> {
         sellerAuth: SellerAuthEntity(
           email: email,
           password: password,
+        ),
+      ),
+    );
+  }
+
+  void setStoreLocation({
+    required String direction,
+    required String aditionalInformation,
+    required LatLng position,
+  }) {
+    emit(
+      state.copyWith(
+        location: EstablishmentLocationEntity(
+          direction: direction,
+          aditionalInfomation: aditionalInformation,
+          location: GeoPoint(
+            position.latitude,
+            position.longitude,
+          ),
         ),
       ),
     );
@@ -55,7 +77,6 @@ class SignupCubit extends Cubit<SignupState> {
     required String rut,
     required String description,
     required String contact,
-    required String direction,
   }) {
     emit(
       state.copyWith(
@@ -63,7 +84,6 @@ class SignupCubit extends Cubit<SignupState> {
           companyName: companyName,
           rut: rut,
           description: description,
-          direction: direction,
           contact: contact,
           brand: '',
         ),
@@ -85,15 +105,17 @@ class SignupCubit extends Cubit<SignupState> {
     try {
       await _usecase.createNewAccount(
         sellerAuth: state.sellerAuth,
+        location: state.location,
         sellerInformation: state.sellerInformation,
         estableshmentInformation: state.estableshmentInformation,
       );
     } catch (e) {
       emit(
         state.copyWith(
-            currentPage: state.currentPage - 1,
-            errorMessage: e.toString(),
-            signinState: SigninState.error),
+          currentPage: state.currentPage - 1,
+          errorMessage: e.toString(),
+          signinState: SigninState.error,
+        ),
       );
       emit(
         state.copyWith(
