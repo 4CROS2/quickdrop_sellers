@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
-import 'package:quickdrop_sellers/src/presentation/newProduct/new_product.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
 import 'package:quickdrop_sellers/src/presentation/error/error.dart';
 import 'package:quickdrop_sellers/src/presentation/home/home.dart';
 import 'package:quickdrop_sellers/src/presentation/loading/loading.dart';
+import 'package:quickdrop_sellers/src/presentation/newProduct/new_product.dart';
+import 'package:quickdrop_sellers/src/presentation/orderDetail/order_detail.dart';
 import 'package:quickdrop_sellers/src/presentation/productDetail/product_detail.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/profile.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/schedule.dart';
@@ -54,83 +55,52 @@ class AppRouter {
       GoRoute(
         path: '/',
         name: 'loading page',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return const MaterialPage<Loading>(
-            child: Loading(),
-          );
-        },
+        builder: (BuildContext context, GoRouterState state) => const Loading(),
       ),
       GoRoute(
         path: '/login',
         name: 'login page',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage<Login>(
-            child: Login(),
-          );
-        },
+        builder: (BuildContext context, GoRouterState state) => Login(),
       ),
       GoRoute(
         path: '/home',
         name: 'home page',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage<Home>(
-            name: state.name,
-            child: Home(),
-          );
-        },
+        builder: (BuildContext context, GoRouterState state) => Home(),
       ),
       GoRoute(
         path: '/signup',
         name: 'register page',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage<Signup>(
-            name: state.name,
-            child: Signup(),
-          );
-        },
+        builder: (BuildContext context, GoRouterState state) => Signup(),
       ),
       GoRoute(
         path: '/establishment',
         name: 'establishment',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage<Profile>(
-            name: state.name,
-            child: Profile(),
-          );
-        },
+        builder: (BuildContext context, GoRouterState state) => Profile(),
       ),
       GoRoute(
         path: '/schedule',
         name: 'schedule',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage<Schedule>(
-            name: state.name,
-            child: Schedule(),
-          );
-        },
+        builder: (BuildContext context, GoRouterState state) => Schedule(),
       ),
       GoRoute(
         path: '/productdetail/:productId',
         name: 'product details',
-        pageBuilder: (BuildContext context, GoRouterState state) {
+        builder: (BuildContext context, GoRouterState state) {
           final String? productId = state.pathParameters['productId'];
-          return MaterialPage<ProductDetail>(
-            name: state.name,
-            child: ProductDetail(
-              productId: productId!,
-            ),
-          );
+          return ProductDetail(productId: productId!);
         },
       ),
       GoRoute(
         path: '/addnewproduct',
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage<AddNewProduct>(
-            child: AddNewProduct(),
-            name: state.name,
-          );
+        builder: (BuildContext context, GoRouterState state) => AddNewProduct(),
+      ),
+      GoRoute(
+        path: '/order/:orderId',
+        builder: (BuildContext context, GoRouterState state) {
+          final String orderId = (state.pathParameters['orderId'])!;
+          return OrderDetail(orderId: orderId);
         },
-      )
+      ),
     ],
   );
 }

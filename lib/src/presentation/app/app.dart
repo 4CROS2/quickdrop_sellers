@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:quickdrop_sellers/src/core/localization/app_localizations.dart';
 import 'package:quickdrop_sellers/src/core/themes/theme.dart';
 import 'package:quickdrop_sellers/src/injection/injection_container.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
@@ -66,10 +67,16 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             create: (BuildContext context) => sl<AppCubit>(),
           ),
           BlocProvider<NotificationsCubit>(
-            create: (BuildContext context) =>
-                sl<NotificationsCubit>()..initializeNotifications(),
+            create: (BuildContext context) {
+              final NotificationsCubit notificationsCubit =
+                  sl<NotificationsCubit>();
+              if (FirebaseAuth.instance.currentUser != null) {
+                notificationsCubit.initializeNotifications();
+              }
+              return notificationsCubit;
+            },
             lazy: false,
-          )
+          ),
         ],
         child: BlocBuilder<AppCubit, AppState>(
           builder: (BuildContext context, AppState state) {

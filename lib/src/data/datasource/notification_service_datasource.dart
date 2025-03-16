@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 
 class NotificationServiceDatasource {
   final FlutterLocalNotificationsPlugin _localNotifications =
@@ -11,9 +12,10 @@ class NotificationServiceDatasource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> initialize() async {
-     if (_auth.currentUser == null) {
+    if (_auth.currentUser == null) {
       return;
     }
+
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -53,6 +55,26 @@ class NotificationServiceDatasource {
     String? token = await fmcToken;
     if (token != null) {
       try {
+        // Obtener el documento del vendedor
+        DocumentSnapshot<Map<String, dynamic>> sellerDoc =
+            await _firestore.collection('sellers').doc(userId).get();
+
+        // Verificar si el documento existe y obtener el campo lastUpdated
+        if (sellerDoc.exists) {
+          Timestamp? lastUpdated = sellerDoc.data()?['lastUpdated'];
+          if (lastUpdated != null) {
+            DateTime lastUpdatedDate = lastUpdated.toDate();
+            DateTime now = DateTime.now();
+
+            // Verificar si han pasado 24 horas desde la última actualización
+            if (now.difference(lastUpdatedDate).inHours < 24) {
+              // No actualizar si no han pasado 24 horas
+              return;
+            }
+          }
+        }
+
+        // Guardar el nuevo token y actualizar lastUpdated
         await _firestore.collection('sellers').doc(userId).set(
           <String, Object?>{
             'fcmToken': token,
@@ -80,12 +102,18 @@ class NotificationServiceDatasource {
     required String title,
     required String body,
   }) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
+    AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
       'orders_chanel',
       'orders',
-      importance: Importance.high,
+      importance: Importance.max,
       priority: Priority.high,
+      colorized: true,
+      color: Constants.mainColor,
+      enableVibration: true,
+      fullScreenIntent: true,
+      playSound: true,
+      enableLights: true,
+      sound: RawResourceAndroidNotificationSound('@raw/notification'),
     );
     const DarwinNotificationDetails darwinDetails = DarwinNotificationDetails();
     DarwinNotificationDetails(
@@ -94,13 +122,13 @@ class NotificationServiceDatasource {
       presentSound: true,
     );
 
-    const NotificationDetails notificationDetails = NotificationDetails(
+    NotificationDetails notificationDetails = NotificationDetails(
       android: androidDetails,
       iOS: darwinDetails,
     );
 
     await _localNotifications.show(
-      0, // ID único de notificación
+      2402, // ID único de notificación
       title,
       body,
       notificationDetails,

@@ -13,7 +13,7 @@ class OrdersDatasource {
           .doc(userId)
           .collection('orders')
           .orderBy(
-            'order_time',
+            'created_at',
             descending: false,
           )
           .snapshots()

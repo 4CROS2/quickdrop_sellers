@@ -135,7 +135,11 @@ class _OrderTileState extends State<OrderTile>
                       ),
                     ],
                   ),
-                  Text(widget._order.orderTime)
+                  Text(
+                    widget._order.orderTime,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800, fontFamily: 'Questrial'),
+                  )
                 ],
               ),
             ),
