@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extensions/extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickdrop_sellers/src/data/model/estableshment_information_model.dart';
+import 'package:quickdrop_sellers/src/data/model/establishment_location_model.dart';
 import 'package:quickdrop_sellers/src/data/model/seller_auth_model.dart';
 import 'package:quickdrop_sellers/src/data/model/seller_information_model.dart';
 import 'package:rxdart/rxdart.dart';
@@ -70,6 +71,7 @@ class AuthDatasource {
 
   Future<void> createNewAccount({
     required SellerAuthModel sellerAuth,
+    required EstablishmentLocationModel location,
     required SellerInformationModel sellerInformation,
     required EstableshmentInformationModel establishmentInformation,
   }) async {
@@ -87,6 +89,7 @@ class AuthDatasource {
           .doc(uid)
           .set(<String, dynamic>{
         ...establishmentInformation.toJson(),
+        ...location.toJson(),
         'createdAt': FieldValue.serverTimestamp(),
       });
 

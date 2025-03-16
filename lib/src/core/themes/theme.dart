@@ -80,7 +80,7 @@ class AppTheme {
         ),
         filled: true,
         fillColor: Colors.grey.shade800,
-        hintStyle: TextStyle(
+        labelStyle: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w800,
         ),

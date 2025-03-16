@@ -41,38 +41,35 @@ class _AuthPageState extends State<AuthPage>
     return SingleChildScrollView(
       padding: Constants.authInputPadding,
       controller: _controller,
-      child: Column(
-        children: <Widget>[
-          Form(
-            key: widget._formKey,
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 30,
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      widget._label.capitalize(),
-                      softWrap: true,
-                      style: TextStyle(
-                        fontFamily: 'Questrial',
-                        fontSize: 43,
-                        fontWeight: FontWeight.w900,
-                        height: .85,
-                      ),
-                    ),
+      child: Form(
+        key: widget._formKey,
+        child: Column(
+          spacing: Constants.paddingTop.top,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 30,
+              ),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  widget._label.capitalize(),
+                  softWrap: true,
+                  style: TextStyle(
+                    fontFamily: 'Questrial',
+                    fontSize: 43,
+                    fontWeight: FontWeight.w900,
+                    height: .85,
                   ),
                 ),
-                SizedBox(
-                  height: 30 + Constants.paddingValue,
-                ),
-                ...widget._children,
-              ],
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 30 + Constants.paddingValue,
+            ),
+            ...widget._children,
+          ],
+        ),
       ),
     );
   }

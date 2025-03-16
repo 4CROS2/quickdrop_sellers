@@ -8,6 +8,7 @@ import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubi
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/authentication_data_page.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/establishment_information.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/seller_data_page.dart';
+import 'package:quickdrop_sellers/src/presentation/auth/signup/pages/store_location_page.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_back_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_navigation_page_buttons.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/toastificastion.dart';
@@ -23,6 +24,7 @@ class _SignupState extends State<Signup> {
   late final PageController _pageController;
 
   late final GlobalKey<FormState> _credentialForm;
+  late final GlobalKey<FormState> _locationForm;
   late final GlobalKey<FormState> _sellerDataForm;
   late final GlobalKey<FormState> _estableshmentForm;
 
@@ -30,6 +32,7 @@ class _SignupState extends State<Signup> {
   void initState() {
     super.initState();
     _credentialForm = GlobalKey<FormState>();
+    _locationForm = GlobalKey<FormState>();
     _sellerDataForm = GlobalKey<FormState>();
     _estableshmentForm = GlobalKey<FormState>();
     _pageController = PageController();
@@ -69,6 +72,7 @@ class _SignupState extends State<Signup> {
           return Scaffold(
             body: SafeArea(
               child: Column(
+                spacing: Constants.paddingValue,
                 children: <Widget>[
                   AuthBackButton(),
                   Flexible(
@@ -81,12 +85,16 @@ class _SignupState extends State<Signup> {
                           index: 0,
                           globalkey: _estableshmentForm,
                         ),
-                        SellerDataPage(
+                        StoreLocationPage(
                           index: 1,
+                          globalKey: _locationForm,
+                        ),
+                        SellerDataPage(
+                          index: 2,
                           globalKey: _sellerDataForm,
                         ),
                         AuthenticationDataPage(
-                          index: 2,
+                          index: 3,
                           globalKey: _credentialForm,
                         ),
                       ],
@@ -95,6 +103,7 @@ class _SignupState extends State<Signup> {
                   AuthNavigationPageButtons(
                     formsGlobalskeys: <GlobalKey<FormState>>[
                       _estableshmentForm,
+                      _locationForm,
                       _sellerDataForm,
                       _credentialForm,
                     ],

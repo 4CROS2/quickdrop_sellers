@@ -5,7 +5,6 @@ import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubi
 import 'package:quickdrop_sellers/src/presentation/auth/signup/widgets/date_sellector.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/widgets/document_type.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/widgets/auth_page.dart';
-import 'package:quickdrop_sellers/src/presentation/auth/widgets/separated_input.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/text_input.dart';
 
 class SellerDataPage extends StatefulWidget {
@@ -80,46 +79,36 @@ class _SellerDataPageState extends State<SellerDataPage> {
               validator: emptyValidator,
               labelText: 'nombre',
             ),
-            SeparatedInput(
-              child: InputText(
-                controller: _textEditingControllers[1],
-                validator: emptyValidator,
-                labelText: 'apelidos',
-              ),
+            InputText(
+              controller: _textEditingControllers[1],
+              validator: emptyValidator,
+              labelText: 'apelidos',
             ),
-            SeparatedInput(
-              child: DocumentType(
-                onSelected: (String? value) {
-                  if (value == null) {
-                    return;
-                  }
-                  setState(() => _documentType = value);
-                },
-              ),
-            ),
-            SeparatedInput(
-              child: InputText(
-                controller: _textEditingControllers[2],
-                validator: emptyValidator,
-                labelText: 'numero de documento',
-                textInputType: TextInputType.numberWithOptions(),
-              ),
-            ),
-            SeparatedInput(
-              child: DateSellector(onSelected: (String? value) {
+            DocumentType(
+              onSelected: (String? value) {
                 if (value == null) {
                   return;
                 }
-                setState(() => _sellerDate = value);
-              }),
+                setState(() => _documentType = value);
+              },
             ),
-            SeparatedInput(
-              child: InputText(
-                controller: _textEditingControllers[3],
-                validator: emptyValidator,
-                labelText: 'numero de contacto',
-                textInputType: TextInputType.numberWithOptions(),
-              ),
+            InputText(
+              controller: _textEditingControllers[2],
+              validator: emptyValidator,
+              labelText: 'numero de documento',
+              textInputType: TextInputType.numberWithOptions(),
+            ),
+            DateSellector(onSelected: (String? value) {
+              if (value == null) {
+                return;
+              }
+              setState(() => _sellerDate = value);
+            }),
+            InputText(
+              controller: _textEditingControllers[3],
+              validator: emptyValidator,
+              labelText: 'numero de contacto',
+              textInputType: TextInputType.numberWithOptions(),
             ),
           ],
         );
