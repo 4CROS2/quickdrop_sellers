@@ -12,13 +12,13 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
 
     - name: Cache Flutter dependencies
-      uses: actions/cache@v3 # Update the version here
+      uses: actions/cache@v3
       with:
         path: ~/.pub-cache
         key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.yaml') }}
