@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/orderDetail/cubit/order_detail_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/custom_app_bar.dart';
 

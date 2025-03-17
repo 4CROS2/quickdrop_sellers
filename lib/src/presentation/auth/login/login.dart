@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/auth_button.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/widgets/forgot_password.dart';

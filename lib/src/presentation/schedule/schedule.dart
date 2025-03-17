@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/domain/entity/schedule_entity.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/cubit/schedule_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/widgets/schedule_appbar.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/widgets/schedule_tile.dart';

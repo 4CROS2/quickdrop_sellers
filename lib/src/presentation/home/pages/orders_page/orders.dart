@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/cubit/orders_page_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/widgets/order_tile.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/product_list_builder.dart';
