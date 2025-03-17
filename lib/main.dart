@@ -3,7 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickdrop_sellers/firebase_options.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart' as di;
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart' as di;
 import 'package:quickdrop_sellers/src/presentation/app/app.dart';
 //test
 

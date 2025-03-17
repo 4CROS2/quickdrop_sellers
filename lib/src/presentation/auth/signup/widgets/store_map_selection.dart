@@ -5,6 +5,8 @@ import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 
 class StoreMapSelection extends StatefulWidget {
   const StoreMapSelection({
+    required MapController mapController,
+    VoidCallback? getPosition,
     void Function(
       TapPosition tapPosition,
       LatLng point,
@@ -12,13 +14,18 @@ class StoreMapSelection extends StatefulWidget {
     Marker? marker,
     super.key,
   })  : _setMark = setMark,
-        _marker = marker;
+        _getPosition = getPosition,
+        _marker = marker,
+        _mapController = mapController;
 
   final void Function(
     TapPosition tapPosition,
     LatLng point,
   )? _setMark;
 
+  final VoidCallback? _getPosition;
+
+  final MapController _mapController;
   final Marker? _marker;
 
   @override
@@ -27,24 +34,11 @@ class StoreMapSelection extends StatefulWidget {
 
 class _StoreMapSelectionState extends State<StoreMapSelection> {
   bool mapActive = false;
-  late final MapController _mapController;
-
-  @override
-  void initState() {
-    super.initState();
-    _mapController = MapController();
-  }
 
   void enableMap() {
     setState(() {
       mapActive = !mapActive;
     });
-  }
-
-  @override
-  void dispose() {
-    _mapController.dispose();
-    super.dispose();
   }
 
   @override
@@ -60,7 +54,7 @@ class _StoreMapSelectionState extends State<StoreMapSelection> {
             IgnorePointer(
               ignoring: !mapActive,
               child: FlutterMap(
-                mapController: _mapController,
+                mapController: widget._mapController,
                 options: MapOptions(
                   initialCenter: LatLng(5.157472, -76.686976),
                   initialZoom: 15.8,
@@ -93,16 +87,20 @@ class _StoreMapSelectionState extends State<StoreMapSelection> {
                 child: Material(
                   color: Constants.mainColor,
                   borderRadius: Constants.mainBorderRadius * .5,
-                  child: InkWell(
-                    onTap: () {
-                      _mapController.move(LatLng(5.157472, -76.686976), 17);
-                    },
-                    child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: Icon(
-                        Icons.my_location_outlined,
-                        color: Colors.black,
+                  child: Tooltip(
+                    message: 'Mi ubicación',
+                    textStyle: TextStyle(
+                      color: Constants.secondaryColor,
+                    ),
+                    child: InkWell(
+                      onTap: widget._getPosition,
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Icon(
+                          Icons.my_location_outlined,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),

@@ -8,7 +8,7 @@ import 'package:quickdrop_sellers/src/core/extensions/positive_number_formatter.
 import 'package:quickdrop_sellers/src/core/extensions/text_input_type_extension.dart';
 import 'package:quickdrop_sellers/src/core/functions/validators.dart';
 import 'package:quickdrop_sellers/src/domain/entity/new_product_entity.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/cubit/newproduct_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/widgets/images_picker.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/widgets/pop_up_status.dart';

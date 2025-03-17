@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/localization/app_localizations.dart';
 import 'package:quickdrop_sellers/src/core/themes/theme.dart';
-import 'package:quickdrop_sellers/src/injection/injection_container.dart';
+import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
+
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/notifications/cubit/notifications_cubit.dart';
 import 'package:quickdrop_sellers/src/routes/routes.dart';
