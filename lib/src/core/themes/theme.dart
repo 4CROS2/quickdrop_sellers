@@ -52,6 +52,10 @@ class AppTheme {
         ),
         contentPadding: Constants.authInputContent,
       ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        // ignore: deprecated_member_use
+        year2023: false,
+      ),
     );
   }
 
