@@ -43,12 +43,12 @@ dependencies:
   image: ^4.5.4
   webp: ^1.0.0+1
   flutter_image_compress: ^2.4.0
-  flutter_local_notifications: ^19.0.0
   firebase_messaging: ^15.2.4
   flutter_map: ^8.1.1
   latlong2: ^0.9.1
   geocoding: ^3.0.0
   location: ^8.0.0
+  flutter_local_notifications: ^19.0.0
  
 
 dev_dependencies:

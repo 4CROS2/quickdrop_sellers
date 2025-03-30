@@ -6,7 +6,7 @@ class OrderTileButton extends StatelessWidget {
   const OrderTileButton({
     required this.label,
     this.elevation = 0,
-    this.flex=1,
+    this.flex = 1,
     this.surfaceTintColor,
     this.onTap,
     this.style,
@@ -16,7 +16,7 @@ class OrderTileButton extends StatelessWidget {
   final String label;
   final TextStyle? style;
   final Color? color;
-  final Color? surfaceTintColor ;
+  final Color? surfaceTintColor;
   final VoidCallback? onTap;
   final double elevation;
   final int flex;
@@ -24,11 +24,11 @@ class OrderTileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex:flex ,
+      flex: flex,
       child: Material(
         color: color,
         elevation: elevation,
-        surfaceTintColor:surfaceTintColor,
+        surfaceTintColor: surfaceTintColor,
         shadowColor: Colors.transparent,
         clipBehavior: Clip.antiAlias,
         borderRadius: Constants.mainBorderRadius / 2,
