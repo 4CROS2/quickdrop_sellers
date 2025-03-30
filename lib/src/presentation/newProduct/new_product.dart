@@ -53,87 +53,89 @@ class _AddNewProductState extends State<AddNewProduct> {
       appBar: CustomAppBar(
         title: 'añadir producto'.capitalize(),
       ),
-      body: BlocProvider<NewProductCubit>(
-        create: (BuildContext context) => sl<NewProductCubit>(),
-        child: BlocConsumer<NewProductCubit, NewProductState>(
-          buildWhen: (NewProductState previous, NewProductState current) =>
-              previous.status != current.status,
-          listener: (BuildContext context, NewProductState state) {
-            if (state.status == NewProductStatus.error) {
-              AppToastification.showError(
-                context: context,
-                message: state.message,
-              );
-            }
-            if (state.status == NewProductStatus.loading) {
-              _showLoadingDialog(context);
-            }
-            if (state.status == NewProductStatus.success) {
-              AppToastification.showSuccess(
-                context: context,
-                message: state.message,
-              );
-            }
-          },
-          builder: (BuildContext context, NewProductState state) {
-            final NewProductCubit cubit = context.read<NewProductCubit>();
-            return Column(
-              children: <Widget>[
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: Constants.mainPadding,
-                    physics: Constants.mainPhysics,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        spacing: Constants.paddingValue,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          InputText(
-                            labelText: 'nombre del producto',
-                            controller: _controllers[0],
-                            onChanged: cubit.setProductName,
-                            validator: emptyValidator,
-                          ),
-                          InputText(
-                            labelText: 'precio',
-                            controller: _controllers[1],
-                            validator: emptyValidator,
-                            formatters: <TextInputFormatter>[
-                              PositiveNumberFormatter()
-                            ],
-                            textInputType: TextInputTypeExtension.numbersOnly,
-                            onChanged: (String value) {
-                              if (value.isNotEmpty) {
-                                cubit.setPrice(
-                                  int.parse(value),
-                                );
-                              }
-                            },
-                          ),
-                          TextArea(
-                            label: 'descripcion',
-                            controller: _controllers[2],
-                            validator: emptyValidator,
-                            onChange: cubit.setDescription,
-                          ),
-                          ImagesPicker(),
-                          TagsInputs(),
-                        ],
+      body: SafeArea(
+        child: BlocProvider<NewProductCubit>(
+          create: (BuildContext context) => sl<NewProductCubit>(),
+          child: BlocConsumer<NewProductCubit, NewProductState>(
+            buildWhen: (NewProductState previous, NewProductState current) =>
+                previous.status != current.status,
+            listener: (BuildContext context, NewProductState state) {
+              if (state.status == NewProductStatus.error) {
+                AppToastification.showError(
+                  context: context,
+                  message: state.message,
+                );
+              }
+              if (state.status == NewProductStatus.loading) {
+                _showLoadingDialog(context);
+              }
+              if (state.status == NewProductStatus.success) {
+                AppToastification.showSuccess(
+                  context: context,
+                  message: state.message,
+                );
+              }
+            },
+            builder: (BuildContext context, NewProductState state) {
+              final NewProductCubit cubit = context.read<NewProductCubit>();
+              return Column(
+                children: <Widget>[
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: Constants.mainPadding,
+                      physics: Constants.mainPhysics,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          spacing: Constants.paddingValue,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            InputText(
+                              labelText: 'nombre del producto',
+                              controller: _controllers[0],
+                              onChanged: cubit.setProductName,
+                              validator: emptyValidator,
+                            ),
+                            InputText(
+                              labelText: 'precio',
+                              controller: _controllers[1],
+                              validator: emptyValidator,
+                              formatters: <TextInputFormatter>[
+                                PositiveNumberFormatter()
+                              ],
+                              textInputType: TextInputTypeExtension.numbersOnly,
+                              onChanged: (String value) {
+                                if (value.isNotEmpty) {
+                                  cubit.setPrice(
+                                    int.parse(value),
+                                  );
+                                }
+                              },
+                            ),
+                            TextArea(
+                              label: 'descripcion',
+                              controller: _controllers[2],
+                              validator: emptyValidator,
+                              onChange: cubit.setDescription,
+                            ),
+                            ImagesPicker(),
+                            TagsInputs(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: SubmitNewProductButton(
-                    formKey: _formKey,
-                    cubit: cubit,
-                  ),
-                )
-              ],
-            );
-          },
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SubmitNewProductButton(
+                      formKey: _formKey,
+                      cubit: cubit,
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -43,8 +43,9 @@ class _OrdersState extends State<Orders> with AutomaticKeepAliveClientMixin {
                   itemCount: state.orders.length,
                   itemBuilder: (BuildContext context, int index) {
                     return OrderTile(
-                      onTap: () =>
-                          context.push('/order/${state.orders[index].orderId}'),
+                      onTap: () => context.push(
+                        '/order/${state.orders[index].orderId}',
+                      ),
                       order: state.orders[index],
                     );
                   },
