@@ -16,7 +16,7 @@ class NewProductCubit extends Cubit<NewProductState> {
         super(NewProductState());
   final NewProductUsecase _usecase;
   final ImagePicker _imagePicker = ImagePicker();
-  late final StreamSubscription<String> _saveProductStream;
+  StreamSubscription<String>? _saveProductStream;
 
   void setProductName(String value) {
     emit(
@@ -206,7 +206,7 @@ class NewProductCubit extends Cubit<NewProductState> {
 
   @override
   Future<void> close() {
-    _saveProductStream.cancel();
+    _saveProductStream?.cancel();
     return super.close();
   }
 }
