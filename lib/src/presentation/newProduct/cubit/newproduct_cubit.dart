@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quickdrop_sellers/src/core/functions/ngrams_generation.dart';
 import 'package:quickdrop_sellers/src/domain/entity/new_product_entity.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/new_product_usecase.dart';
 
@@ -72,6 +73,7 @@ class NewProductCubit extends Cubit<NewProductState> {
   }
 
   void saveNewProduct() {
+    _generateNgramsForProduct();
     emit(
       state.copyWith(
         status: NewProductStatus.loading,
@@ -120,6 +122,7 @@ class NewProductCubit extends Cubit<NewProductState> {
         status: NewProductStatus.initial,
       ),
     );
+
     try {
       List<XFile> currentImages = _getListImages();
       final List<XFile> response = await _imagePicker.pickMultiImage(
@@ -152,6 +155,28 @@ class NewProductCubit extends Cubit<NewProductState> {
       state.copyWith(
         newProduct: state.newProduct.copyWith(
           images: images,
+        ),
+      ),
+    );
+  }
+
+  void _generateNgramsForProduct() {
+    final Set<String> allNgrams = <String>{};
+
+    // Generar n-gramas para el nombre
+    final List<String> nameNgrams = generateNgrams(state.newProduct.name, 3);
+    allNgrams.addAll(nameNgrams);
+
+    // Generar n-gramas para cada etiqueta
+    for (String tag in state.newProduct.tags) {
+      final List<String> tagNgrams = generateNgrams(tag, 3);
+      allNgrams.addAll(tagNgrams);
+    }
+
+    emit(
+      state.copyWith(
+        newProduct: state.newProduct.copyWith(
+          ngrams: allNgrams,
         ),
       ),
     );
