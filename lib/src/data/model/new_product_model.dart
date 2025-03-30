@@ -7,6 +7,7 @@ class NewProductModel extends NewProductEntity {
     required super.description,
     required super.images,
     required super.tags,
+    required super.ngrams,
   });
   static NewProductModel fromEntity({required NewProductEntity entity}) {
     return NewProductModel(
@@ -15,6 +16,7 @@ class NewProductModel extends NewProductEntity {
       description: entity.description,
       images: entity.images,
       tags: entity.tags,
+      ngrams: entity.ngrams
     );
   }
 
@@ -24,6 +26,7 @@ class NewProductModel extends NewProductEntity {
       'base_price': price,
       'description': description,
       'tags': tags,
+      'ngrams':ngrams,
     };
   }
 }
