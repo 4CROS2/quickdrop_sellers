@@ -47,14 +47,8 @@ class NewProductEntity extends Equatable {
       );
 
   @override
-  List<Object?> get props => <Object?>[
-        name,
-        price,
-        description,
-        images,
-        tags,
-        ngrams
-      ];
+  List<Object?> get props =>
+      <Object?>[name, price, description, images, tags, ngrams];
 
   @override
   bool? get stringify => true;

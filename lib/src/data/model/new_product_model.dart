@@ -11,13 +11,12 @@ class NewProductModel extends NewProductEntity {
   });
   static NewProductModel fromEntity({required NewProductEntity entity}) {
     return NewProductModel(
-      name: entity.name,
-      price: entity.price,
-      description: entity.description,
-      images: entity.images,
-      tags: entity.tags,
-      ngrams: entity.ngrams
-    );
+        name: entity.name,
+        price: entity.price,
+        description: entity.description,
+        images: entity.images,
+        tags: entity.tags,
+        ngrams: entity.ngrams);
   }
 
   Map<String, dynamic> toJson() {
@@ -26,7 +25,7 @@ class NewProductModel extends NewProductEntity {
       'base_price': price,
       'description': description,
       'tags': tags,
-      'ngrams':ngrams,
+      'ngrams': ngrams,
     };
   }
 }
