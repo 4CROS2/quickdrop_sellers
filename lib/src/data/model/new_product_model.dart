@@ -16,7 +16,7 @@ class NewProductModel extends NewProductEntity {
         description: entity.description,
         images: entity.images,
         tags: entity.tags,
-        ngrams: entity.ngrams);
+        ngrams: entity.ngrams,);
   }
 
   Map<String, dynamic> toJson() {
