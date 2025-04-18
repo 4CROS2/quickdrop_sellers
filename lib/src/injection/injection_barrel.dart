@@ -33,11 +33,10 @@ import 'package:quickdrop_sellers/src/domain/usecase/signup_usecase.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/cubit/signup_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/home/cubit/home_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/home/pages/products/cubit/products_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/location/cubit/location_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/newProduct/cubit/newproduct_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/notifications/cubit/notifications_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/products/presentation/cubit/products_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/cubit/schedule_cubit.dart';
 
 part 'injection_container.dart';

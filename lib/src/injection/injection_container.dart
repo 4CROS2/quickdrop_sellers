@@ -129,9 +129,6 @@ Future<void> init() async {
       usecase: sl<SignupUsecase>(),
     ),
   );
-  sl.registerFactory<HomeCubit>(
-    () => HomeCubit(),
-  );
   sl.registerFactory<ScheduleCubit>(
     () => ScheduleCubit(
       usecase: sl<ScheduleUsecase>(),

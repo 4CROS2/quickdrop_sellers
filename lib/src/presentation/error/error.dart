@@ -1,6 +1,7 @@
 import 'package:extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 
 class ErrorPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class ErrorPage extends StatelessWidget {
       context.pop();
       return;
     } else {
-      context.go('/home');
+      context.go('/orders');
     }
   }
 
@@ -36,7 +37,7 @@ class ErrorPage extends StatelessWidget {
           spacing: Constants.paddingValue,
           children: <Widget>[
             Icon(
-              Icons.sentiment_dissatisfied,
+              HugeIcons.strokeRoundedFileNotFound,
               color: Colors.grey,
               size: 90,
               grade: 2,

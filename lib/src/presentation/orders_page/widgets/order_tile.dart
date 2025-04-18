@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/functions/time_format.dart';
 import 'package:quickdrop_sellers/src/domain/entity/order_entity.dart';
-import 'package:quickdrop_sellers/src/presentation/home/pages/orders_page/widgets/order_tile_button.dart';
+import 'package:quickdrop_sellers/src/presentation/orders_page/widgets/order_tile_button.dart';
 
 class OrderTile extends StatefulWidget {
   const OrderTile({

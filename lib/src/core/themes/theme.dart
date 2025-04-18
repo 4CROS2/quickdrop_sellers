@@ -26,7 +26,7 @@ class AppTheme {
   static ThemeData _createLightTheme(BuildContext context) {
     return ThemeData(
       colorSchemeSeed: Constants.mainColor,
-      scaffoldBackgroundColor: Colors.red.shade50,
+      scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Questrial',
       cardColor: Colors.white,
       pageTransitionsTheme: _pageTransition,
@@ -35,6 +35,7 @@ class AppTheme {
           color: Colors.black,
           fontSize: 16,
           fontWeight: FontWeight.w600,
+          fontFamily: 'questrial',
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

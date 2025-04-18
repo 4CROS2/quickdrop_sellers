@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:quickdrop_sellers/src/core/constants/constants.dart';
 import 'package:quickdrop_sellers/src/core/functions/price_formatter.dart';
 import 'package:quickdrop_sellers/src/domain/entity/products_entity.dart';
-import 'package:quickdrop_sellers/src/presentation/home/pages/products/cubit/products_cubit.dart';
+import 'package:quickdrop_sellers/src/presentation/products/presentation/cubit/products_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/widgets/image_loader.dart';
 
 class ProductTile extends StatefulWidget {
@@ -34,7 +34,7 @@ class _ProductTileState extends State<ProductTile> {
     BuildContext context,
   ) {
     context.push(
-      '/productdetail/${widget._product.id}',
+      '/products/detail/${widget._product.id}',
     );
   }
 
