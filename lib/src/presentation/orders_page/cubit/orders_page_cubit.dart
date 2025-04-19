@@ -11,7 +11,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   OrdersCubit({
     required OrdersUsecase usecase,
   })  : _usecase = usecase,
-        super(OrdersState());
+        super(const OrdersState());
   final OrdersUsecase _usecase;
   StreamSubscription<List<OrderEntity>>? _streamSubscription;
 

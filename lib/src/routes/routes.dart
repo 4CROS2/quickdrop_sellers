@@ -67,12 +67,12 @@ class AppRouter {
       GoRoute(
         path: '/login',
         name: 'login page',
-        builder: (_, __) => Login(),
+        builder: (_, __) => const Login(),
       ),
       GoRoute(
         path: '/signup',
         name: 'register page',
-        builder: (_, __) => Signup(),
+        builder: (_, __) => const Signup(),
       ),
       StatefulShellRoute.indexedStack(
         parentNavigatorKey: _rootNavigatorKey,
@@ -88,14 +88,14 @@ class AppRouter {
               GoRoute(
                 path: '/orders',
                 name: 'quickdrop',
-                pageBuilder: (_, __) => NoTransitionPage<Orders>(
+                pageBuilder: (_, __) => const NoTransitionPage<Orders>(
                   child: Orders(),
                 ),
               ),
               GoRoute(
                   path: '/products',
                   name: 'productos',
-                  pageBuilder: (_, __) => NoTransitionPage<Products>(
+                  pageBuilder: (_, __) => const NoTransitionPage<Products>(
                         child: Products(),
                       ),
                   routes: <RouteBase>[
@@ -117,16 +117,18 @@ class AppRouter {
       GoRoute(
         path: '/establishment',
         name: 'establishment',
-        builder: (_, __) => Profile(),
+        builder: (_, __) => const Profile(),
       ),
       GoRoute(
         path: '/schedule',
         name: 'schedule',
-        builder: (BuildContext context, GoRouterState state) => Schedule(),
+        builder: (BuildContext context, GoRouterState state) =>
+            const Schedule(),
       ),
       GoRoute(
         path: '/addnewproduct',
-        builder: (BuildContext context, GoRouterState state) => AddNewProduct(),
+        builder: (BuildContext context, GoRouterState state) =>
+            const AddNewProduct(),
       ),
       GoRoute(
         path: '/order/:orderId',

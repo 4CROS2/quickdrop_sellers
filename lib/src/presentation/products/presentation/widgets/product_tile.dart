@@ -87,7 +87,7 @@ class _ProductTileState extends State<ProductTile> {
                           widget._product.productName.capitalize(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Questrial',
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
@@ -95,7 +95,7 @@ class _ProductTileState extends State<ProductTile> {
                         ),
                         Text(
                           formatPrice(widget._product.price),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w800,
                             fontSize: 16,
                           ),
@@ -114,7 +114,7 @@ class _ProductTileState extends State<ProductTile> {
                         onSelected: _actionMenu,
                       );
                     },
-                    icon: Icon(Icons.more_horiz_rounded),
+                    icon: const Icon(Icons.more_horiz_rounded),
                   )
                 ],
               ),

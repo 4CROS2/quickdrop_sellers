@@ -36,7 +36,7 @@ class ImageSelected extends StatelessWidget {
               child: InkWell(
                 onTap: () =>
                     context.read<NewProductCubit>().deleteImage(index: _index),
-                child: Icon(
+                child: const Icon(
                   Icons.close,
                   size: 16,
                 ),

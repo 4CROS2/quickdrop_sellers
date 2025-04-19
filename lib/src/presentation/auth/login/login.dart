@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
           listenWhen: (LoginState previous, LoginState current) {
             if (previous is Loading) {
               Future<void>.delayed(
-                Duration(milliseconds: 300),
+                const Duration(milliseconds: 300),
                 () {
                   if (mounted) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
             if (state is Loading) {
               showCupertinoDialog(
                 context: context,
-                builder: (BuildContext context) => LoadingPopUp(),
+                builder: (BuildContext context) => const LoadingPopUp(),
               );
             }
           },
@@ -78,8 +78,8 @@ class _LoginState extends State<Login> {
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
-                      AuthTitle(),
-                      SizedBox(
+                      const AuthTitle(),
+                      const SizedBox(
                         height: 50,
                       ),
                       Padding(
@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                           validator: passwordValidator,
                         ),
                       ),
-                      ForgotPassword(),
+                      const ForgotPassword(),
                       AuthButton(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
@@ -110,10 +110,10 @@ class _LoginState extends State<Login> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
-                      NoAccountButton(),
+                      const NoAccountButton(),
                       SizedBox(
                         height: MediaQuery.viewInsetsOf(context).bottom,
                       ),

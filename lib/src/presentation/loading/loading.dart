@@ -10,7 +10,7 @@ class Loading extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
+          const Text(
             'Loading...',
           ),
           Padding(

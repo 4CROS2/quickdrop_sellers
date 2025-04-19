@@ -24,7 +24,7 @@ class ErrorPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => _pop(context),
         ),
         title: Text(
@@ -36,7 +36,7 @@ class ErrorPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: Constants.paddingValue,
           children: <Widget>[
-            Icon(
+            const Icon(
               HugeIcons.strokeRoundedFileNotFound,
               color: Colors.grey,
               size: 90,
@@ -46,7 +46,7 @@ class ErrorPage extends StatelessWidget {
             Text('la pagina $_path no fue  encontrada'.capitalizeSentences()),
             TextButton.icon(
               onPressed: () => _pop(context),
-              icon: Icon(Icons.home_rounded),
+              icon: const Icon(Icons.home_rounded),
               label: Text(
                 'home'.capitalize(),
               ),

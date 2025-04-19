@@ -21,7 +21,7 @@ class _AuthButtonState extends State<AuthButton>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _animation = Tween<double>(
       begin: 1,
@@ -63,7 +63,7 @@ class _AuthButtonState extends State<AuthButton>
                     child: Center(
                       child: Text(
                         'iniciar sesion'.capitalize(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,

@@ -45,7 +45,7 @@ class _DateSellectorState extends State<DateSellector> {
             padding: Constants.authInputContent,
             child: Text(
               date,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),

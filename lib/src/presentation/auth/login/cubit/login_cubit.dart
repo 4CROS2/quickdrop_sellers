@@ -8,7 +8,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required LoginUsecase usecase})
       : _usecase = usecase,
-        super(LoginState());
+        super(const LoginState());
   final LoginUsecase _usecase;
 
   void login({

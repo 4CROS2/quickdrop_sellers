@@ -31,7 +31,7 @@ class Constants {
     vertical: paddingValue * 1.5,
   );
 
-  static ScrollPhysics mainPhysics = AlwaysScrollableScrollPhysics(
+  static ScrollPhysics mainPhysics = const AlwaysScrollableScrollPhysics(
     parent: BouncingScrollPhysics(),
   );
 }

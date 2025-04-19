@@ -19,7 +19,7 @@ class AppTheme {
   static PageTransitionsTheme get _pageTransition => PageTransitionsTheme(
         builders: Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
           TargetPlatform.values,
-          value: (_) => FadeForwardsPageTransitionsBuilder(),
+          value: (_) => const FadeForwardsPageTransitionsBuilder(),
         ),
       );
 
@@ -30,7 +30,7 @@ class AppTheme {
       fontFamily: 'Questrial',
       cardColor: Colors.white,
       pageTransitionsTheme: _pageTransition,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontSize: 16,
@@ -41,19 +41,19 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: Constants.mainBorderRadius,
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 0,
             style: BorderStyle.none,
           ),
         ),
         filled: true,
         fillColor: Colors.white,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Colors.black,
         ),
         contentPadding: Constants.authInputContent,
       ),
-      progressIndicatorTheme: ProgressIndicatorThemeData(
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
         // ignore: deprecated_member_use
         year2023: false,
       ),
@@ -68,7 +68,7 @@ class AppTheme {
       fontFamily: 'Questrial',
       cardColor: Colors.grey.shade800,
       pageTransitionsTheme: _pageTransition,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 16,
@@ -85,7 +85,7 @@ class AppTheme {
         ),
         filled: true,
         fillColor: Colors.grey.shade800,
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w800,
         ),

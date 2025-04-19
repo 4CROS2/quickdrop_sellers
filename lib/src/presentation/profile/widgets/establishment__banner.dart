@@ -60,7 +60,7 @@ class _EstablishmentBannerState extends State<EstablishmentBanner> {
                         _app.establishment.companyName.capitalize(),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontFamily: 'Questrial',
                           fontWeight: FontWeight.w600,
@@ -72,7 +72,7 @@ class _EstablishmentBannerState extends State<EstablishmentBanner> {
                         _app.accountInformation.email,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.grey,
                           fontSize: 16,

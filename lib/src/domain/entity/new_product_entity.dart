@@ -37,7 +37,7 @@ class NewProductEntity extends Equatable {
     );
   }
 
-  factory NewProductEntity.empty() => NewProductEntity(
+  factory NewProductEntity.empty() => const NewProductEntity(
         description: '',
         price: 0,
         name: '',

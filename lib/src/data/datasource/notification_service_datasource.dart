@@ -113,10 +113,10 @@ class NotificationServiceDatasource {
       fullScreenIntent: true,
       playSound: true,
       enableLights: true,
-      sound: RawResourceAndroidNotificationSound('@raw/notification'),
+      sound: const RawResourceAndroidNotificationSound('@raw/notification'),
     );
     const DarwinNotificationDetails darwinDetails = DarwinNotificationDetails();
-    DarwinNotificationDetails(
+    const DarwinNotificationDetails(
       presentAlert: true,
       presentBadge: true,
       presentSound: true,

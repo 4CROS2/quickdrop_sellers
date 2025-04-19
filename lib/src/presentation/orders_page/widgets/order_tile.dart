@@ -141,7 +141,7 @@ class _OrderTileState extends State<OrderTile>
                                   ),
                                   child: Text(
                                     widget._order.productName.capitalize(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Questrial',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
@@ -157,7 +157,7 @@ class _OrderTileState extends State<OrderTile>
                         formatHour(
                           time: widget._order.orderTime,
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Questrial',
@@ -175,7 +175,7 @@ class _OrderTileState extends State<OrderTile>
                         onTap: () {},
                         label: 'aceptar',
                         color: Colors.red,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w800,
                         ),
@@ -186,22 +186,23 @@ class _OrderTileState extends State<OrderTile>
                             context: context,
                             builder: (BuildContext context) {
                               return CupertinoAlertDialog(
-                                title: Text('¿Estás seguro?'),
-                                content: Text('¿Deseas rechazar este pedido?'),
+                                title: const Text('¿Estás seguro?'),
+                                content:
+                                    const Text('¿Deseas rechazar este pedido?'),
                                 actions: <Widget>[
                                   CupertinoDialogAction(
                                     isDefaultAction: true,
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('cancelar'),
+                                    child: const Text('cancelar'),
                                   ),
                                   CupertinoDialogAction(
                                     isDestructiveAction: true,
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('rechazar'),
+                                    child: const Text('rechazar'),
                                   ),
                                 ],
                               );

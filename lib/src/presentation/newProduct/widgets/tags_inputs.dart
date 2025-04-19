@@ -70,7 +70,7 @@ class _TagsInputsState extends State<TagsInputs> {
                 helperText: 'agregue 3 tags como minimo*'.capitalize(),
                 suffixIcon: IconButton(
                   onPressed: _setTag,
-                  icon: Icon(Icons.check),
+                  icon: const Icon(Icons.check),
                 ),
               ),
             ),

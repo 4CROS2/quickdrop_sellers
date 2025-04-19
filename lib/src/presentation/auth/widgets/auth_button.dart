@@ -37,8 +37,8 @@ class SignupButton extends StatelessWidget {
               if (_prefixIcon != null) _iconButton(icon: _prefixIcon),
               Text(
                 _label!.capitalize(),
-                style:
-                    TextStyle(fontWeight: FontWeight.w700, color: Colors.white),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w700, color: Colors.white),
               ),
               if (_suffixIcon != null) _iconButton(icon: _suffixIcon),
             ],

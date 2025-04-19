@@ -68,7 +68,7 @@ class _InputTextState extends State<InputText> {
                 borderRadius: Constants.mainBorderRadius * 2,
                 onTap: toggleShowText,
                 child: AnimatedSwitcher(
-                  duration: Duration(
+                  duration: const Duration(
                     milliseconds: 200,
                   ),
                   child: Icon(
@@ -83,7 +83,7 @@ class _InputTextState extends State<InputText> {
               )
             : null,
       ),
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'Questrial',
         fontWeight: FontWeight.w700,
       ),

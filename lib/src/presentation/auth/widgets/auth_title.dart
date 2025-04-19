@@ -13,7 +13,7 @@ class AuthTitle extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Material(
+            const Material(
               color: Colors.transparent,
               child: Hero(
                 tag: 'title',
@@ -29,7 +29,7 @@ class AuthTitle extends StatelessWidget {
             ),
             Text(
               'sellers'.capitalize(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
               ),
             ),

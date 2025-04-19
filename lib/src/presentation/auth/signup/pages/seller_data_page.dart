@@ -96,7 +96,7 @@ class _SellerDataPageState extends State<SellerDataPage> {
               controller: _textEditingControllers[2],
               validator: emptyValidator,
               labelText: 'numero de documento',
-              textInputType: TextInputType.numberWithOptions(),
+              textInputType: const TextInputType.numberWithOptions(),
             ),
             DateSellector(onSelected: (String? value) {
               if (value == null) {
@@ -108,7 +108,7 @@ class _SellerDataPageState extends State<SellerDataPage> {
               controller: _textEditingControllers[3],
               validator: emptyValidator,
               labelText: 'numero de contacto',
-              textInputType: TextInputType.numberWithOptions(),
+              textInputType: const TextInputType.numberWithOptions(),
             ),
           ],
         );

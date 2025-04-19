@@ -55,7 +55,7 @@ class _StoreLocationPageState extends State<StoreLocationPage> {
         position = point;
         marker = Marker(
           point: point,
-          child: Icon(
+          child: const Icon(
             Icons.location_pin,
             color: Colors.red,
             size: 40,
@@ -135,7 +135,7 @@ class _StoreLocationPageState extends State<StoreLocationPage> {
               },
               decoration: InputDecoration(
                 labelText: 'direccion'.capitalize(),
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
               ),

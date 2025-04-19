@@ -15,7 +15,7 @@ class LoadingDataAnimation extends StatelessWidget {
           padding: EdgeInsets.all(
             Constants.paddingValue * 2,
           ),
-          child: CircularProgressIndicator.adaptive(),
+          child: const CircularProgressIndicator.adaptive(),
         ),
       ),
     );

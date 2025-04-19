@@ -10,7 +10,7 @@ class ProfileHeader extends CustomAppBar {
     return AppBar(
       title: Text(
         'informacion de la cuenta'.capitalize(),
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Questrial',
           fontSize: 16,
         ),

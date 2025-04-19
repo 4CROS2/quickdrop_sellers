@@ -25,7 +25,7 @@ class _OrdersState extends State<Orders> {
         builder: (BuildContext context, OrdersState state) {
           return CustomScrollView(
             slivers: <Widget>[
-              SliverAppBar(
+              const SliverAppBar(
                 automaticallyImplyLeading: false,
                 title: Text(
                   'Tus ordenes',

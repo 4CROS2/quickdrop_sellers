@@ -69,7 +69,7 @@ class _TextAreaState extends State<TextArea> {
         inputFormatters: <TextInputFormatter>[
           CapitalizeAfterDotFormatter(),
         ],
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Questrial',
           fontWeight: FontWeight.w700,
         ),

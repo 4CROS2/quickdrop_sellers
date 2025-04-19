@@ -80,7 +80,7 @@ class _ImagesPickerState extends State<ImagesPicker>
                           onTap: () {
                             context.read<NewProductCubit>().selectImages();
                           },
-                          child: SizedBox(
+                          child: const SizedBox(
                             width: 60,
                             height: 60,
                             child: Icon(Icons.add),

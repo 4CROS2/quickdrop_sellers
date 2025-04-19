@@ -24,7 +24,7 @@ class ScheduleTile extends StatefulWidget {
 
 class _ScheduleTileState extends State<ScheduleTile> {
   bool _enabled = false;
-  ScheduleEntity entity = ScheduleEntity.empty();
+  ScheduleEntity entity = const ScheduleEntity.empty();
 
   @override
   void initState() {

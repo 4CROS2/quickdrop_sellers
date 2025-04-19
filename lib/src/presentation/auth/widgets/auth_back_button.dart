@@ -23,7 +23,7 @@ class AuthBackButton extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: () => context.pop(),
-            child: SizedBox(
+            child: const SizedBox(
               width: 50,
               height: 50,
               child: Icon(Icons.arrow_back_ios_rounded),

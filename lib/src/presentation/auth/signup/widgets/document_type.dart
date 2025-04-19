@@ -45,7 +45,7 @@ class _DocumentTypeState extends State<DocumentType> {
             alignment: Alignment.centerLeft,
             child: Text(
               _documentType ?? 'Tipo de documento',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         ),

@@ -54,7 +54,7 @@ class _SignupState extends State<Signup> {
             showCupertinoModalPopup(
               context: context,
               builder: (BuildContext context) {
-                return LoadingPopUp();
+                return const LoadingPopUp();
               },
             );
           }
@@ -74,12 +74,12 @@ class _SignupState extends State<Signup> {
               child: Column(
                 spacing: Constants.paddingValue,
                 children: <Widget>[
-                  AuthBackButton(),
+                  const AuthBackButton(),
                   Flexible(
                     child: PageView(
                       controller: _pageController,
                       onPageChanged: context.read<SignupCubit>().setPage,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: <Widget>[
                         EstablishmentInformation(
                           index: 0,
@@ -130,7 +130,7 @@ class LoadingPopUp extends StatelessWidget {
       child: Material(
         borderRadius: Constants.mainBorderRadius,
         child: ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxWidth: 60,
             maxHeight: 60,
           ),

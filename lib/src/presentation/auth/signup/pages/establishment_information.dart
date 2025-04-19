@@ -78,7 +78,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
             InputText(
               controller: _textEditingControllers[1],
               labelText: 'RUT*',
-              textInputType: TextInputType.numberWithOptions(
+              textInputType: const TextInputType.numberWithOptions(
                 decimal: false,
               ),
               validator: validateRUT,
@@ -90,7 +90,7 @@ class _EstablishmentInformationState extends State<EstablishmentInformation> {
             InputText(
               controller: _textEditingControllers[3],
               labelText: 'numero de contacto',
-              textInputType: TextInputType.numberWithOptions(
+              textInputType: const TextInputType.numberWithOptions(
                 decimal: false,
               ),
             ),

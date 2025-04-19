@@ -36,8 +36,8 @@ class _PopUpStatusState extends State<PopUpStatus> {
           builder: (BuildContext context, NewProductState state) {
             return CupertinoAlertDialog(
               title: Text(state.message.capitalize()),
-              content: Padding(
-                padding: const EdgeInsets.all(8.0),
+              content: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: LinearProgressIndicator(),
               ),
             );

@@ -26,12 +26,12 @@ class _ProductsState extends State<Products> {
         builder: (BuildContext context, ProductsState state) {
           return CustomScrollView(
             slivers: <Widget>[
-              SliverAppBar(
+              const SliverAppBar(
                 automaticallyImplyLeading: false,
                 title: Text('Tus productos'),
               ),
               if (state is Loading)
-                SliverFillRemaining(
+                const SliverFillRemaining(
                   child: LoadingDataAnimation(),
                 ),
               if (state is Success)

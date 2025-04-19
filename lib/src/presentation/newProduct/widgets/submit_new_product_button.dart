@@ -48,7 +48,7 @@ class SubmitNewProductButton extends StatelessWidget {
             ),
             child: Text(
               'registrar producto'.capitalize(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontFamily: 'Questrial',
                 color: Colors.white,

@@ -17,7 +17,7 @@ class NoAccountButton extends StatelessWidget {
           },
           child: Text(
             'no tienes cuenta?'.capitalize(),
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.red,

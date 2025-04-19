@@ -56,10 +56,10 @@ class _StoreMapSelectionState extends State<StoreMapSelection> {
               child: FlutterMap(
                 mapController: widget._mapController,
                 options: MapOptions(
-                  initialCenter: LatLng(5.157472, -76.686976),
+                  initialCenter: const LatLng(5.157472, -76.686976),
                   initialZoom: 15.8,
                   maxZoom: 22,
-                  interactionOptions: InteractionOptions(
+                  interactionOptions: const InteractionOptions(
                     flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
                   ),
                   onTap: widget._setMark,
@@ -68,7 +68,7 @@ class _StoreMapSelectionState extends State<StoreMapSelection> {
                   TileLayer(
                     urlTemplate:
                         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}@4x.png',
-                    subdomains: <String>['a', 'b', 'c'],
+                    subdomains: const <String>['a', 'b', 'c'],
                     userAgentPackageName: 'com.crossdev.quickdrop_sellers',
                     retinaMode: true,
                   ),
@@ -94,7 +94,7 @@ class _StoreMapSelectionState extends State<StoreMapSelection> {
                     ),
                     child: InkWell(
                       onTap: widget._getPosition,
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 40,
                         height: 40,
                         child: Icon(

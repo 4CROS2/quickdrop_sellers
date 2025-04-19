@@ -50,11 +50,11 @@ class _ScheduleState extends State<Schedule> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: Constants.paddingValue,
-                children: <Widget>[
+                children: const <Widget>[
                   Center(
-                    child: const CircularProgressIndicator(),
+                    child: CircularProgressIndicator(),
                   ),
-                  const Text('Guardando cambios...'),
+                  Text('Guardando cambios...'),
                 ],
               ),
             ),
@@ -85,7 +85,7 @@ class _ScheduleState extends State<Schedule> {
       create: (BuildContext context) => sl<ScheduleCubit>()..getSchedules(),
       child: Scaffold(
         drawerEnableOpenDragGesture: true,
-        appBar: ScheduleAppbar(),
+        appBar: const ScheduleAppbar(),
         body: BlocConsumer<ScheduleCubit, ScheduleState>(
           buildWhen: (ScheduleState previous, ScheduleState current) {
             if (previous.saveStatus == ScheduleStatus.loading &&

@@ -36,7 +36,7 @@ class ProductListBuilder extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(
+                const Icon(
                   HugeIcons.strokeRoundedDeliveryBox02,
                   size: 100,
                 ),

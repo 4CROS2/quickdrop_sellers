@@ -15,7 +15,7 @@ class _OrderDetailState extends State<OrderDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: BlocProvider<OrderDetailCubit>(
         create: (BuildContext context) => sl<OrderDetailCubit>(),
         child: Center(

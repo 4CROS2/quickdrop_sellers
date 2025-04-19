@@ -33,7 +33,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 80),
+                  constraints: const BoxConstraints(maxHeight: 80),
                   child: Material(
                     borderRadius: Constants.mainBorderRadius,
                     color: Constants.mainColor,
@@ -55,7 +55,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               height: double.infinity,
                               child: ClipRRect(
                                 borderRadius: Constants.mainBorderRadius / 2,
-                                child: ImageLoader(
+                                child: const ImageLoader(
                                   imageUrl:
                                       'https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg',
                                 ),
@@ -64,7 +64,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             Center(
                               child: Text(
                                 'company name'.capitalize(),
-                                style: TextStyle(fontWeight: FontWeight.w700),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],

@@ -38,7 +38,7 @@ class _ImageLoaderState extends State<ImageLoader> {
             padding: EdgeInsets.all(
               Constants.paddingValue,
             ),
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.store_rounded,
                 size: 30,

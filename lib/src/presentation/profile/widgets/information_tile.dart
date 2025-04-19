@@ -47,7 +47,7 @@ class InformationTile extends StatelessWidget {
                     label: _label,
                     description: _description,
                   ),
-                  Icon(Icons.arrow_forward_ios_rounded),
+                  const Icon(Icons.arrow_forward_ios_rounded),
                 ],
               ),
             ],
@@ -78,7 +78,7 @@ class _InformationTitleAndDescription extends StatelessWidget {
         children: <Widget>[
           Text(
             _label.capitalize(),
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -86,7 +86,7 @@ class _InformationTitleAndDescription extends StatelessWidget {
           if (_description.isNotEmpty)
             Text(
               _description.capitalize(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.w600,
               ),

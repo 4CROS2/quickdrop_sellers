@@ -55,7 +55,7 @@ class _AuthPageState extends State<AuthPage>
                 child: Text(
                   widget._label.capitalize(),
                   softWrap: true,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'Questrial',
                     fontSize: 43,
                     fontWeight: FontWeight.w900,

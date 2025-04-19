@@ -45,13 +45,13 @@ class _ProfileState extends State<Profile> {
       builder: (BuildContext context, AppState state) {
         if (state is Authenticated) {
           return Scaffold(
-            appBar: ProfileHeader(),
+            appBar: const ProfileHeader(),
             body: Padding(
               padding: Constants.mainPaddingWithOutBottom,
               child: Column(
                 spacing: Constants.paddingValue,
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     width: double.infinity,
                     height: 90,
                     child: EstablishmentBanner(),
@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
                     child: Text.rich(
                       TextSpan(
                         text: 'puedes '.capitalize(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Questrial',
                         ),
@@ -107,7 +107,7 @@ class _ProfileState extends State<Profile> {
                             ),
                             recognizer: _recognizer,
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: 'cuando desees.',
                           )
                         ],
@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
             ),
           );
         } else {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
       },
     );

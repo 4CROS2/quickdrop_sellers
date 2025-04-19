@@ -65,7 +65,7 @@ class _AnimationButtonState extends State<AnimationButton>
           onTapCancel: () {
             _controller.reverse();
           },
-          child: widget._child ?? SizedBox.shrink()),
+          child: widget._child ?? const SizedBox.shrink()),
     );
   }
 }

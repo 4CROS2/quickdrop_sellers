@@ -13,7 +13,7 @@ part 'signup_state.dart';
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit({required SignupUsecase usecase})
       : _usecase = usecase,
-        super(SignupState());
+        super(const SignupState());
 
   final SignupUsecase _usecase;
 
