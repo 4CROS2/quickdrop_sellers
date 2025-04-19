@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/products/presentation/cubit/products_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/products/presentation/widgets/product_tile.dart';
@@ -27,6 +28,7 @@ class _ProductsState extends State<Products> {
           return CustomScrollView(
             slivers: <Widget>[
               const SliverAppBar(
+                leading: Icon(HugeIcons.strokeRoundedTable),
                 automaticallyImplyLeading: false,
                 title: Text('Tus productos'),
               ),

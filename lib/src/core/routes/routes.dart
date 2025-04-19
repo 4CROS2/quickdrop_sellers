@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickdrop_sellers/src/core/routes/listener.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/analytics_usecase.dart';
+import 'package:quickdrop_sellers/src/features/user_menu/presentation/user_menu.dart';
 import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
-import 'package:quickdrop_sellers/src/presentation/app_navigation_bar/presentation/app_navigation_bar.dart';
+import 'package:quickdrop_sellers/src/features/app_navigation_bar/presentation/app_navigation_bar.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/login/login.dart';
 import 'package:quickdrop_sellers/src/presentation/auth/signup/signup.dart';
 import 'package:quickdrop_sellers/src/presentation/error/error.dart';
@@ -15,7 +17,6 @@ import 'package:quickdrop_sellers/src/presentation/productDetail/product_detail.
 import 'package:quickdrop_sellers/src/presentation/products/presentation/products.dart';
 import 'package:quickdrop_sellers/src/presentation/profile/profile.dart';
 import 'package:quickdrop_sellers/src/presentation/schedule/schedule.dart';
-import 'package:quickdrop_sellers/src/routes/listener.dart';
 
 class AppRouter {
   final AppCubit _appCubit = sl<AppCubit>();
@@ -93,23 +94,31 @@ class AppRouter {
                 ),
               ),
               GoRoute(
-                  path: '/products',
-                  name: 'productos',
-                  pageBuilder: (_, __) => const NoTransitionPage<Products>(
-                        child: Products(),
-                      ),
-                  routes: <RouteBase>[
-                    GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
-                      path: 'detail/:productId',
-                      name: 'product details',
-                      builder: (BuildContext context, GoRouterState state) {
-                        final String? productId =
-                            state.pathParameters['productId'];
-                        return ProductDetail(productId: productId!);
-                      },
-                    ),
-                  ]),
+                path: '/products',
+                name: 'productos',
+                pageBuilder: (_, __) => const NoTransitionPage<Products>(
+                  child: Products(),
+                ),
+                routes: <RouteBase>[
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'detail/:productId',
+                    name: 'product details',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final String? productId =
+                          state.pathParameters['productId'];
+                      return ProductDetail(productId: productId!);
+                    },
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: '/usermenu',
+                name: 'user menu',
+                pageBuilder: (_, __) => const NoTransitionPage<UserMenu>(
+                  child: UserMenu(),
+                ),
+              )
             ],
           ),
         ],

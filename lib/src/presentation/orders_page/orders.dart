@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:quickdrop_sellers/src/domain/usecase/orders_usecase.dart';
 import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
 import 'package:quickdrop_sellers/src/presentation/orders_page/cubit/orders_page_cubit.dart';
@@ -26,6 +27,7 @@ class _OrdersState extends State<Orders> {
           return CustomScrollView(
             slivers: <Widget>[
               const SliverAppBar(
+                leading: Icon(HugeIcons.strokeRoundedHome10),
                 automaticallyImplyLeading: false,
                 title: Text(
                   'Tus ordenes',

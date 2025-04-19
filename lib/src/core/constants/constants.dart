@@ -34,4 +34,11 @@ class Constants {
   static ScrollPhysics mainPhysics = const AlwaysScrollableScrollPhysics(
     parent: BouncingScrollPhysics(),
   );
+
+  static PageTransitionsTheme get pageTransition => PageTransitionsTheme(
+        builders: Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
+          TargetPlatform.values,
+          value: (_) => const FadeForwardsPageTransitionsBuilder(),
+        ),
+      );
 }

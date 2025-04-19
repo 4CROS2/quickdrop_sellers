@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:quickdrop_sellers/src/presentation/app_navigation_bar/presentation/widgets/destinations.dart';
+import 'package:quickdrop_sellers/src/features/app_navigation_bar/presentation/widgets/destinations.dart';
 
 class DestinationRoute extends Equatable {
   const DestinationRoute({

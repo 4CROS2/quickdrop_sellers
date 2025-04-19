@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickdrop_sellers/src/core/localization/app_localizations.dart';
-import 'package:quickdrop_sellers/src/core/themes/theme.dart';
+import 'package:quickdrop_sellers/src/core/routes/routes.dart';
+import 'package:quickdrop_sellers/src/core/themes/dark_theme.dart';
+import 'package:quickdrop_sellers/src/core/themes/light_theme.dart';
 import 'package:quickdrop_sellers/src/injection/injection_barrel.dart';
-
 import 'package:quickdrop_sellers/src/presentation/app/cubit/app_cubit.dart';
 import 'package:quickdrop_sellers/src/presentation/notifications/cubit/notifications_cubit.dart';
-import 'package:quickdrop_sellers/src/routes/routes.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -16,44 +16,15 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> with WidgetsBindingObserver {
+class _AppState extends State<App> {
   late final AppRouter _appRouter;
-  bool _isDark = false;
+
   @override
   void initState() {
     super.initState();
     _appRouter = AppRouter();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangeDependencies() {
-    _initializeTheme(
-      context,
-    );
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-    _initializeTheme(context);
-    setState(() {});
-    super.didChangePlatformBrightness();
-  }
-
-  void _initializeTheme(BuildContext context) {
-    _isDark = View.of(context).platformDispatcher.platformBrightness ==
-        Brightness.dark;
-    AppTheme.initialize(
-      context,
-      isDarkMode: _isDark,
-    );
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
+    LightAppTheme.initialize(context);
+    DarkAppTheme.initialize(context);
   }
 
   @override
@@ -86,7 +57,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               locale: Locale(
                 View.of(context).platformDispatcher.locale.languageCode,
               ),
-              theme: AppTheme.instance,
+              theme: LightAppTheme.instance,
+              darkTheme: DarkAppTheme.instance,
+              themeMode: ThemeMode.system,
               supportedLocales: AppLocalizations.supportedLocales,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               routerConfig: _appRouter.router,

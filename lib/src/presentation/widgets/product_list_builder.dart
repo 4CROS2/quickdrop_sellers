@@ -30,27 +30,32 @@ class ProductListBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     if (_itemCount == 0) {
       return SliverFillRemaining(
-        child: Material(
-          type: MaterialType.card,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Icon(
-                  HugeIcons.strokeRoundedDeliveryBox02,
-                  size: 100,
-                ),
-                Text(
-                  _listEmptyMessage.capitalize(),
-                ),
-                if (_showRefreshButton)
-                  ElevatedButton(
-                    onPressed: _refreshOnTap,
-                    child: Text(
-                      'refescar'.capitalize(),
-                    ),
-                  )
-              ],
+        hasScrollBody: false,
+        child: Center(
+          child: Material(
+            borderRadius: Constants.mainBorderRadius,
+            type: MaterialType.card,
+            child: Padding(
+              padding: Constants.mainPadding,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Icon(
+                    HugeIcons.strokeRoundedDeliveryBox02,
+                    size: 100,
+                  ),
+                  Text(
+                    _listEmptyMessage.capitalize(),
+                  ),
+                  if (_showRefreshButton)
+                    ElevatedButton(
+                      onPressed: _refreshOnTap,
+                      child: Text(
+                        'refescar'.capitalize(),
+                      ),
+                    )
+                ],
+              ),
             ),
           ),
         ),
